@@ -4,7 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
@@ -25,6 +27,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
+
+    private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController controller =
@@ -76,6 +80,10 @@ public class RobotContainer {
                         }
                 )
         );
+
+        for(StartingPositions p: StartingPositions.values()){
+            startPosChooser.addOption(p.name(), p);
+        }
     }
 
     /**
@@ -103,11 +111,26 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
   public Command getAutonomousCommand() {
-      //An example command will be run in autonomous;
-      Command customCommand = new SequentialCommandGroup(
-              new DistanceDriveCommand(driveTrainSubsystem, -50.00),
-              new DistanceDriveCommand(driveTrainSubsystem, 50.00)
-      );
-      return customCommand;
+      //Getting smart-dashboard value
+      StartingPositions startPos = startPosChooser.getSelected();
+      SmartDashboard.putString("Current Auto Start Config",startPos.name());
+      Command customCommand = new DistanceDriveCommand(driveTrainSubsystem, -50.00); // "-" Means forwards for some reason
+      if(startPos ==StartingPositions.Score_Dock){
+          customCommand = new SequentialCommandGroup(
+          );
+      }
+      else if(startPos ==StartingPositions.Score_Pick_Score){
+          customCommand = new SequentialCommandGroup(
+          );
+      }
+      else if(startPos ==StartingPositions.Dock){
+          customCommand = new SequentialCommandGroup(
+          );
+      }
+      else if(startPos ==StartingPositions.Score_Move){
+          customCommand = new SequentialCommandGroup(
+          );
+      }
+      return new SequentialCommandGroup();
   }
 }
