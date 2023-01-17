@@ -35,6 +35,8 @@ public class RobotContainer {
         return control;
     }
 
+
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -47,17 +49,26 @@ public class RobotContainer {
                 new MecanumDriveCommand(
                         driveTrainSubsystem,
                         () -> {
-                            var input = 0.0; //-controller.getLeftX(); //put negative here to change polarity
+                            var input = -controller.getLeftX(); //put negative here to change polarity
+                            if (controller.getHID().getBButton()){
+                                input =input/2;
+                            }
                             SmartDashboard.putNumber("strafing", input);
                             return deadZone(input);
                         },
                         () -> {
                             var input = controller.getLeftY();
+                            if (controller.getHID().getBButton()){
+                                input =input/2;
+                            }
                             SmartDashboard.putNumber("forwards", input);
                             return deadZone(input);
                         },
                         () -> {
-                            var input =0.0; // -controller.getRightX();
+                            var input = -controller.getRightX();
+                            if (controller.getHID().getBButton()){
+                                input =input/2;
+                            }
                             SmartDashboard.putNumber("rotation", input);
                             return deadZone(input);
                         }
