@@ -53,7 +53,7 @@ public class RobotContainer {
                         () -> {
                             var input = -controller.getLeftX(); //put negative here to change polarity
                             if (controller.getHID().getBButton()){
-                                input =input/2;
+                                input =input/4;
                             }
                             SmartDashboard.putNumber("strafing", input);
                             return deadZone(input);
@@ -61,7 +61,7 @@ public class RobotContainer {
                         () -> {
                             var input = controller.getLeftY();
                             if (controller.getHID().getBButton()){
-                                input =input/2;
+                                input =input/4;
                             }
                             SmartDashboard.putNumber("forwards", input);
                             return deadZone(input);
@@ -69,7 +69,7 @@ public class RobotContainer {
                         () -> {
                             var input = controller.getRightX();
                             if (controller.getHID().getBButton()){
-                                input =input/2;
+                                input =input/4;
                             }
                             SmartDashboard.putNumber("rotation", input);
                             return deadZone(input);
