@@ -5,8 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DistanceDriveCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.MecanumDriveCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -65,7 +67,7 @@ public class RobotContainer {
                             return deadZone(input);
                         },
                         () -> {
-                            var input = -controller.getRightX();
+                            var input = controller.getRightX();
                             if (controller.getHID().getBButton()){
                                 input =input/2;
                             }
@@ -100,8 +102,12 @@ public class RobotContainer {
      *
      * @return the command to run in autonomous
      */
-//  public Command getAutonomousCommand() {
-//    // An example command will be run in autonomous
-////    return Autos.exampleAuto(m_exampleSubsystem);
-//  }
+  public Command getAutonomousCommand() {
+      //An example command will be run in autonomous;
+      Command customCommand = new SequentialCommandGroup(
+              new DistanceDriveCommand(driveTrainSubsystem, -50.00),
+              new DistanceDriveCommand(driveTrainSubsystem, 50.00)
+      );
+      return customCommand;
+  }
 }
