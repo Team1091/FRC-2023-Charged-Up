@@ -6,10 +6,13 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.photonvision.PhotonCamera;
 
 public class PhotonVisionSubsystem extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
     public PhotonVisionSubsystem() {}
+
+    //PhotonCamera
 
     /**
      * Example command factory method.
