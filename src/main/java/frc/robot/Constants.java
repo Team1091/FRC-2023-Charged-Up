@@ -25,4 +25,9 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+
+    public final static String cameraName = "yo";
+    public final static double cameraHeightMeters = 0.2;
+    public final static double cameraPitchRadians = 0.1;
 }

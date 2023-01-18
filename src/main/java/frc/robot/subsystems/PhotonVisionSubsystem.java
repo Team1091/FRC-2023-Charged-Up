@@ -6,11 +6,26 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhotonVisionSubsystem extends SubsystemBase {
-    /** Creates a new ExampleSubsystem. */
-    public PhotonVisionSubsystem() {}
+
+    private PhotonCamera photonCamera = new PhotonCamera("Cameron");
+    private PhotonPipelineResult currentResult;
+    public List<PhotonTrackedTarget> trackedTargets;
+    public double distanceToTarget;
+    public double rotationNeededToMatchTarget;
+    public double strafeNeededToCenterTarget;
+    public PhotonVisionSubsystem() {
+
+    }
 
     //PhotonCamera
 
@@ -41,10 +56,38 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        currentResult = photonCamera.getLatestResult();
+
+        if (currentResult.hasTargets()) {
+            //trackedTargets = currentResult.getTargets(); we will worry about this later if need be
+            //for now we just want it to follow 1 target
+            PhotonTrackedTarget bestTarget = currentResult.getBestTarget();
+            int targetID = bestTarget.getFiducialId(); //gets number of the April Tag ID
+
+
+            double targetHeightInMeters = 0.384175;
+
+            if (targetID == 4 || targetID == 5) {
+                targetHeightInMeters = 0.619252;
+            }
+
+
+            distanceToTarget = PhotonUtils.calculateDistanceToTargetMeters(Constants.cameraHeightMeters,
+                    targetHeightInMeters,
+                    Constants.cameraPitchRadians,
+                    bestTarget.getPitch());
+
+            rotationNeededToMatchTarget = bestTarget.getYaw();
+
+            //if (photonCamera.getLatestResult().getBestTarget().getDetectedCorners())
+
+
+        }
     }
 
     @Override
     public void simulationPeriodic() {
         // This method will be called once per scheduler run during simulation
     }
+
 }
