@@ -9,15 +9,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.DistanceDriveCommand;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.MecanumDriveCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 //hi
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -34,13 +32,12 @@ public class RobotContainer {
     private final CommandXboxController controller =
             new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-    double deadZone(double control){
-        if (Math.abs(control)<Constants.deadzone){
+    double deadZone(double control) {
+        if (Math.abs(control) < Constants.deadzone) {
             return 0.0;
         }
         return control;
     }
-
 
 
     /**
@@ -56,24 +53,24 @@ public class RobotContainer {
                         driveTrainSubsystem,
                         () -> {
                             var input = -controller.getLeftX(); //put negative here to change polarity
-                            if (controller.getHID().getBButton()){
-                                input =input/4;
+                            if (controller.getHID().getBButton()) {
+                                input = input / 4;
                             }
                             SmartDashboard.putNumber("strafing", input);
                             return deadZone(input);
                         },
                         () -> {
                             var input = controller.getLeftY();
-                            if (controller.getHID().getBButton()){
-                                input =input/4;
+                            if (controller.getHID().getBButton()) {
+                                input = input / 4;
                             }
                             SmartDashboard.putNumber("forwards", input);
                             return deadZone(input);
                         },
                         () -> {
                             var input = controller.getRightX();
-                            if (controller.getHID().getBButton()){
-                                input =input/4;
+                            if (controller.getHID().getBButton()) {
+                                input = input / 4;
                             }
                             SmartDashboard.putNumber("rotation", input);
                             return deadZone(input);
@@ -81,7 +78,7 @@ public class RobotContainer {
                 )
         );
 
-        for(StartingPositions p: StartingPositions.values()){
+        for (StartingPositions p : StartingPositions.values()) {
             startPosChooser.addOption(p.name(), p);
         }
     }
@@ -110,27 +107,29 @@ public class RobotContainer {
      *
      * @return the command to run in autonomous
      */
-  public Command getAutonomousCommand() {
-      //Getting smart-dashboard value
-      StartingPositions startPos = startPosChooser.getSelected();
-      SmartDashboard.putString("Current Auto Start Config",startPos.name());
-      Command customCommand = new DistanceDriveCommand(driveTrainSubsystem, -50.00); // "-" Means forwards for some reason
-      if(startPos ==StartingPositions.Score_Dock){
-          customCommand = new SequentialCommandGroup(
-          );
-      }
-      else if(startPos ==StartingPositions.Score_Pick_Score){
-          customCommand = new SequentialCommandGroup(
-          );
-      }
-      else if(startPos ==StartingPositions.Dock){
-          customCommand = new SequentialCommandGroup(
-          );
-      }
-      else if(startPos ==StartingPositions.Score_Move){
-          customCommand = new SequentialCommandGroup(
-          );
-      }
-      return new SequentialCommandGroup();
-  }
+    public Command getAutonomousCommand() {
+        //Getting smart-dashboard value
+//      StartingPositions startPos = startPosChooser.getSelected();
+//      SmartDashboard.putString("Current Auto Start Config",startPos.name());
+        Command customCommand = new StrafeCommand(driveTrainSubsystem, 1.00);// "-" Means forwards for some reason
+        return customCommand;
+//      if(startPos ==StartingPositions.Score_Dock){
+//          customCommand = new SequentialCommandGroup(
+//          );
+//      }
+//      else if(startPos ==StartingPositions.Score_Pick_Score){
+//          customCommand = new SequentialCommandGroup(
+//          );
+//      }
+//      else if(startPos ==StartingPositions.Dock){
+//          customCommand = new SequentialCommandGroup(
+//          );
+//      }
+//      else if(startPos ==StartingPositions.Score_Move){
+//          customCommand = new SequentialCommandGroup(
+//          );
+//      }
+//      return new SequentialCommandGroup();
+//  }
+    }
 }

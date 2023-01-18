@@ -3,30 +3,30 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class DistanceDriveCommand extends CommandBase {
+public class TurnCommand extends CommandBase {
     private final DriveTrainSubsystem driveTrainSubsystem;
-    private final Double xDistance;
+    private final Double turnDistance;
     private double leftEncoderTarget;
     private boolean isReverse;
 
-    public DistanceDriveCommand(
+    public TurnCommand(
             DriveTrainSubsystem driveTrainSubsystem,
-            Double distance
+            Double turnDistance
     ) {
         this.driveTrainSubsystem = driveTrainSubsystem;
-        this.xDistance = distance * -1;
-        this.isReverse = xDistance < 0;
+        this.turnDistance = turnDistance;
+        this.isReverse = turnDistance < 0;
         addRequirements(this.driveTrainSubsystem);
     }
 
     @Override
     public void initialize() {
-        this.leftEncoderTarget = driveTrainSubsystem.getLeftEncoder() + xDistance;
+       this.leftEncoderTarget = driveTrainSubsystem.getLeftEncoder() + turnDistance;
     }
 
     @Override
     public void execute() {
-        driveTrainSubsystem.mecanumDrive(0, 0.25 * (isReverse ? -1 : 1), 0);
+        driveTrainSubsystem.mecanumDrive(0, 0, 0.25*(isReverse?-1:1));
     }
 
     @Override
