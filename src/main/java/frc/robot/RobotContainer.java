@@ -113,7 +113,7 @@ public class RobotContainer {
 //      SmartDashboard.putString("Current Auto Start Config",startPos.name());
         Command customCommand = new StrafeCommand(driveTrainSubsystem, 1.00);// "-" Means forwards for some reason
         return customCommand;
-//      if(startPos ==StartingPositions.Score_Dock){
+//      if(startPos ==StartingPositions.Score_Pick_Dock){
 //          customCommand = new SequentialCommandGroup(
 //          );
 //      }

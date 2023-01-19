@@ -3,17 +3,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.AprilTagLocation;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.IVisionSubsystem;
 import frc.robot.subsystems.PhotonVisionSubsystem;
 
 import java.util.List;
 
 public class VisionTargetCommand extends CommandBase {
     private final DriveTrainSubsystem driveTrainSubsystem;
-    private final PhotonVisionSubsystem photonVisionSubsystem;
+    private final IVisionSubsystem photonVisionSubsystem;
 
     private final int numberToFind;
 
-    public VisionTargetCommand(DriveTrainSubsystem driveTrainSubsystem, PhotonVisionSubsystem photonVisionSubsystem, int numberToFind) {
+    public VisionTargetCommand(DriveTrainSubsystem driveTrainSubsystem, IVisionSubsystem photonVisionSubsystem, int numberToFind) {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.photonVisionSubsystem = photonVisionSubsystem;
         this.numberToFind = numberToFind;
@@ -31,13 +32,13 @@ public class VisionTargetCommand extends CommandBase {
 
         var target = visableTargets
                 .stream()
-                .filter((AprilTagLocation it) -> it.number == numberToFind)
+                .filter((AprilTagLocation it) -> it.getIdNumber() == numberToFind)
                 .findFirst();
         if (target.isPresent()) {
 
-            //add code to drive to the thing
+            }
 
-        }else {
+        else {
             driveTrainSubsystem.mecanumDrive(0,0,0);
         }
     }

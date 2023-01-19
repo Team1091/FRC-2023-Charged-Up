@@ -6,10 +6,20 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AprilTagLocation;
 
-public class PhotonVisionSubsystem extends SubsystemBase implements IVisionSubsystem {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DummyVisionSubsystem extends SubsystemBase implements IVisionSubsystem {
     /** Creates a new ExampleSubsystem. */
-    public PhotonVisionSubsystem() {}
+    public DummyVisionSubsystem() {
+        bruh = new ArrayList<AprilTagLocation>();
+
+        bruh.add(new AprilTagLocation(1,5.0));
+        bruh.add(new AprilTagLocation(1,4.0));
+        bruh.add(new AprilTagLocation(1,4.0));
+    }
 
     //PhotonCamera
 
@@ -45,5 +55,11 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IVisionSubsy
     @Override
     public void simulationPeriodic() {
         // This method will be called once per scheduler run during simulation
+    }
+    public List<AprilTagLocation> bruh;
+
+    @Override
+    public List<AprilTagLocation> getTargets() {
+        return null;
     }
 }
