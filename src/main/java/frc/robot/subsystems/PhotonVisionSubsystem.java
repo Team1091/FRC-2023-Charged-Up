@@ -39,6 +39,12 @@ public class PhotonVisionSubsystem extends SubsystemBase {
             result.add(new AprilTagLocation(target.getFiducialId(), distance, horizontalRelativePos));
         }
 
+
+        //if(test) {
+        for (AprilTagLocation displayer : result) {
+            SmartDashboard.putString("April Tag" + displayer.getIdNumber(),displayer.toString());
+        }
+
         return result;
     }
 
