@@ -83,13 +83,16 @@ public class PhotonVisionSubsystem extends SubsystemBase {
 
             rotationNeededToMatchTarget = bestTarget.getYaw();
 
+            strafeNeededToCenterTarget = getCenterofRect(bestTarget.getMinAreaRectCorners()).x;
 
-            testCounter += 1;
-            if (testCounter %100 == 0) {
-                SmartDashboard.putString("Camera name", photonCamera.getName());
+
+                //SmartDashboard.putString("Camera name", photonCamera.getName());
                 SmartDashboard.putNumber("April Tag ID", bestTarget.getFiducialId());
-                SmartDashboard.putNumber("Skew", bestTarget.getSkew());
+                //SmartDashboard.putNumber("Skew", bestTarget.getSkew());
                 SmartDashboard.putString("Rect corners", bestTarget.getMinAreaRectCorners().toString());
+
+                SmartDashboard.putString("Center of Rect",  getCenterofRect(bestTarget.getMinAreaRectCorners()).toString());
+                SmartDashboard.putNumber("Strafe Needed", strafeNeededToCenterTarget);
 
 
 
@@ -102,7 +105,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
 //                System.out.println("Distance:\t" + distanceToTarget);
 //                System.out.println("Rot needed:\t" + rotationNeededToMatchTarget);
 //                System.out.println("Strafe needed:\t" + strafeNeededToCenterTarget);
-            }
+
 
         }
     }
