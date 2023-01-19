@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.AprilTagLocation;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.DummyVisionSubsystem;
 import frc.robot.subsystems.IVisionSubsystem;
 import frc.robot.subsystems.PhotonVisionSubsystem;
 
@@ -28,13 +29,24 @@ public class VisionTargetCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        List<AprilTagLocation> visableTargets = photonVisionSubsystem.getTargets();
+        List<AprilTagLocation> visableTargets = new DummyVisionSubsystem().getTargets();
 
         var target = visableTargets
                 .stream()
-                .filter((AprilTagLocation it) -> it.getIdNumber() == numberToFind)
-                .findFirst();
+                .filter((AprilTagLocation it) -> it.getIdNumber() == numberToFind).findFirst();
         if (target.isPresent()) {
+            if (target.get().getTargetDistance() > 10.0) {
+                driveTrainSubsystem.mecanumDrive(0,1,0);
+            }
+            else if(target.get().getTargetXPos() > 100){
+                driveTrainSubsystem.mecanumDrive(1,0,0);
+            }
+            else if(target.get().getTargetXPos() < 80){
+                driveTrainSubsystem.mecanumDrive(-1,0,0);
+            }
+            else {
+                driveTrainSubsystem.mecanumDrive(0, 0, 0);
+            }
 
             }
 

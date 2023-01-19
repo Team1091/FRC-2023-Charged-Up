@@ -16,9 +16,9 @@ public class DummyVisionSubsystem extends SubsystemBase implements IVisionSubsys
     public DummyVisionSubsystem() {
         bruh = new ArrayList<AprilTagLocation>();
 
-        bruh.add(new AprilTagLocation(1,5.0));
-        bruh.add(new AprilTagLocation(1,4.0));
-        bruh.add(new AprilTagLocation(1,4.0));
+        bruh.add(new AprilTagLocation(1,5.0, 100));
+        bruh.add(new AprilTagLocation(1,4.0, 100));
+        bruh.add(new AprilTagLocation(1,4.0, 100));
     }
 
     //PhotonCamera
@@ -60,6 +60,8 @@ public class DummyVisionSubsystem extends SubsystemBase implements IVisionSubsys
 
     @Override
     public List<AprilTagLocation> getTargets() {
-        return null;
+        return bruh;
     }
+
+
 }
