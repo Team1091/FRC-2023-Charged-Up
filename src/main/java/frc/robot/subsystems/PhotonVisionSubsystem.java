@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PhotonVisionSubsystem extends SubsystemBase {
 
-    private PhotonCamera photonCamera = new PhotonCamera("Cameron");
+    private PhotonCamera photonCamera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
     private PhotonPipelineResult currentResult;
     public List<PhotonTrackedTarget> trackedTargets;
     public double distanceToTarget;
