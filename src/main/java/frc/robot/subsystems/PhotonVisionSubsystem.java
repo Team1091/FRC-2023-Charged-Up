@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -85,16 +86,22 @@ public class PhotonVisionSubsystem extends SubsystemBase {
 
             testCounter += 1;
             if (testCounter %100 == 0) {
-                System.out.println("Connected to camera:\t" + photonCamera.getName());
-                System.out.println("April tag ID:\t" + bestTarget.getFiducialId());
-                System.out.println("Skew:\t" + bestTarget.getSkew());
-                System.out.println("Rect corners:\t" + bestTarget.getMinAreaRectCorners());
-                System.out.println("Center of bounded rect" + getCenterofRect(bestTarget.getMinAreaRectCorners()));
+                SmartDashboard.putString("Camera name", photonCamera.getName());
+                SmartDashboard.putNumber("April Tag ID", bestTarget.getFiducialId());
+                SmartDashboard.putNumber("Skew", bestTarget.getSkew());
+                SmartDashboard.putString("Rect corners", bestTarget.getMinAreaRectCorners().toString());
 
-                System.out.println("\n\n");
-                System.out.println("Distance:\t" + distanceToTarget);
-                System.out.println("Rot needed:\t" + rotationNeededToMatchTarget);
-                System.out.println("Strafe needed:\t" + strafeNeededToCenterTarget);
+
+
+
+//
+//                System.out.println("Rect corners:\t" + bestTarget.getMinAreaRectCorners());
+//                System.out.println("Center of bounded rect" + getCenterofRect(bestTarget.getMinAreaRectCorners()));
+//
+//                System.out.println("\n\n");
+//                System.out.println("Distance:\t" + distanceToTarget);
+//                System.out.println("Rot needed:\t" + rotationNeededToMatchTarget);
+//                System.out.println("Strafe needed:\t" + strafeNeededToCenterTarget);
             }
 
         }
