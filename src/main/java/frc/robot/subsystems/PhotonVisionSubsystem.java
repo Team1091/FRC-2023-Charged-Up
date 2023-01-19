@@ -11,6 +11,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.targeting.TargetCorner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     public double distanceToTarget;
     public double rotationNeededToMatchTarget;
     public double strafeNeededToCenterTarget;
+
+    private int testCounter = 0;
     public PhotonVisionSubsystem() {
 
     }
@@ -79,8 +82,20 @@ public class PhotonVisionSubsystem extends SubsystemBase {
 
             rotationNeededToMatchTarget = bestTarget.getYaw();
 
-            //if (photonCamera.getLatestResult().getBestTarget().getDetectedCorners())
 
+            testCounter += 1;
+            if (testCounter %100 == 0) {
+                System.out.println("Connected to camera:\t" + photonCamera.getName());
+                System.out.println("April tag ID:\t" + bestTarget.getFiducialId());
+                System.out.println("Skew:\t" + bestTarget.getSkew());
+                System.out.println("Rect corners:\t" + bestTarget.getMinAreaRectCorners());
+                System.out.println("Center of bounded rect" + getCenterofRect(bestTarget.getMinAreaRectCorners()));
+
+                System.out.println("\n\n");
+                System.out.println("Distance:\t" + distanceToTarget);
+                System.out.println("Rot needed:\t" + rotationNeededToMatchTarget);
+                System.out.println("Strafe needed:\t" + strafeNeededToCenterTarget);
+            }
 
         }
     }
@@ -90,4 +105,29 @@ public class PhotonVisionSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run during simulation
     }
 
+    public double getRotationNeededToMatchTarget() {
+        return rotationNeededToMatchTarget;
+    }
+
+    public double getDistanceToTarget() {
+        return distanceToTarget;
+    }
+
+    public double getStrafeNeededToCenterTarget() {
+        return strafeNeededToCenterTarget;
+    }
+
+    public TargetCorner getCenterofRect(List<TargetCorner> cords) {//returns 2 doubles corresponding to x and y coordinate of center of rect
+        int num = cords.size();
+        double xSum = 0;
+        for (TargetCorner cord : cords) {
+            xSum += cord.x;
+        }
+
+        double ySum = 0;
+        for (TargetCorner cord : cords) {
+            ySum += cord.y;
+        }
+        return new TargetCorner(xSum/num, ySum/num);
+    }
 }
