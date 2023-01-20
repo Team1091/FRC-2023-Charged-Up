@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -35,6 +36,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("F/B", forwardBackwardVelocity);
+        SmartDashboard.putNumber("Strafe", strafeVelocity);
+        SmartDashboard.putNumber("Rotation", rotationVelocity);
         mecanumDrive.driveCartesian(
                 forwardBackwardVelocity,
                 strafeVelocity,

@@ -25,4 +25,13 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+
+    public final static String cameraName = "Microsoft_LifeCam_HD-3000";
+    public final static int cameraHeight = 180;
+    public final static int cameraWidth = 640;
+    public final static double cameraHeightMeters = 0.2;
+    public final static double cameraPitchRadians = 0.1;
+    public final static double targetHeightInMeters = 0.384175;
+    public final static double stationTargetHeightInMeters = 0.619252;
 }

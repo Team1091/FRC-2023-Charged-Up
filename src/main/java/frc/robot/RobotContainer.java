@@ -14,6 +14,8 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.DummyVisionSubsystem;
+import frc.robot.subsystems.IVisionSubsystem;
 //hi
 
 /**
@@ -25,6 +27,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
+    private final IVisionSubsystem dummyVisionSubsystem = new DummyVisionSubsystem();
+    //private final PhotonVisionSubsystem photonVisionSubsystem = new PhotonVisionSubsystem();
 
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 
@@ -78,6 +82,8 @@ public class RobotContainer {
                 )
         );
 
+
+
         for (StartingPositions p : StartingPositions.values()) {
             startPosChooser.addOption(p.name(), p);
         }
@@ -111,25 +117,7 @@ public class RobotContainer {
         //Getting smart-dashboard value
 //      StartingPositions startPos = startPosChooser.getSelected();
 //      SmartDashboard.putString("Current Auto Start Config",startPos.name());
-        Command customCommand = new StrafeCommand(driveTrainSubsystem, 1.00);// "-" Means forwards for some reason
+        Command customCommand = new VisionTargetCommand(driveTrainSubsystem, dummyVisionSubsystem, 1);// "-" Means forwards for some reason
         return customCommand;
-//      if(startPos ==StartingPositions.Score_Pick_Dock){
-//          customCommand = new SequentialCommandGroup(
-//          );
-//      }
-//      else if(startPos ==StartingPositions.Score_Pick_Score){
-//          customCommand = new SequentialCommandGroup(
-//          );
-//      }
-//      else if(startPos ==StartingPositions.Dock){
-//          customCommand = new SequentialCommandGroup(
-//          );
-//      }
-//      else if(startPos ==StartingPositions.Score_Move){
-//          customCommand = new SequentialCommandGroup(
-//          );
-//      }
-//      return new SequentialCommandGroup();
-//  }
     }
 }

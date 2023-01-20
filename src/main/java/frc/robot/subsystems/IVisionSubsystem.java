@@ -6,5 +6,5 @@ import frc.robot.AprilTagLocation;
 import java.util.List;
 
 public interface IVisionSubsystem extends Subsystem {
-    List<AprilTagLocation> getTargets();
+    List<AprilTagLocation> getAllTargets();
 }
