@@ -27,6 +27,13 @@ public class PhotonVisionSubsystem extends SubsystemBase {
         photonCamera = new PhotonCamera(Constants.cameraName);
     }
 
+
+    @Override
+    public void periodic() {
+        getAllTargets();
+        SmartDashboard.putNumber("pitch", photonCamera.getLatestResult().getBestTarget().getPitch());
+    }
+
     public List<AprilTagLocation> getAllTargets() {
         var currentResult = photonCamera.getLatestResult();
         var result = new ArrayList<AprilTagLocation>();
@@ -34,7 +41,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
             var distance = PhotonUtils.calculateDistanceToTargetMeters(Constants.cameraHeightMeters,
                     getTargetHeight(target.getFiducialId()),
                     Constants.cameraPitchRadians,
-                    target.getPitch());
+                    (target.getPitch())*Math.PI/180);
             var horizontalRelativePos = convertPixelCordsToRelativeWidth(getCenterOfRect(target.getMinAreaRectCorners()));
             result.add(new AprilTagLocation(target.getFiducialId(), distance, horizontalRelativePos));
         }
