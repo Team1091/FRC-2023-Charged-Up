@@ -5,17 +5,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AprilTagLocation;
 import frc.robot.Constants;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
-import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +29,13 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     public void periodic() {
         getAllTargets();
         SmartDashboard.putNumber("pitch", photonCamera.getLatestResult().getBestTarget().getPitch());
+        SmartDashboard.putNumber("camera radians", Constants.cameraPitchRadians);
+        SmartDashboard.putNumber("camera height", Constants.cameraHeightMeters);
+        SmartDashboard.putNumber("target height", Constants.targetHeightInMeters);
+
+        Constants.cameraPitchRadians = SmartDashboard.getNumber("camera radians", Constants.cameraPitchRadians);
+        Constants.cameraHeightMeters = SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight);
+        Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
     }
 
     public List<AprilTagLocation> getAllTargets() {
@@ -78,6 +82,6 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     }
 
     private double convertPixelCordsToRelativeWidth(TargetCorner centerPoint) {
-        return ((Constants.cameraWidth/2) - centerPoint.x)/Constants.cameraWidth;
+        return ((Constants.cameraPixelWidth /2) - centerPoint.x)/Constants.cameraPixelWidth;
     }
 }
