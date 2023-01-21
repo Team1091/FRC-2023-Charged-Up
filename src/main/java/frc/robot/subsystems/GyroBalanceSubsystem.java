@@ -62,4 +62,8 @@ public class GyroBalanceSubsystem extends SubsystemBase {
     public double getRoll() {
         return gyro.getRoll();
     }
+
+    public double getAngle() { return gyro.getAngle(); }
+
+    public double getYaw() { return gyro.getYaw(); }
 }

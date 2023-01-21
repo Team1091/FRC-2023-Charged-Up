@@ -3,16 +3,24 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import java.util.Arrays;
+
+import static edu.wpi.first.math.util.Units.inchesToMeters;
+
 public class DriveTrainSubsystem extends SubsystemBase {
 
     private final MecanumDrive mecanumDrive;
-    private final RelativeEncoder leftEncoder;
-    private final RelativeEncoder rightEncoder;
+    private final RelativeEncoder frontLeftEncoder;
+    private final RelativeEncoder frontRightEncoder;
+    private final RelativeEncoder backLeftEncoder;
+    private final RelativeEncoder backRightEncoder;
     double forwardBackwardVelocity, strafeVelocity, rotationVelocity = 0;
 
     public DriveTrainSubsystem() {
@@ -24,8 +32,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
         frontRightMotor.setInverted(true);
         backRightMotor.setInverted(true);
 
-        leftEncoder = frontLeftMotor.getEncoder();
-        rightEncoder = frontRightMotor.getEncoder();
+        frontLeftEncoder = frontLeftMotor.getEncoder();
+        frontRightEncoder = frontRightMotor.getEncoder();
+        backLeftEncoder = backLeftMotor.getEncoder();
+        backRightEncoder = backRightMotor.getEncoder();
 
         mecanumDrive = new MecanumDrive(
                 frontLeftMotor,
@@ -51,11 +61,25 @@ public class DriveTrainSubsystem extends SubsystemBase {
         this.rotationVelocity = rotationVelocity;
     }
 
-    public double getLeftEncoder() {
-        return leftEncoder.getPosition();
+    public double getFrontLeftEncoder() {
+        return frontLeftEncoder.getPosition();
     }
 
-    public double getRightEncoder() {
-        return rightEncoder.getPosition();
+    public double getFrontRightEncoder() {
+        return frontRightEncoder.getPosition();
+    }
+
+    public MecanumDriveWheelPositions getWheelPositions() {
+
+        return new MecanumDriveWheelPositions(
+            getEncoderDistance(frontLeftEncoder.getPosition()),
+            getEncoderDistance(frontRightEncoder.getPosition()),
+            getEncoderDistance(backLeftEncoder.getPosition()),
+            getEncoderDistance(backRightEncoder.getPosition())
+        );
+    }
+
+    private double getEncoderDistance(double rotations){
+        return Math.PI * inchesToMeters(Constants.DriveTrain.wheelDiameterInches) * rotations;
     }
 }

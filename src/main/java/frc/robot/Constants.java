@@ -5,8 +5,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import frc.robot.utils.Distance;
 import frc.robot.utils.Rotation;
+
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+
+import static edu.wpi.first.math.util.Units.inchesToMeters;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -25,13 +34,43 @@ public class Constants { //put final here
         public final static int frontRightMotorChannel = 3;
         public final static int backRightMotorChannel = 4;
         public final static double originTolerance = 0.3;
+        public final static double wheelDiameterInches = 8;
+        public final static int ticksPerRotation = 10;
+
+        /**
+         * The left-to-right distance between the drivetrain wheels
+         *
+         * Should be measured from center to center.
+         */
+        public static final double DRIVETRAIN_TRACKWIDTH_METERS = inchesToMeters(24.5);
+        /**
+         * The front-to-back distance between the drivetrain wheels.
+         *
+         * Should be measured from center to center.
+         */
+        public static final double DRIVETRAIN_WHEELBASE_METERS = inchesToMeters(24.5);
+
+        public static final MecanumDriveKinematics KINEMATICS = new MecanumDriveKinematics(
+                // Front left
+                new Translation2d(DRIVETRAIN_WHEELBASE_METERS / 2.0, DRIVETRAIN_TRACKWIDTH_METERS / 2.0),
+                // Front right
+                new Translation2d(DRIVETRAIN_WHEELBASE_METERS / 2.0, -DRIVETRAIN_TRACKWIDTH_METERS / 2.0),
+                // Back left
+                new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2.0, DRIVETRAIN_TRACKWIDTH_METERS / 2.0),
+                // Back right
+                new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2.0, -DRIVETRAIN_TRACKWIDTH_METERS / 2.0)
+        );
     }
 
     public static class OperatorConstants {
         public static final int kDriverControllerPort = 0;
     }
 
-
+    /**
+     * Physical location of the camera on the robot, relative to the center of the robot.
+     */
+    public static final Transform3d CAMERA_TO_ROBOT =
+            new Transform3d(new Translation3d(-0.3425, 0.0, -0.233), new Rotation3d());
     public final static String cameraName = "Microsoft_LifeCam_HD-3000";
     public final static int cameraPixelHeight = 180;
     public final static int cameraPixelWidth = 640;

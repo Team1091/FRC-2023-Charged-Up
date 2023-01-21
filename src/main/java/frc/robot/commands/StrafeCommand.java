@@ -21,7 +21,7 @@ public class StrafeCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        this.leftEncoderTarget = driveTrainSubsystem.getLeftEncoder() + yDistance;
+        this.leftEncoderTarget = driveTrainSubsystem.getFrontLeftEncoder() + yDistance;
     }
 
     @Override
@@ -37,9 +37,9 @@ public class StrafeCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         if (isReverse) { //this could be backwards, fix if found during trial and error
-            return (driveTrainSubsystem.getLeftEncoder() < leftEncoderTarget);
+            return (driveTrainSubsystem.getFrontLeftEncoder() < leftEncoderTarget);
         }
 
-        return (driveTrainSubsystem.getLeftEncoder() > leftEncoderTarget);
+        return (driveTrainSubsystem.getFrontLeftEncoder() > leftEncoderTarget);
     }
 }
