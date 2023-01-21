@@ -17,9 +17,9 @@ public class VisionTargetCommand extends CommandBase {
 
     private final double targetDistance = 1;
 
-    private final double forwardSpeed = 0.25;
+    private final double forwardSpeed = -0.25;
 
-    private final double strafeSpeed = 0.25;
+    private final double strafeSpeed = -0.25;
 
     private final int numberToFind;
 

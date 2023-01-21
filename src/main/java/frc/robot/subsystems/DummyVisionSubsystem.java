@@ -45,7 +45,7 @@ public class DummyVisionSubsystem extends SubsystemBase implements IVisionSubsys
             return;
         }
 
-        if (timer.hasElapsed(2)) {
+        if (timer.hasElapsed(0.5)) {
             if (currentTargetIndex == bruh.size() - 1) {
                 currentTargetIndex = -1;
                 return;
@@ -59,7 +59,7 @@ public class DummyVisionSubsystem extends SubsystemBase implements IVisionSubsys
     @Override
     public List<AprilTagLocation> getAllTargets() {
 
-        List dummyResult = new ArrayList<>();
+        var dummyResult = new ArrayList<AprilTagLocation>();
         if (bruh.isEmpty() || currentTargetIndex == -1) {
             return dummyResult;
         }
