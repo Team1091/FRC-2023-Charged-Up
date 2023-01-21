@@ -33,22 +33,23 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         getAllTargets();
-        SmartDashboard.putNumber("pitch", photonCamera.getLatestResult().getBestTarget().getPitch());
+        //SmartDashboard.putNumber("pitch", photoFnCamera.getLatestResult().getBestTarget().getPitch());
 
-        Shuffleboard.getTab("Vision").add("Camera radians", Constants.cameraPitchRadians)
-                .withWidget(BuiltInWidgets.kNumberSlider)
-                //.withProperties(Map.of("min", 0, "max", 1)) // specify widget properties here
-                .getEntry();
-
-        Shuffleboard.getTab("Vision").add("Camera height", Constants.cameraHeightMeters)
-                .withWidget(BuiltInWidgets.kNumberSlider)
-                //.withProperties(Map.put("min", 0, "max", 1)) // specify widget properties here
-                .getEntry();
-
-        Shuffleboard.getTab("Vision").add("Target height", Constants.targetHeightInMeters)
-                .withWidget(BuiltInWidgets.kNumberSlider)
-                //.withProperties(Map("min", 0, "max", 1)) // specify widget properties here
-                .getEntry();
+        Shuffleboard.selectTab("Vision");
+//        Shuffleboard.getTab("Vision").add("Camera radians", Constants.cameraPitchRadians)
+//                .withWidget(BuiltInWidgets.kNumberSlider)
+//                //.withProperties(Map.of("min", 0, "max", 1)) // specify widget properties here
+//                .getEntry();
+//
+//        Shuffleboard.getTab("Vision").add("Camera height", Constants.cameraHeightMeters)
+//                .withWidget(BuiltInWidgets.kNumberSlider)
+//                //.withProperties(Map.put("min", 0, "max", 1)) // specify widget properties here
+//                .getEntry();
+//
+//        Shuffleboard.getTab("Vision").add("Target height", Constants.targetHeightInMeters)
+//                .withWidget(BuiltInWidgets.kNumberSlider)
+//                //.withProperties(Map("min", 0, "max", 1)) // specify widget properties here
+//                .getEntry();
 
 
         SmartDashboard.putNumber("camera radians", Constants.cameraPitchRadians);
@@ -59,7 +60,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
         Constants.cameraHeightMeters = SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight);
         Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
 
-        Shuffleboard.getTab("default");
+        //Shuffleboard.getTab("default");
     }
 
     public List<AprilTagLocation> getAllTargets() {
@@ -77,7 +78,9 @@ public class PhotonVisionSubsystem extends SubsystemBase {
 
         //if(test) {
         for (AprilTagLocation displayer : result) {
-            Shuffleboard.getTab("Vision").add("April Tag" + displayer.getIdNumber(),displayer.toString());
+            //Shuffleboard.getTab("Vision").add("April Tag" + displayer.getIdNumber(),displayer.toString());
+            Shuffleboard.selectTab("Vision");
+            SmartDashboard.putString("April Tag" + displayer.getIdNumber(),displayer.toString());
         }
 
         return result;
