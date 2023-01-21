@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.MecanumDriveCommand;
+import frc.robot.commands.StabilizePitchRollCommand;
 import frc.robot.commands.VisionTargetCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.GyroSubsystem;
 import frc.robot.subsystems.IAprilVisionSubsystem;
 import frc.robot.subsystems.PhotonVisionSubsystem;
 //hi
@@ -28,8 +30,12 @@ public class RobotContainer {
     private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
     //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new DummyVisionSubsystem();
     private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem();
+    private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
 
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
+
+
+    private final StabilizePitchRollCommand stabilizePitchRollCommand = new StabilizePitchRollCommand(gyroSubsystem, driveTrainSubsystem);
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController controller =
@@ -104,6 +110,8 @@ public class RobotContainer {
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
         // cancelling on release.
 //    controller.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+        controller.b().whileTrue(stabilizePitchRollCommand);
     }
 
     /**
