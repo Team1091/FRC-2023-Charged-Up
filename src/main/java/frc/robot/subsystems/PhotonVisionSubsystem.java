@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AprilTagLocation;
 import frc.robot.Constants;
+import frc.robot.utils.Distance;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonTrackedTarget;
@@ -51,13 +52,13 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
 
 
         if (SmartDashboard.getNumber("Update Parameters?", 0) != 0) {
-            Constants.cameraPitchRadians = SmartDashboard.getNumber("camera radians", Constants.cameraPitchRadians);
-            Constants.cameraHeightMeters = SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight);
+//            Constants.cameraPitchRadians = SmartDashboard.getNumber("camera radians", Constants.cameraPitchRadians);
+//            Constants.cameraHeightMeters = Distance.inMeters( SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight));
             //Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
 
             SmartDashboard.putNumber("camera radians", Constants.cameraPitchRadians);
-            SmartDashboard.putNumber("camera height", Constants.cameraHeightMeters);
-            SmartDashboard.putNumber("target height", Constants.targetHeightInMeters);
+            SmartDashboard.putNumber("camera height In Meters", Constants.cameraHeightMeters.toMeters());
+            SmartDashboard.putNumber("target height In Meters", Constants.targetHeightInMeters.toMeters());
 
             SmartDashboard.putNumber("Update Parameters?", 0);
         }
@@ -71,8 +72,8 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
         var result = new ArrayList<AprilTagLocation>();
         for (PhotonTrackedTarget target : currentResult.getTargets()) {
             //target.getBestCameraToTarget()
-            var distance = PhotonUtils.calculateDistanceToTargetMeters(Constants.cameraHeightMeters,
-                    getTargetHeight(target.getFiducialId()),
+            var distance = PhotonUtils.calculateDistanceToTargetMeters(Constants.cameraHeightMeters.toMeters(),
+                    getTargetHeight(target.getFiducialId()).toMeters(),
                     Constants.cameraPitchRadians,
                     (target.getPitch()) * Math.PI / 180);
             var horizontalRelativePos = convertPixelCordsToRelativeWidth(getCenterOfRect(target.getMinAreaRectCorners()));
@@ -90,12 +91,13 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
         return result;
     }
 
-    private double getTargetHeight(int ID) {
-        double returner = Constants.targetHeightInMeters;
+    private Distance getTargetHeight(int ID) {
+
         if (ID == 4 || ID == 5) {
-            returner = Constants.stationTargetHeightInMeters;
+            return Constants.stationTargetHeightInMeters;
         }
-        return returner;
+
+        return Constants.targetHeightInMeters;
     }
 
     private TargetCorner getCenterOfRect(List<TargetCorner> cords) {//returns 2 doubles corresponding to x and y coordinate of center of rect

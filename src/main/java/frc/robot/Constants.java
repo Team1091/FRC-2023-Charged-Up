@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.utils.Distance;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -32,9 +34,9 @@ public class Constants { //put final here
     public final static int cameraPixelHeight = 180;
     public final static int cameraPixelWidth = 640;
     //public final static double cameraHeightMeters = 0.2;
-    public static double cameraHeightMeters = 0.249;
+    public static Distance cameraHeightMeters = Distance.inMeters(.249);
     public static double cameraPitchRadians = 0.0;
-    public final static double targetHeightInMeters = 0.384175;
+    public final static Distance targetHeightInMeters = Distance.inMeters(.384175);
     //public static double targetHeightInMeters = 0.8128;
-    public final static double stationTargetHeightInMeters = 0.619252;
+    public final static Distance stationTargetHeightInMeters = Distance.inMeters(.619252);
 }
