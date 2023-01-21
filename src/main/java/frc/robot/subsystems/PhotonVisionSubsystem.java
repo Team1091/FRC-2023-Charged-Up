@@ -27,6 +27,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     public PhotonVisionSubsystem() {
         photonCamera = new PhotonCamera(Constants.cameraName);
         Shuffleboard.getTab("Vision");
+        SmartDashboard.putNumber("Update Parameters?", 0);
     }
 
 
@@ -52,13 +53,20 @@ public class PhotonVisionSubsystem extends SubsystemBase {
 //                .getEntry();
 
 
-        SmartDashboard.putNumber("camera radians", Constants.cameraPitchRadians);
-        SmartDashboard.putNumber("camera height", Constants.cameraHeightMeters);
-        SmartDashboard.putNumber("target height", Constants.targetHeightInMeters);
 
-        Constants.cameraPitchRadians = SmartDashboard.getNumber("camera radians", Constants.cameraPitchRadians);
-        Constants.cameraHeightMeters = SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight);
-        Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
+        if (SmartDashboard.getNumber("Update Parameters?",0) != 0) {
+            Constants.cameraPitchRadians = SmartDashboard.getNumber("camera radians", Constants.cameraPitchRadians);
+            Constants.cameraHeightMeters = SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight);
+            Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
+
+            SmartDashboard.putNumber("camera radians", Constants.cameraPitchRadians);
+            SmartDashboard.putNumber("camera height", Constants.cameraHeightMeters);
+            SmartDashboard.putNumber("target height", Constants.targetHeightInMeters);
+
+            SmartDashboard.putNumber("Update Parameters?", 0);
+        }
+
+
 
         //Shuffleboard.getTab("default");
     }
