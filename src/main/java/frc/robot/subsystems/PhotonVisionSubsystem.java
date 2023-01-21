@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,9 +17,7 @@ import org.photonvision.targeting.TargetCorner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.fasterxml.jackson.databind.type.LogicalType.Map;
-
-public class PhotonVisionSubsystem extends SubsystemBase {
+public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVisionSubsystem {
 
     private PhotonCamera photonCamera;
 
@@ -57,7 +54,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
         if (SmartDashboard.getNumber("Update Parameters?",0) != 0) {
             Constants.cameraPitchRadians = SmartDashboard.getNumber("camera radians", Constants.cameraPitchRadians);
             Constants.cameraHeightMeters = SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight);
-            Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
+            //Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
 
             SmartDashboard.putNumber("camera radians", Constants.cameraPitchRadians);
             SmartDashboard.putNumber("camera height", Constants.cameraHeightMeters);
@@ -75,6 +72,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
         var currentResult = photonCamera.getLatestResult();
         var result = new ArrayList<AprilTagLocation>();
         for(PhotonTrackedTarget target : currentResult.getTargets()) {
+            //target.getBestCameraToTarget()
             var distance = PhotonUtils.calculateDistanceToTargetMeters(Constants.cameraHeightMeters,
                     getTargetHeight(target.getFiducialId()),
                     Constants.cameraPitchRadians,

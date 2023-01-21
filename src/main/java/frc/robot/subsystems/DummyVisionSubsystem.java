@@ -6,14 +6,13 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AprilTagLocation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DummyVisionSubsystem extends SubsystemBase implements IVisionSubsystem {
+public class DummyVisionSubsystem extends SubsystemBase implements IAprilVisionSubsystem {
     public List<AprilTagLocation> bruh;
     Timer timer;
     int currentTargetIndex = 0;

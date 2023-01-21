@@ -1,17 +1,16 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.AprilTagLocation;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.DummyVisionSubsystem;
-import frc.robot.subsystems.IVisionSubsystem;
+import frc.robot.subsystems.IAprilVisionSubsystem;
 
 import java.util.List;
 
 public class VisionTargetCommand extends CommandBase {
     private final DriveTrainSubsystem driveTrainSubsystem;
-    private final IVisionSubsystem photonVisionSubsystem;
+    private final IAprilVisionSubsystem photonVisionSubsystem;
 
     private final double tolerance = 0.05;
 
@@ -23,7 +22,7 @@ public class VisionTargetCommand extends CommandBase {
 
     private final int numberToFind;
 
-    public VisionTargetCommand(DriveTrainSubsystem driveTrainSubsystem, IVisionSubsystem photonVisionSubsystem, int numberToFind) {
+    public VisionTargetCommand(DriveTrainSubsystem driveTrainSubsystem, IAprilVisionSubsystem photonVisionSubsystem, int numberToFind) {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.photonVisionSubsystem = photonVisionSubsystem;
         this.numberToFind = numberToFind;

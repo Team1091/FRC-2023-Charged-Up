@@ -31,9 +31,9 @@ public class Constants { //put final here
     public final static int cameraPixelHeight = 180;
     public final static int cameraPixelWidth = 640;
     //public final static double cameraHeightMeters = 0.2;
-    public static double cameraHeightMeters = 0.74422;
+    public static double cameraHeightMeters = 0.249;
     public static double cameraPitchRadians = 0.0;
-    //public final static double targetHeightInMeters = 0.384175;
-    public static double targetHeightInMeters = 0.8128;
+    public final static double targetHeightInMeters = 0.384175;
+    //public static double targetHeightInMeters = 0.8128;
     public final static double stationTargetHeightInMeters = 0.619252;
 }

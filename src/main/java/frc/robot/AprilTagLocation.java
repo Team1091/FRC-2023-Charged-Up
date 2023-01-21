@@ -22,10 +22,8 @@ public class AprilTagLocation {
         return horizontalPosOfCenter;
     }
 
-    public double getHorizontalPosOfCenter(){return horizontalPosOfCenter;}
-
     @Override
     public String toString() {
-        return "ID: " + idNumber + "     Target Distance: " + targetDistance + "       HorizontalOffset: " + horizontalPosOfCenter;
+        return "ID: " + idNumber + "     Target Distance (inch): " + targetDistance*39.37 + "       HorizontalOffset: " + horizontalPosOfCenter;
     }
 }

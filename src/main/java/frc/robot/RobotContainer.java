@@ -6,16 +6,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.DummyVisionSubsystem;
-import frc.robot.subsystems.IVisionSubsystem;
+import frc.robot.subsystems.IAprilVisionSubsystem;
+import frc.robot.subsystems.PhotonVisionSubsystem;
 //hi
 
 /**
@@ -27,8 +25,8 @@ import frc.robot.subsystems.IVisionSubsystem;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
-    private final IVisionSubsystem dummyVisionSubsystem = new DummyVisionSubsystem();
-    //private final PhotonVisionSubsystem photonVisionSubsystem = new PhotonVisionSubsystem();
+    //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new DummyVisionSubsystem();
+    private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem();
 
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 
@@ -117,7 +115,7 @@ public class RobotContainer {
         //Getting smart-dashboard value
 //      StartingPositions startPos = startPosChooser.getSelected();
 //      SmartDashboard.putString("Current Auto Start Config",startPos.name());
-        Command customCommand = new VisionTargetCommand(driveTrainSubsystem, dummyVisionSubsystem, 1);// "-" Means forwards for some reason
+        Command customCommand = new VisionTargetCommand(driveTrainSubsystem, aprilTagVisionSubsystem, 1);// "-" Means forwards for some reason
         return customCommand;
     }
 }
