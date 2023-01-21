@@ -111,7 +111,7 @@ public class RobotContainer {
         // cancelling on release.
 //    controller.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-        controller.b().whileTrue(stabilizePitchRollCommand);
+        controller.x().whileTrue(stabilizePitchRollCommand);
     }
 
     /**
