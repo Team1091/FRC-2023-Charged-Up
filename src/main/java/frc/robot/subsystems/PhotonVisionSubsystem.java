@@ -56,9 +56,9 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
 //            Constants.cameraHeightMeters = Distance.inMeters( SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight));
             //Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
 
-            SmartDashboard.putNumber("camera radians", Constants.cameraPitch.toRadians());
-            SmartDashboard.putNumber("camera height In Meters", Constants.cameraHeight.toMeters());
-            SmartDashboard.putNumber("target height In Meters", Constants.targetHeight.toMeters());
+//            SmartDashboard.putNumber("camera radians", Constants.cameraPitch.toRadians());
+//            SmartDashboard.putNumber("camera height In Meters", Constants.cameraHeight.toMeters());
+//            SmartDashboard.putNumber("target height In Meters", Constants.targetHeight.toMeters());
 
             SmartDashboard.putNumber("Update Parameters?", 0);
         }

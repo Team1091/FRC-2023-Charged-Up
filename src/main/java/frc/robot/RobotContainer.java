@@ -14,7 +14,7 @@ import frc.robot.commands.MecanumDriveCommand;
 import frc.robot.commands.StabilizePitchRollCommand;
 import frc.robot.commands.VisionTargetCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.GyroSubsystem;
+import frc.robot.subsystems.GyroBalanceSubsystem;
 import frc.robot.subsystems.IAprilVisionSubsystem;
 import frc.robot.subsystems.PhotonVisionSubsystem;
 //hi
@@ -30,7 +30,7 @@ public class RobotContainer {
     private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
     //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new DummyVisionSubsystem();
     private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem();
-    private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
+    private final GyroBalanceSubsystem gyroSubsystem = new GyroBalanceSubsystem();
 
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 
