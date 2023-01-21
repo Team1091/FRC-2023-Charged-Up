@@ -33,7 +33,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         getAllTargets();
-        SmartDashboard.putNumber("pitch", photonCamera.getLatestResult().getBestTarget().getPitch());
+        //SmartDashboard.putNumber("pitch", photonCamera.getLatestResult().getBestTarget().getPitch());
 
         Shuffleboard.getTab("Vision").add("Camera radians", Constants.cameraPitchRadians)
                 .withWidget(BuiltInWidgets.kNumberSlider)
