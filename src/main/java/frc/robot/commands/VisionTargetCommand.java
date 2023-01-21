@@ -26,7 +26,7 @@ public class VisionTargetCommand extends CommandBase {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.photonVisionSubsystem = photonVisionSubsystem;
         this.numberToFind = numberToFind;
-        ((DummyVisionSubsystem)photonVisionSubsystem).Reset();
+        ((DummyVisionSubsystem) photonVisionSubsystem).Reset();
         addRequirements(this.driveTrainSubsystem);
         addRequirements(this.photonVisionSubsystem);
     }
@@ -69,7 +69,7 @@ public class VisionTargetCommand extends CommandBase {
             return;
         }
 
-        driveTrainSubsystem.mecanumDrive(0,0,0);
+        driveTrainSubsystem.mecanumDrive(0, 0, 0);
     }
 
     // Called once the command ends or is interrupted.

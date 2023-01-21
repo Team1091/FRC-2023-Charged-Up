@@ -21,12 +21,12 @@ public class StrafeCommand extends CommandBase {
 
     @Override
     public void initialize() {
-       this.leftEncoderTarget = driveTrainSubsystem.getLeftEncoder() + yDistance;
+        this.leftEncoderTarget = driveTrainSubsystem.getLeftEncoder() + yDistance;
     }
 
     @Override
     public void execute() {
-        driveTrainSubsystem.mecanumDrive(0.25*(isReverse?-1:1), 0, 0);
+        driveTrainSubsystem.mecanumDrive(0.25 * (isReverse ? -1 : 1), 0, 0);
     }
 
     @Override

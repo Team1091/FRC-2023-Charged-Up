@@ -4,17 +4,16 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class GyroBalanceSubsystem extends SubsystemBase {
-    /** Creates a new ExampleSubsystem. */
+    /**
+     * Creates a new ExampleSubsystem.
+     */
 
     //AHRS gyro = new AHRS(SPI.Port.kMXP);
-
-
     public GyroBalanceSubsystem() {
 
     }

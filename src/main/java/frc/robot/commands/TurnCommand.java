@@ -21,12 +21,12 @@ public class TurnCommand extends CommandBase {
 
     @Override
     public void initialize() {
-       this.leftEncoderTarget = driveTrainSubsystem.getLeftEncoder() + turnDistance;
+        this.leftEncoderTarget = driveTrainSubsystem.getLeftEncoder() + turnDistance;
     }
 
     @Override
     public void execute() {
-        driveTrainSubsystem.mecanumDrive(0, 0, 0.25*(isReverse?-1:1));
+        driveTrainSubsystem.mecanumDrive(0, 0, 0.25 * (isReverse ? -1 : 1));
     }
 
     @Override

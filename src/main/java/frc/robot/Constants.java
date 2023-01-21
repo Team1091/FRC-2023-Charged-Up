@@ -16,15 +16,16 @@ public class Constants { //put final here
     public static double deadzone = 0.1;
 
     public static final class DriveTrain {
-    public final static int backLeftMotorChannel = 1;
-    public final static int frontLeftMotorChannel = 2;
-    public final static int frontRightMotorChannel = 3;
-    public final static int backRightMotorChannel = 4;
-    public final static double originTolerance = 0.3;
-  }
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+        public final static int backLeftMotorChannel = 1;
+        public final static int frontLeftMotorChannel = 2;
+        public final static int frontRightMotorChannel = 3;
+        public final static int backRightMotorChannel = 4;
+        public final static double originTolerance = 0.3;
+    }
+
+    public static class OperatorConstants {
+        public static final int kDriverControllerPort = 0;
+    }
 
 
     public final static String cameraName = "Microsoft_LifeCam_HD-3000";

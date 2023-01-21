@@ -50,8 +50,7 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
 //                .getEntry();
 
 
-
-        if (SmartDashboard.getNumber("Update Parameters?",0) != 0) {
+        if (SmartDashboard.getNumber("Update Parameters?", 0) != 0) {
             Constants.cameraPitchRadians = SmartDashboard.getNumber("camera radians", Constants.cameraPitchRadians);
             Constants.cameraHeightMeters = SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight);
             //Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
@@ -64,19 +63,18 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
         }
 
 
-
         //Shuffleboard.getTab("default");
     }
 
     public List<AprilTagLocation> getAllTargets() {
         var currentResult = photonCamera.getLatestResult();
         var result = new ArrayList<AprilTagLocation>();
-        for(PhotonTrackedTarget target : currentResult.getTargets()) {
+        for (PhotonTrackedTarget target : currentResult.getTargets()) {
             //target.getBestCameraToTarget()
             var distance = PhotonUtils.calculateDistanceToTargetMeters(Constants.cameraHeightMeters,
                     getTargetHeight(target.getFiducialId()),
                     Constants.cameraPitchRadians,
-                    (target.getPitch())*Math.PI/180);
+                    (target.getPitch()) * Math.PI / 180);
             var horizontalRelativePos = convertPixelCordsToRelativeWidth(getCenterOfRect(target.getMinAreaRectCorners()));
             result.add(new AprilTagLocation(target.getFiducialId(), distance, horizontalRelativePos));
         }
@@ -86,7 +84,7 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
         for (AprilTagLocation displayer : result) {
             //Shuffleboard.getTab("Vision").add("April Tag" + displayer.getIdNumber(),displayer.toString());
             Shuffleboard.selectTab("Vision");
-            SmartDashboard.putString("April Tag" + displayer.getIdNumber(),displayer.toString());
+            SmartDashboard.putString("April Tag" + displayer.getIdNumber(), displayer.toString());
         }
 
         return result;
@@ -111,10 +109,10 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
         for (TargetCorner cord : cords) {
             ySum += cord.y;
         }
-        return new TargetCorner(xSum/num, ySum/num);
+        return new TargetCorner(xSum / num, ySum / num);
     }
 
     private double convertPixelCordsToRelativeWidth(TargetCorner centerPoint) {
-        return ((Constants.cameraPixelWidth /2) - centerPoint.x)/Constants.cameraPixelWidth;
+        return ((Constants.cameraPixelWidth / 2) - centerPoint.x) / Constants.cameraPixelWidth;
     }
 }
