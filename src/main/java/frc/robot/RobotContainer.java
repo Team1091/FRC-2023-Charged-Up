@@ -69,7 +69,7 @@ public class RobotContainer {
                             return deadZone(input);
                         },
                         () -> {
-                            var input = controller.getLeftY();
+                            var input = -controller.getLeftY();
                             if (controller.getHID().getBButton()) {
                                 input = input / 4;
                             }
