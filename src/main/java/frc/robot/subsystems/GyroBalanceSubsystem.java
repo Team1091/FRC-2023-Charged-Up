@@ -4,21 +4,18 @@
 
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 
-public class GyroSubsystem extends SubsystemBase {
+public class GyroBalanceSubsystem extends SubsystemBase {
     /**
      * Creates a new ExampleSubsystem.
      */
 
-    private final AHRS gyro;
-    public GyroSubsystem() {
-        gyro = new AHRS(Constants.gyroPort);
+    //AHRS gyro = new AHRS(SPI.Port.kMXP);
+    public GyroBalanceSubsystem() {
+
     }
 
     /**
@@ -53,13 +50,5 @@ public class GyroSubsystem extends SubsystemBase {
     @Override
     public void simulationPeriodic() {
         // This method will be called once per scheduler run during simulation
-    }
-
-    public double getRoll() {
-        return gyro.getRoll();
-    }
-
-    public double getPitch() {
-        return gyro.getPitch();
     }
 }
