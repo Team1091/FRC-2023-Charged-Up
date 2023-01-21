@@ -56,9 +56,9 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
 //            Constants.cameraHeightMeters = Distance.inMeters( SmartDashboard.getNumber("camera height", Constants.cameraPixelHeight));
             //Constants.targetHeightInMeters = SmartDashboard.getNumber("target height", Constants.targetHeightInMeters);
 
-            SmartDashboard.putNumber("camera radians", Constants.cameraPitchRadians);
-            SmartDashboard.putNumber("camera height In Meters", Constants.cameraHeightMeters.toMeters());
-            SmartDashboard.putNumber("target height In Meters", Constants.targetHeightInMeters.toMeters());
+            SmartDashboard.putNumber("camera radians", Constants.cameraPitch.toRadians());
+            SmartDashboard.putNumber("camera height In Meters", Constants.cameraHeight.toMeters());
+            SmartDashboard.putNumber("target height In Meters", Constants.targetHeight.toMeters());
 
             SmartDashboard.putNumber("Update Parameters?", 0);
         }
@@ -72,9 +72,9 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
         var result = new ArrayList<AprilTagLocation>();
         for (PhotonTrackedTarget target : currentResult.getTargets()) {
             //target.getBestCameraToTarget()
-            var distance = PhotonUtils.calculateDistanceToTargetMeters(Constants.cameraHeightMeters.toMeters(),
+            var distance = PhotonUtils.calculateDistanceToTargetMeters(Constants.cameraHeight.toMeters(),
                     getTargetHeight(target.getFiducialId()).toMeters(),
-                    Constants.cameraPitchRadians,
+                    Constants.cameraPitch.toRadians(),
                     (target.getPitch()) * Math.PI / 180);
             var horizontalRelativePos = convertPixelCordsToRelativeWidth(getCenterOfRect(target.getMinAreaRectCorners()));
             result.add(new AprilTagLocation(target.getFiducialId(), distance, horizontalRelativePos));
@@ -94,10 +94,10 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
     private Distance getTargetHeight(int ID) {
 
         if (ID == 4 || ID == 5) {
-            return Constants.stationTargetHeightInMeters;
+            return Constants.stationTargetHeight;
         }
 
-        return Constants.targetHeightInMeters;
+        return Constants.targetHeight;
     }
 
     private TargetCorner getCenterOfRect(List<TargetCorner> cords) {//returns 2 doubles corresponding to x and y coordinate of center of rect
