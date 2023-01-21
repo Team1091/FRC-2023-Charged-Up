@@ -19,10 +19,10 @@ public class Constants { //put final here
     public static double deadzone = 0.1;
 
     public static final class DriveTrain {
-        public final static int backLeftMotorChannel = 1;
-        public final static int frontLeftMotorChannel = 2;
-        public final static int frontRightMotorChannel = 3;
-        public final static int backRightMotorChannel = 4;
+        public final static int backLeftMotorChannel = 2;
+        public final static int frontLeftMotorChannel = 1;
+        public final static int frontRightMotorChannel = 4;
+        public final static int backRightMotorChannel = 3;
         public final static double originTolerance = 0.3;
     }
 
