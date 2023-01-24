@@ -2,16 +2,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.AprilTagLocation;
 import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.DummyVisionSubsystem;
-import frc.robot.subsystems.IAprilVisionSubsystem;
 import frc.robot.subsystems.PoseEstimationSubsystem;
 
 import java.util.List;
 
 public class DriveToPoseCommand extends CommandBase {
+    private static final double DELTA_DISTANCE = 0.1;
+    private static final double DELTA_ROTATION = 0.1;
     private final DriveTrainSubsystem driveTrainSubsystem;
     private final PoseEstimationSubsystem poseEstimationSubsystem;
 
@@ -52,6 +52,10 @@ public class DriveToPoseCommand extends CommandBase {
         var translation = target.getTranslation().minus(curPose.getTranslation());
         var localPerspectiveTrans = translation.rotateBy(Rotation2d.fromRadians(-curPose.getRotation().getRadians()));
         var rotation = turnLeftOrRight(curPose.getRotation().getRadians(), target.getRotation().getRadians());
+
+        SmartDashboard.putString("perspective:", localPerspectiveTrans.toString());
+        SmartDashboard.putNumber("rotation:", rotation);
+
         // drive that way
         driveTrainSubsystem.mecanumDrive(localPerspectiveTrans.getX(), localPerspectiveTrans.getY(), rotation);
 
@@ -60,12 +64,19 @@ public class DriveToPoseCommand extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        driveTrainSubsystem.mecanumDrive(0.0, 0.0, 0.0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        // if rotation and translation are close enough
+
+        var curPose = poseEstimationSubsystem.getCurrentPose();
+        var distance = curPose.getTranslation().getDistance(target.getTranslation());
+        var rotation = turnLeftOrRight(curPose.getRotation().getRadians(), target.getRotation().getRadians());
+
+        return (distance < DELTA_DISTANCE && Math.abs(rotation) < DELTA_ROTATION);
     }
 
     /**
