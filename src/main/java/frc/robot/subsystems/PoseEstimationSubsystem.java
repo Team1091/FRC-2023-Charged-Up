@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -66,6 +67,7 @@ public class PoseEstimationSubsystem extends SubsystemBase {
                     AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
         } catch(IOException e) {
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
+            SmartDashboard.putString("April field layout", "Failed");
             layout = null;
         }
         this.aprilTagFieldLayout = layout;
@@ -89,7 +91,7 @@ public class PoseEstimationSubsystem extends SubsystemBase {
         // Update pose estimator with the best visible target
         var pipelineResult = photonCamera.getLatestResult();
         var resultTimestamp = pipelineResult.getTimestampSeconds();
-        if (resultTimestamp != previousPipelineTimestamp && pipelineResult.hasTargets()) {
+        if (resultTimestamp != previousPipelineTimestamp && pipelineResult.hasTargets()) {//don't process same input twice
             previousPipelineTimestamp = resultTimestamp;
             var target = pipelineResult.getBestTarget();
             var fiducialId = target.getFiducialId();

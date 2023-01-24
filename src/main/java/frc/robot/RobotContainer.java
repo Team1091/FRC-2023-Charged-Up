@@ -14,6 +14,7 @@ import frc.robot.commands.MecanumDriveCommand;
 import frc.robot.commands.StabilizePitchRollCommand;
 import frc.robot.commands.VisionTargetCommand;
 import frc.robot.subsystems.*;
+import org.photonvision.PhotonCamera;
 //hi
 
 /**
@@ -23,11 +24,15 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+    private final PhotonCamera photonCamera = new PhotonCamera(Constants.cameraName);
+
     // The robot's subsystems and commands are defined here...
     private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
-    private final IAprilVisionSubsystem aprilTagVisionSubsystem = new DummyVisionSubsystem();
-    //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem();
+    //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new DummyVisionSubsystem();
+    private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem(photonCamera);
     private final GyroBalanceSubsystem gyroSubsystem = new GyroBalanceSubsystem();
+
+    private final PoseEstimationSubsystem poseEstimationSubsystem = new PoseEstimationSubsystem(photonCamera,driveTrainSubsystem,gyroSubsystem);
 
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 

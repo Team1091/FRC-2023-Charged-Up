@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AprilTagLocation;
@@ -21,10 +22,11 @@ import java.util.List;
 public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVisionSubsystem {
 
     private PhotonCamera photonCamera;
+    private ShuffleboardTab visionTab;
 
-    public PhotonVisionSubsystem() {
-        photonCamera = new PhotonCamera(Constants.cameraName);
-        Shuffleboard.getTab("Vision");
+    public PhotonVisionSubsystem(PhotonCamera camera) {
+        photonCamera = camera;
+        visionTab = Shuffleboard.getTab("Vision");
         SmartDashboard.putNumber("Update Parameters?", 0);
     }
 
@@ -34,7 +36,6 @@ public class PhotonVisionSubsystem extends SubsystemBase implements IAprilVision
         getAllTargets();
         //SmartDashboard.putNumber("pitch", photoFnCamera.getLatestResult().getBestTarget().getPitch());
 
-        Shuffleboard.selectTab("Vision");
 //        Shuffleboard.getTab("Vision").add("Camera radians", Constants.cameraPitchRadians)
 //                .withWidget(BuiltInWidgets.kNumberSlider)
 //                //.withProperties(Map.of("min", 0, "max", 1)) // specify widget properties here
