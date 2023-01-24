@@ -48,7 +48,7 @@ public class Constants { //put final here
          *
          * Should be measured from center to center.
          */
-        public static final double DRIVETRAIN_WHEELBASE_METERS = inchesToMeters(24.5);
+        public static final double DRIVETRAIN_WHEELBASE_METERS = Distance.inInches(21.0).toMeters();
 
         public static final MecanumDriveKinematics KINEMATICS = new MecanumDriveKinematics(
                 // Front left
