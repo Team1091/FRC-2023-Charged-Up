@@ -4,12 +4,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.DriveToPoseCommand;
 import frc.robot.commands.MecanumDriveCommand;
 import frc.robot.commands.StabilizePitchRollCommand;
 import frc.robot.commands.VisionTargetCommand;
@@ -32,12 +36,19 @@ public class RobotContainer {
     private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem(photonCamera);
     private final GyroBalanceSubsystem gyroSubsystem = new GyroBalanceSubsystem();
 
-    private final PoseEstimationSubsystem poseEstimationSubsystem = new PoseEstimationSubsystem(photonCamera,driveTrainSubsystem,gyroSubsystem);
+    private final PoseEstimationSubsystem poseEstimationSubsystem = new PoseEstimationSubsystem(photonCamera, driveTrainSubsystem, gyroSubsystem);
 
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 
 
     private final StabilizePitchRollCommand stabilizePitchRollCommand = new StabilizePitchRollCommand(gyroSubsystem, driveTrainSubsystem);
+
+    private final DriveToPoseCommand driveToPoseCommand = new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem,
+            new Pose2d(
+                    new Translation2d(10.0, 3.0),
+                    new Rotation2d(10)
+            )
+    );
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController controller =
@@ -114,6 +125,7 @@ public class RobotContainer {
 //    controller.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
         controller.x().whileTrue(stabilizePitchRollCommand);
+        controller.y().whileTrue(driveToPoseCommand);
     }
 
     /**

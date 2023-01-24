@@ -66,7 +66,7 @@ public class DummyVisionSubsystem extends SubsystemBase implements IAprilVisionS
         return dummyResult;
     }
 
-    public void Reset() {
+    public void reset() {
         currentTargetIndex = 0;
     }
 

@@ -125,4 +125,8 @@ public class PoseEstimationSubsystem extends SubsystemBase {
                 pose.getY(),
                 pose.getRotation().getDegrees());
     }
+
+    public Field2d getField2d() {
+        return field2d;
+    }
 }

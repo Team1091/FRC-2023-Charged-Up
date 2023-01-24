@@ -26,7 +26,7 @@ public class VisionTargetCommand extends CommandBase {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.photonVisionSubsystem = photonVisionSubsystem;
         this.numberToFind = numberToFind;
-        ((DummyVisionSubsystem) photonVisionSubsystem).Reset();
+        ((DummyVisionSubsystem) photonVisionSubsystem).reset();
         addRequirements(this.driveTrainSubsystem);
         addRequirements(this.photonVisionSubsystem);
     }
