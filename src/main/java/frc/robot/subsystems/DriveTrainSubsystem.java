@@ -59,6 +59,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
         this.strafeVelocity = strafeVelocity;
         this.forwardBackwardVelocity = forwardBackwardVelocity;
         this.rotationVelocity = rotationVelocity;
+
+
     }
 
     public double getFrontLeftEncoder() {
@@ -80,6 +82,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
 
     private double getEncoderDistance(double rotations){
-        return Math.PI * inchesToMeters(Constants.DriveTrain.wheelDiameterInches) * rotations;
+        return rotations/Constants.meterToRealMeter;
+//        return Math.PI * inchesToMeters(Constants.DriveTrain.wheelDiameterInches) * rotations;
     }
 }

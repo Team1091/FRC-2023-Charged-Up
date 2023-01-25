@@ -13,10 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.DriveToPoseCommand;
-import frc.robot.commands.MecanumDriveCommand;
-import frc.robot.commands.StabilizePitchRollCommand;
-import frc.robot.commands.VisionTargetCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import org.photonvision.PhotonCamera;
 //hi
@@ -33,7 +30,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
     //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new DummyVisionSubsystem();
-    private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem(photonCamera);
+    //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem(photonCamera);
     private final GyroBalanceSubsystem gyroSubsystem = new GyroBalanceSubsystem();
 
     private final PoseEstimationSubsystem poseEstimationSubsystem = new PoseEstimationSubsystem(photonCamera, driveTrainSubsystem, gyroSubsystem);
@@ -137,7 +134,7 @@ public class RobotContainer {
         //Getting smart-dashboard value
 //      StartingPositions startPos = startPosChooser.getSelected();
 //      SmartDashboard.putString("Current Auto Start Config",startPos.name());
-        Command customCommand = new VisionTargetCommand(driveTrainSubsystem, aprilTagVisionSubsystem, 1);// "-" Means forwards for some reason
+        Command customCommand = new DistanceDriveCommand(driveTrainSubsystem,0.0);  //new VisionTargetCommand(driveTrainSubsystem, aprilTagVisionSubsystem, 1);// "-" Means forwards for some reason
         return customCommand;
     }
 }

@@ -84,4 +84,6 @@ public class Constants { //put final here
     public final static SPI.Port gyroPort = SPI.Port.kMXP;
     public final static double gyroDeadZoneThreshhold = 10;
     public final static double gyroCommandMoveSpeed = 0.25;
+
+    public final static double meterToRealMeter = 19.5243986;
 }

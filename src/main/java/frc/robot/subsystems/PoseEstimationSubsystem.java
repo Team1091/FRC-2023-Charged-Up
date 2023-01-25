@@ -51,6 +51,8 @@ public class PoseEstimationSubsystem extends SubsystemBase {
      */
     private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(10));
 
+    private ShuffleboardTab tab = null;
+
     public PoseEstimationSubsystem(
             PhotonCamera photonCamera,
             DriveTrainSubsystem drivetrainSubsystem,
@@ -65,6 +67,8 @@ public class PoseEstimationSubsystem extends SubsystemBase {
             layout.setOrigin(alliance == DriverStation.Alliance.Blue ?
                     AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide :
                     AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
+
+            tab = Shuffleboard.getTab("Vision");
         } catch(IOException e) {
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
             SmartDashboard.putString("April field layout", "Failed");
@@ -72,7 +76,7 @@ public class PoseEstimationSubsystem extends SubsystemBase {
         }
         this.aprilTagFieldLayout = layout;
 
-        ShuffleboardTab tab = Shuffleboard.getTab("Vision");
+
 
         poseEstimator =  new MecanumDrivePoseEstimator(
                 Constants.DriveTrain.KINEMATICS,
@@ -82,12 +86,14 @@ public class PoseEstimationSubsystem extends SubsystemBase {
                 stateStdDevs,
                 visionMeasurementStdDevs);
 
-        tab.addString("Pose", this::getFomattedPose).withPosition(0, 0).withSize(2, 0);
-        tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
+//        tab.addString("Pose", this::getFomattedPose).withPosition(0, 0).withSize(2, 0);
+//        tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
     }
 
     @Override
     public void periodic() {
+
+
         // Update pose estimator with the best visible target
         var pipelineResult = photonCamera.getLatestResult();
         var resultTimestamp = pipelineResult.getTimestampSeconds();
@@ -112,6 +118,19 @@ public class PoseEstimationSubsystem extends SubsystemBase {
                 driveTrainSubsystem.getWheelPositions());
 
         field2d.setRobotPose(getCurrentPose());
+
+
+
+        try {
+            tab.addString("yo yo yo",()->"bruh");
+            tab.addString("Pose", this::getFomattedPose).withPosition(0, 0).withSize(2, 0);
+            tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
+        } catch (Exception e) {
+            SmartDashboard.putString("error", "a fatal error has occured, good luck figuring out what it is");
+        }
+
+
+
     }
 
     public Pose2d getCurrentPose() {
