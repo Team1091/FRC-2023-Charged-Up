@@ -86,4 +86,8 @@ public class Constants { //put final here
     public final static double gyroCommandMoveSpeed = 0.25;
 
     public final static double meterToRealMeter = 19.5243986;
+
+    public final static int armMotorChannel = -1;
+    public final static int armInChannel = -1;
+    public final static int armOutChannel = -1;
 }
