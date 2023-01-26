@@ -82,18 +82,9 @@ public class ArmMovementCommand extends CommandBase {
                 break;
         }
 
-        switch(automatic){
-            case 1:
-                new DistanceDriveCommand(driveTrainSubsystem, Constants.groundMovePosition);
-                break;
-            case 2:
-                new DistanceDriveCommand(driveTrainSubsystem, Constants.middleMovePosition);
-                break;
-            case 3:
-                new DistanceDriveCommand(driveTrainSubsystem, Constants.highestMovePostion);
-                break;
-        }
+    }
 
+    public void moveArmDownSlightly() {
         double pastEncoderPos = armSubsystem.getMotorPosition();
         while (armSubsystem.getMotorPosition() > (pastEncoderPos + Constants.armMoveDownEncoderTicks)) {
             armSubsystem.setMotor(-0.1);
