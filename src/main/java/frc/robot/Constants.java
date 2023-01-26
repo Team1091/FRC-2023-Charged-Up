@@ -80,7 +80,6 @@ public class Constants { //put final here
     public final static Distance targetHeight = Distance.inMeters(.384175);
     //public static double targetHeightInMeters = 0.8128;
     public final static Distance stationTargetHeight = Distance.inMeters(.619252);
-
     public final static SPI.Port gyroPort = SPI.Port.kMXP;
     public final static double gyroDeadZoneThreshhold = 10;
     public final static double gyroCommandMoveSpeed = 0.25;
