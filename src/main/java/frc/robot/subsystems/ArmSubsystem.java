@@ -39,5 +39,9 @@ public class ArmSubsystem extends SubsystemBase {
         motor.set(motorSpeed);
     }
 
+    public double getMotorPosition(){
+        return motor.getEncoder().getPosition();
+    }
+
 
 }
