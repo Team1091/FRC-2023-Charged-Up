@@ -42,7 +42,7 @@ public class Constants { //put final here
          *
          * Should be measured from center to center.
          */
-        public static final double DRIVETRAIN_TRACKWIDTH_METERS = inchesToMeters(24.5);
+        public static final double DRIVETRAIN_TRACKWIDTH_METERS = inchesToMeters(21.0);
         /**
          * The front-to-back distance between the drivetrain wheels.
          *
