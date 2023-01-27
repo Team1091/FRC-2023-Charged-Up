@@ -13,47 +13,33 @@ import frc.robot.Constants;
 
 
 public class GyroBalanceSubsystem extends SubsystemBase {
-    /**
-     * Creates a new ExampleSubsystem.
-     */
+
 
     private final AHRS gyro;
     public GyroBalanceSubsystem() {
         gyro = new AHRS(Constants.gyroPort);
     }
 
-    /**
-     * Example command factory method.
-     *
-     * @return a command
-     */
+
     public CommandBase exampleMethodCommand() {
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
         return runOnce(
                 () -> {
-                    /* one-time action goes here */
                 });
     }
 
-    /**
-     * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-     *
-     * @return value of some boolean subsystem state, such as a digital sensor.
-     */
+
     public boolean exampleCondition() {
-        // Query some boolean state, such as a digital sensor.
         return false;
     }
 
     @Override
     public void periodic() {
-        // This method will be called once per scheduler run
+
     }
 
     @Override
     public void simulationPeriodic() {
-        // This method will be called once per scheduler run during simulation
+
 
         SmartDashboard.putNumber("Gyro roll", gyro.getRoll());
         SmartDashboard.putNumber("Gyro Pitch", gyro.getPitch());

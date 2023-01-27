@@ -9,7 +9,7 @@ public class BalanceCommand extends CommandBase {
 
     private final GyroBalanceSubsystem gyroBalanceSubsystem;
 
-    private final double tolerance = 0.2;
+    private final double tolerance = 5.0;
 
     private double pitch;
 

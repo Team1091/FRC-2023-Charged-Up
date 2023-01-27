@@ -12,8 +12,10 @@ public class ClawSubsystem extends SubsystemBase {
     private CANSparkMax motor;
     private DoubleSolenoid rightSolenoid;
     private DoubleSolenoid leftSolenoid;
+
+    private boolean rightIn;
+    private boolean leftIn;
     public ClawSubsystem() {
-        motor = new CANSparkMax(Constants.armMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
         rightSolenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
                 Constants.armInChannel,
                 Constants.armOutChannel);
@@ -21,22 +23,34 @@ public class ClawSubsystem extends SubsystemBase {
         leftSolenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
                 Constants.armInChannel,
                 Constants.armOutChannel);
+        rightIn = false;
+        leftIn = false;
     }
 
     public void rightIn() {
         rightSolenoid.set(DoubleSolenoid.Value.kForward);
+        rightIn=true;
     }
 
     public void rightOut() {
         rightSolenoid.set(DoubleSolenoid.Value.kReverse);
+        rightIn=false;
     }
 
     public void leftIn() {
         leftSolenoid.set(DoubleSolenoid.Value.kForward);
+        leftIn=true;
     }
 
     public void leftOut() {
         leftSolenoid.set(DoubleSolenoid.Value.kReverse);
+        leftIn=false;
+    }
+    public boolean isRightIn() {
+        return rightIn;
+    }
+    public boolean isLeftIn() {
+        return leftIn;
     }
 
 

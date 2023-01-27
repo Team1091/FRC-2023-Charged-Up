@@ -25,10 +25,10 @@ public class ArmMovementCommand extends CommandBase {
      *
      * @param subsystem The subsystem used by this command.
      */
-    public ArmMovementCommand(ArmSubsystem subsystem, double controlInput) {
+    public ArmMovementCommand(ArmSubsystem subsystem, double speed) {
         armSubsystem = subsystem;
         this.automatic = 0; //will respond to joystick commands
-        armMotorSpeed = controlInput;
+        armMotorSpeed = speed;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(armSubsystem);
     }
