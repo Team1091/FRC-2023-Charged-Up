@@ -9,7 +9,7 @@ public class BalanceCommand extends CommandBase {
 
     private final GyroBalanceSubsystem gyroBalanceSubsystem;
 
-    private final double tol = 0.2;
+    private final double tolerance = 0.2;
 
     private double pitch;
 
@@ -30,7 +30,7 @@ public class BalanceCommand extends CommandBase {
     @Override
     public void execute(){
         pitch = gyroBalanceSubsystem.getPitch();
-        if (Math.abs(pitch) < tol){
+        if (Math.abs(pitch) < tolerance){
             return;
         }
 
