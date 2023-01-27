@@ -16,8 +16,8 @@ public class BalanceCommand extends CommandBase {
     private final double speed = 0.25;
     public BalanceCommand(GyroBalanceSubsystem gyroBalanceSubsystem, DriveTrainSubsystem driveTrainSubsystem, DriveTrainSubsystem driveTrainSubsystem1, GyroBalanceSubsystem gyroBalanceSubsystem1){
 
-        this.driveTrainSubsystem = driveTrainSubsystem1;
-        this.gyroBalanceSubsystem = gyroBalanceSubsystem1;
+        this.driveTrainSubsystem = driveTrainSubsystem;
+        this.gyroBalanceSubsystem = gyroBalanceSubsystem;
         addRequirements(this.driveTrainSubsystem);
         addRequirements(this.gyroBalanceSubsystem);
     }
@@ -49,6 +49,10 @@ public class BalanceCommand extends CommandBase {
 
     @Override
     public boolean isFinished(){
+
+        if (Math.abs(gyroBalanceSubsystem.getPitch() )< tolerance){
+            return true;
+        }
         return false;
     }
 
