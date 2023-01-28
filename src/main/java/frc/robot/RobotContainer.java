@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
@@ -101,6 +102,8 @@ public class RobotContainer {
         for (StartingPositions p : StartingPositions.values()) {
             startPosChooser.addOption(p.name(), p);
         }
+        startPosChooser.setDefaultOption(StartingPositions.A.name(), StartingPositions.A);
+        SmartDashboard.putData(startPosChooser);
     }
 
     /**
@@ -134,9 +137,26 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         //Getting smart-dashboard value
-//      StartingPositions startPos = startPosChooser.getSelected();
-//      SmartDashboard.putString("Current Auto Start Config",startPos.name());
+      StartingPositions startPos = startPosChooser.getSelected();
+      SmartDashboard.putString("Current Auto Start Config",startPos.name());
         Command customCommand = new DistanceDriveCommand(driveTrainSubsystem,0.0);  //new VisionTargetCommand(driveTrainSubsystem, aprilTagVisionSubsystem, 1);// "-" Means forwards for some reason
+       if (startPos == StartingPositions.A){
+           customCommand = new SequentialCommandGroup(
+
+           );
+       } else if (startPos == StartingPositions.B){
+           customCommand = new SequentialCommandGroup(
+
+           );
+       } else if (startPos == StartingPositions.C){
+           customCommand = new SequentialCommandGroup(
+
+           );
+       } else if (startPos == StartingPositions.D){
+           customCommand = new SequentialCommandGroup(
+
+           );
+       }
         return customCommand;
     }
 }
