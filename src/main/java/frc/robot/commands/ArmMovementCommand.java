@@ -5,35 +5,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ArmPosition;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 
-/**
- * An example command that uses an example subsystem.
- */
+
 public class ArmMovementCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final ArmSubsystem armSubsystem;
-    private int automatic;
+    private ArmPosition automatic;
     private double armMotorSpeed;
     private DriveTrainSubsystem driveTrainSubsystem;
 
-    /**
-     * Creates a new ExampleCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
     public ArmMovementCommand(ArmSubsystem subsystem, double speed) {
         armSubsystem = subsystem;
-        this.automatic = 0; //will respond to joystick commands
+        automatic = null; //will respond to joystick commands
         armMotorSpeed = speed;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(armSubsystem);
     }
 
-    public ArmMovementCommand(ArmSubsystem subsystem, int automatic, DriveTrainSubsystem driveTrainSubsystem) {
+    public ArmMovementCommand(ArmSubsystem subsystem, ArmPosition automatic, DriveTrainSubsystem driveTrainSubsystem) {
         armSubsystem = subsystem;
         this.automatic = automatic; //1 is lowest position, 2 is middle position, 3 is highest position
         // Use addRequirements() here to declare subsystem dependencies.
@@ -48,36 +42,38 @@ public class ArmMovementCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (automatic == 0) {
+        if (automatic == null) {
             armSubsystem.setMotor(armMotorSpeed);
+            return;
         }
 
+
         switch (automatic){
-            case 1:
-                if(armSubsystem.getMotorPosition() > Constants.groundEncoderPosition){
-                    armSubsystem.setMotor(-0.5);
-                }else if(armSubsystem.getMotorPosition() < Constants.groundEncoderPosition){
-                    armSubsystem.setMotor(0.5);
-                }else{
-                    //do nothing
+            case HIGH:
+                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.HIGH.encoderPosition) < Constants.armEncoderThreshold) {
+                    if (armSubsystem.getMotorPosition() > ArmPosition.HIGH.encoderPosition) {
+                        armSubsystem.setMotor(0.5);
+                    } else {
+                        armSubsystem.setMotor(-0.5);
+                    }
                 }
                 break;
-            case 2:
-                if(armSubsystem.getMotorPosition() > Constants.middleEncoderPosition){
-                    armSubsystem.setMotor(-0.5);
-                }else if(armSubsystem.getMotorPosition() < Constants.middleEncoderPosition){
-                    armSubsystem.setMotor(0.5);
-                }else{
-                    //do nothing
+            case MIDDLE:
+                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.MIDDLE.encoderPosition) < Constants.armEncoderThreshold) {
+                    if (armSubsystem.getMotorPosition() > ArmPosition.MIDDLE.encoderPosition) {
+                        armSubsystem.setMotor(0.5);
+                    } else {
+                        armSubsystem.setMotor(-0.5);
+                    }
                 }
                 break;
-            case 3:
-                if(armSubsystem.getMotorPosition() > Constants.highestEncoderPosition){
-                    armSubsystem.setMotor(-0.5);
-                }else if(armSubsystem.getMotorPosition() < Constants.highestEncoderPosition){
-                    armSubsystem.setMotor(0.5);
-                }else{
-                    //do nothing
+            case GROUND:
+                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.GROUND.encoderPosition) < Constants.armEncoderThreshold) {
+                    if (armSubsystem.getMotorPosition() > ArmPosition.GROUND.encoderPosition) {
+                        armSubsystem.setMotor(0.5);
+                    } else {
+                        armSubsystem.setMotor(-0.5);
+                    }
                 }
                 break;
         }
