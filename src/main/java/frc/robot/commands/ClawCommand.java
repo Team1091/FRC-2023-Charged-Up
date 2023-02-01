@@ -13,12 +13,10 @@ public class ClawCommand extends CommandBase {
 
     private final ColorSubsystem colorSubsystem;
     private boolean closeClaw;
-    private int counter;
     public ClawCommand(ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, boolean closeClaw) {
         this.clawSubsystem = clawSubsystem;
         this.colorSubsystem = colorSubsystem;
         this.closeClaw = closeClaw;
-        counter = 0;
         addRequirements(clawSubsystem);
     }
     @Override
@@ -42,12 +40,11 @@ public class ClawCommand extends CommandBase {
             clawSubsystem.rightOut();
             clawSubsystem.leftOut();
         }
-        counter += 1;
+
 
     }
     @Override
     public boolean isFinished() {
-        if (counter >= 3) return true;
-        return false;
+        return true;
     }
 }

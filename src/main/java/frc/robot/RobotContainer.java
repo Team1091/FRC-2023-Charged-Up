@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.utils.Rotation;
 import org.photonvision.PhotonCamera;
 //hi
 
@@ -36,6 +37,11 @@ public class RobotContainer {
 
     private final PoseEstimationSubsystem poseEstimationSubsystem = new PoseEstimationSubsystem(photonCamera, driveTrainSubsystem, gyroSubsystem);
 
+    private final ClawSubsystem clawSubsystem = new ClawSubsystem();
+
+    private final ArmSubsystem armSubsystem = new ArmSubsystem();
+    private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
+    private final ColorSubsystem colorSubsystem = new ColorSubsystem(photonColorVisionSubsystem);
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 
 
@@ -139,24 +145,32 @@ public class RobotContainer {
         //Getting smart-dashboard value
       StartingPositions startPos = startPosChooser.getSelected();
       SmartDashboard.putString("Current Auto Start Config",startPos.name());
-        Command customCommand = new DistanceDriveCommand(driveTrainSubsystem,0.0);  //new VisionTargetCommand(driveTrainSubsystem, aprilTagVisionSubsystem, 1);// "-" Means forwards for some reason
        if (startPos == StartingPositions.A){
-           customCommand = new SequentialCommandGroup(
+            return new SequentialCommandGroup(
+                    new ArmMovementCommand(armSubsystem,ArmPosition.HIGH,driveTrainSubsystem),
+                    new ClawCommand(clawSubsystem, colorSubsystem, false),
+                    new ArmMovementCommand(armSubsystem, ArmPosition.GROUND, driveTrainSubsystem),
+                    new DistanceDriveCommand(driveTrainSubsystem, -100000.0),
+                    new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(180).toRadians()),
+                    new ArmMovementCommand(armSubsystem, ArmPosition.MIDDLE, driveTrainSubsystem),
+                    new ClawCommand(clawSubsystem, colorSubsystem, true),
+                    new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(180).toRadians()),
+                    new DistanceDriveCommand(driveTrainSubsystem, 100000.0),
+                    new ArmMovementCommand(armSubsystem, ArmPosition.GROUND, driveTrainSubsystem),
+                    new ClawCommand(clawSubsystem, colorSubsystem, false)
 
-           );
+            );
+
        } else if (startPos == StartingPositions.B){
-           customCommand = new SequentialCommandGroup(
+           return new SequentialCommandGroup();
 
-           );
        } else if (startPos == StartingPositions.C){
-           customCommand = new SequentialCommandGroup(
+           return new SequentialCommandGroup();
 
-           );
        } else if (startPos == StartingPositions.D){
-           customCommand = new SequentialCommandGroup(
+           return new SequentialCommandGroup();
 
-           );
        }
-        return customCommand;
+        return new SequentialCommandGroup();
     }
 }

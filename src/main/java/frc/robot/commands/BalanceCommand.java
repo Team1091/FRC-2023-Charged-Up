@@ -44,12 +44,13 @@ public class BalanceCommand extends CommandBase {
 
     @Override
     public void end(boolean end){
-
+        //break
+        driveTrainSubsystem.mecanumDrive(0,0,0);
     }
 
     @Override
     public boolean isFinished(){
-
+        //this will not work, you'll drive past 0
         if (Math.abs(gyroBalanceSubsystem.getPitch() )< tolerance){
             return true;
         }
