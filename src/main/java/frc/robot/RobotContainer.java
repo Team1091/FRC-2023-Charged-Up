@@ -149,14 +149,14 @@ public class RobotContainer {
             return new SequentialCommandGroup(
                     new ArmMovementCommand(armSubsystem,ArmPosition.HIGH,driveTrainSubsystem),
                     new ClawCommand(clawSubsystem, colorSubsystem, false),
-                    new ArmMovementCommand(armSubsystem, ArmPosition.GROUND, driveTrainSubsystem),
+                    new ArmMovementCommand(armSubsystem, ArmPosition.GROUND, driveTrainSubsystem),//change Ground to In
                     new DistanceDriveCommand(driveTrainSubsystem, -100000.0),
                     new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(180).toRadians()),
                     new ArmMovementCommand(armSubsystem, ArmPosition.MIDDLE, driveTrainSubsystem),
                     new ClawCommand(clawSubsystem, colorSubsystem, true),
                     new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(180).toRadians()),
                     new DistanceDriveCommand(driveTrainSubsystem, 100000.0),
-                    new ArmMovementCommand(armSubsystem, ArmPosition.GROUND, driveTrainSubsystem),
+                    new ArmMovementCommand(armSubsystem, ArmPosition.GROUND, driveTrainSubsystem), //change Ground to In
                     new ClawCommand(clawSubsystem, colorSubsystem, false)
 
             );
