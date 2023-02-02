@@ -13,7 +13,7 @@ import frc.robot.subsystems.GyroBalanceSubsystem;
 /**
  * An example command that uses an example subsystem.
  */
-public class StabilizePitchRollCommand extends CommandBase {
+public class StabilizePitchRollCommand extends CommandBase { //WE DO NOT USE THIS, Delete Once we make sure balance command works
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final GyroBalanceSubsystem gyroSubsystem;
     private final DriveTrainSubsystem driveSubsystem;

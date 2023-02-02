@@ -13,19 +13,20 @@ public class PositionACommand extends SequentialCommandGroup {
     private double toCubeORCone = 100000.0;//Set Proper distance
     private double rotationAmount = 180;
     public PositionACommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem, GyroBalanceSubsystem gyroBalanceSubsystem, PoseEstimationSubsystem poseEstimationSubsystem){
-        addCommands( new ArmMovementCommand(armSubsystem, ArmPosition.HIGH,driveTrainSubsystem),
+        addCommands(
+                new ArmMovementCommand(armSubsystem, ArmPosition.HIGH),
                 new ClawCommand(clawSubsystem, colorSubsystem, false),
-                new ArmMovementCommand(armSubsystem, ArmPosition.IN, driveTrainSubsystem),
+                new ArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new DistanceDriveCommand(driveTrainSubsystem, -toCubeORCone),
                 new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
-                new ArmMovementCommand(armSubsystem, ArmPosition.MIDDLE, driveTrainSubsystem),
+                new ArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
                 new ClawCommand(clawSubsystem, colorSubsystem, true),
                 new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
-                new ArmMovementCommand(armSubsystem, ArmPosition.IN, driveTrainSubsystem),
-                new ClawCommand(clawSubsystem, colorSubsystem, false));
-                new DriveToPoseCommand(driveTrainSubsystem,poseEstimationSubsystem, chargingStation);
-                new BalanceCommand(gyroBalanceSubsystem, driveTrainSubsystem);
+                new ArmMovementCommand(armSubsystem, ArmPosition.IN),
+                new ClawCommand(clawSubsystem, colorSubsystem, false),
+                new DriveToPoseCommand(driveTrainSubsystem,poseEstimationSubsystem, chargingStation),
+                new BalanceCommand(gyroBalanceSubsystem, driveTrainSubsystem));
 
     }
 }

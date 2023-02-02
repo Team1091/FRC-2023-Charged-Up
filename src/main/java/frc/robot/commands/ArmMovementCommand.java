@@ -17,7 +17,7 @@ public class ArmMovementCommand extends CommandBase {
     private final ArmSubsystem armSubsystem;
     private ArmPosition automatic;
     private double armMotorSpeed;
-    private DriveTrainSubsystem driveTrainSubsystem;
+
 
     public ArmMovementCommand(ArmSubsystem subsystem, double speed) {
         armSubsystem = subsystem;
@@ -27,7 +27,7 @@ public class ArmMovementCommand extends CommandBase {
         addRequirements(armSubsystem);
     }
 
-    public ArmMovementCommand(ArmSubsystem subsystem, ArmPosition automatic, DriveTrainSubsystem driveTrainSubsystem) {
+    public ArmMovementCommand(ArmSubsystem subsystem, ArmPosition automatic) {
         armSubsystem = subsystem;
         this.automatic = automatic; //1 is lowest position, 2 is middle position, 3 is highest position
         // Use addRequirements() here to declare subsystem dependencies.

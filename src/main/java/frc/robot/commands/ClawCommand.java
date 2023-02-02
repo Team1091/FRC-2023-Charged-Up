@@ -26,23 +26,22 @@ public class ClawCommand extends CommandBase {
 
     @Override
     public void execute(){
-
-        if (closeClaw){
-            if(colorSubsystem.getGamePiece() == GamePieceType.CONE){
-                clawSubsystem.rightIn();
-                clawSubsystem.leftIn();
-            } else if (colorSubsystem.getGamePiece() == GamePieceType.CUBE){
-                clawSubsystem.rightIn();
-            } else if(colorSubsystem.getGamePiece() == GamePieceType.NONE){
-                //do nothing
-            }
-        } else {
+        if (!closeClaw){
             clawSubsystem.rightOut();
             clawSubsystem.leftOut();
+            return;
         }
 
+        if(colorSubsystem.getGamePiece() == GamePieceType.CONE){
+            clawSubsystem.rightIn();
+            clawSubsystem.leftIn();
+        }
 
+        if (colorSubsystem.getGamePiece() == GamePieceType.CUBE){
+            clawSubsystem.rightIn();
+        }
     }
+
     @Override
     public boolean isFinished() {
         return true;

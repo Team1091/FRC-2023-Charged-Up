@@ -51,10 +51,8 @@ public class BalanceCommand extends CommandBase {
     @Override
     public boolean isFinished(){
         //this will not work, you'll drive past 0
-        if (Math.abs(gyroBalanceSubsystem.getPitch() )< tolerance){
-            return true;
-        }
-        return false;
+            return Math.abs(gyroBalanceSubsystem.getPitch() )< tolerance;
+
     }
 
 }
