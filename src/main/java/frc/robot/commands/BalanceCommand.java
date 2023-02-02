@@ -14,7 +14,7 @@ public class BalanceCommand extends CommandBase {
     private double pitch;
 
     private final double speed = 0.25;
-    public BalanceCommand(GyroBalanceSubsystem gyroBalanceSubsystem, DriveTrainSubsystem driveTrainSubsystem, DriveTrainSubsystem driveTrainSubsystem1, GyroBalanceSubsystem gyroBalanceSubsystem1){
+    public BalanceCommand(GyroBalanceSubsystem gyroBalanceSubsystem, DriveTrainSubsystem driveTrainSubsystem){
 
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.gyroBalanceSubsystem = gyroBalanceSubsystem;

@@ -15,8 +15,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
+import frc.robot.commands.AutoStartCommands.PositionBCommand;
+import frc.robot.commands.AutoStartCommands.PositionACommand;
+import frc.robot.commands.AutoStartCommands.PositionCCommand;
+import frc.robot.commands.AutoStartCommands.PositionDCommand;
 import frc.robot.subsystems.*;
-import frc.robot.utils.Rotation;
 import org.photonvision.PhotonCamera;
 //hi
 
@@ -42,6 +45,7 @@ public class RobotContainer {
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
     private final ColorSubsystem colorSubsystem = new ColorSubsystem(photonColorVisionSubsystem);
+
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 
 
@@ -143,34 +147,20 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         //Getting smart-dashboard value
-      StartingPositions startPos = startPosChooser.getSelected();
-      SmartDashboard.putString("Current Auto Start Config",startPos.name());
-       if (startPos == StartingPositions.A){
-            return new SequentialCommandGroup(
-                    new ArmMovementCommand(armSubsystem,ArmPosition.HIGH,driveTrainSubsystem),
-                    new ClawCommand(clawSubsystem, colorSubsystem, false),
-                    new ArmMovementCommand(armSubsystem, ArmPosition.GROUND, driveTrainSubsystem),//change Ground to In
-                    new DistanceDriveCommand(driveTrainSubsystem, -100000.0),
-                    new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(180).toRadians()),
-                    new ArmMovementCommand(armSubsystem, ArmPosition.MIDDLE, driveTrainSubsystem),
-                    new ClawCommand(clawSubsystem, colorSubsystem, true),
-                    new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(180).toRadians()),
-                    new DistanceDriveCommand(driveTrainSubsystem, 100000.0),
-                    new ArmMovementCommand(armSubsystem, ArmPosition.GROUND, driveTrainSubsystem), //change Ground to In
-                    new ClawCommand(clawSubsystem, colorSubsystem, false)
+        StartingPositions startPos = startPosChooser.getSelected();
+        SmartDashboard.putString("Current Auto Start Config", startPos.name());
+        switch (startPos) {
 
-            );
-
-       } else if (startPos == StartingPositions.B){
-           return new SequentialCommandGroup();
-
-       } else if (startPos == StartingPositions.C){
-           return new SequentialCommandGroup();
-
-       } else if (startPos == StartingPositions.D){
-           return new SequentialCommandGroup();
-
-       }
-        return new SequentialCommandGroup();
+            case A:
+                return new PositionBCommand(armSubsystem, clawSubsystem, colorSubsystem, driveTrainSubsystem);
+            case B:
+                return new PositionACommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem, gyroSubsystem,poseEstimationSubsystem);
+            case C:
+                return new PositionCCommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
+            case D:
+                return new PositionDCommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem);
+            default:
+                return new SequentialCommandGroup();
+        }
     }
 }
