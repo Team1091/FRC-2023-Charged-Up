@@ -90,7 +90,7 @@ public class Constants { //put final here
     public final static int armInChannel = -1;
     public final static int armOutChannel = -1;
 
-
+    public final static double lowestEncoderPosition = 0;
     public final static double groundEncoderPosition = 378;
     public final static double middleEncoderPosition = 3780;
     public final static double highestEncoderPosition = 1000000;
