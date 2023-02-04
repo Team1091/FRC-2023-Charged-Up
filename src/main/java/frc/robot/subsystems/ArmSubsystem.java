@@ -14,6 +14,8 @@ public class ArmSubsystem extends SubsystemBase {
     private DoubleSolenoid solenoid;
     private double motorSpeed;
 
+    private boolean armIn = true;
+
     public ArmSubsystem() {
         motor = new CANSparkMax(Constants.armMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
         solenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
@@ -24,12 +26,17 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void armIn() {
         solenoid.set(DoubleSolenoid.Value.kForward);
+        armIn = true;
     }
 
     public void armOut() {
         solenoid.set(DoubleSolenoid.Value.kReverse);
+        armIn = false;
     }
 
+    public  boolean isArmIn(){
+        return armIn;
+    }
     public void setMotor(double speed) {
         motorSpeed = speed;
     }
