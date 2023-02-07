@@ -72,7 +72,11 @@ public class PhotonColorVisionSubsystem extends SubsystemBase implements IAprilV
 
 
     public int getColoredObjectID() {
-        return photonCamera.getLatestResult().getBestTarget().getFiducialId();
+        var res=photonCamera.getLatestResult();
+        var bestTarget = (res!=null)? res.getBestTarget():null;
+
+
+        return (bestTarget!=null)? bestTarget.getFiducialId():-1;
     }
 
     public List<AprilTagLocation> getAllTargets() { //TODO depreciated does not work as intended

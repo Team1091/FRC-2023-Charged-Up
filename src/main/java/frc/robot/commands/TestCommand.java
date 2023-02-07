@@ -31,11 +31,11 @@ public class TestCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (armSubsystem.isArmIn()){
-            armSubsystem.armOut();
-        }else{
-            armSubsystem.armIn();
-        }
+//        if (armSubsystem.isArmIn()){
+//            armSubsystem.armOut();
+//        }else{
+//            armSubsystem.armIn();
+//        }
     }
 
     // Called once the command ends or is interrupted.

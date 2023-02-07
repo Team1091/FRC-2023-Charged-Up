@@ -28,6 +28,8 @@ import static edu.wpi.first.math.util.Units.inchesToMeters;
 public class Constants { //put final here
     public static double deadzone = 0.1;
 
+    public final static int armMotorChannel = 5;
+
     public static final class DriveTrain {
         public final static int backLeftMotorChannel = 2;
         public final static int frontLeftMotorChannel = 1;
@@ -86,9 +88,8 @@ public class Constants { //put final here
 
     public final static double meterToRealMeter = 19.5243986;
 
-    public final static int armMotorChannel = -1;
-    public final static int armInChannel = -1;
-    public final static int armOutChannel = -1;
+//    public final static int armInChannel = -1;
+//    public final static int armOutChannel = -1;
 
     public final static double lowestEncoderPosition = 0;
     public final static double groundEncoderPosition = 378;

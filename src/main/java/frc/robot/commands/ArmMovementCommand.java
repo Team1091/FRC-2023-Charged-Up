@@ -42,51 +42,51 @@ public class ArmMovementCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (automatic == null) {
-            armSubsystem.setMotor(armMotorSpeed);
-            return;
-        }
-
-
-        switch (automatic){
-            case HIGH:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.HIGH.encoderPosition) < Constants.armEncoderThreshold) {
-                    if (armSubsystem.getMotorPosition() > ArmPosition.HIGH.encoderPosition) {
-                        armSubsystem.setMotor(0.5);
-                    } else {
-                        armSubsystem.setMotor(-0.5);
-                    }
-                }
-                break;
-            case MIDDLE:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.MIDDLE.encoderPosition) < Constants.armEncoderThreshold) {
-                    if (armSubsystem.getMotorPosition() > ArmPosition.MIDDLE.encoderPosition) {
-                        armSubsystem.setMotor(0.5);
-                    } else {
-                        armSubsystem.setMotor(-0.5);
-                    }
-                }
-                break;
-            case GROUND:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.GROUND.encoderPosition) < Constants.armEncoderThreshold) {
-                    if (armSubsystem.getMotorPosition() > ArmPosition.GROUND.encoderPosition) {
-                        armSubsystem.setMotor(0.5);
-                    } else {
-                        armSubsystem.setMotor(-0.5);
-                    }
-                }
-                break;
-        }
+//        if (automatic == null) {
+//            armSubsystem.setMotor(armMotorSpeed);
+//            return;
+//        }
+//
+//
+//        switch (automatic){
+//            case HIGH:
+//                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.HIGH.encoderPosition) < Constants.armEncoderThreshold) {
+//                    if (armSubsystem.getMotorPosition() > ArmPosition.HIGH.encoderPosition) {
+//                        armSubsystem.setMotor(0.5);
+//                    } else {
+//                        armSubsystem.setMotor(-0.5);
+//                    }
+//                }
+//                break;
+//            case MIDDLE:
+//                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.MIDDLE.encoderPosition) < Constants.armEncoderThreshold) {
+//                    if (armSubsystem.getMotorPosition() > ArmPosition.MIDDLE.encoderPosition) {
+//                        armSubsystem.setMotor(0.5);
+//                    } else {
+//                        armSubsystem.setMotor(-0.5);
+//                    }
+//                }
+//                break;
+//            case GROUND:
+//                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.GROUND.encoderPosition) < Constants.armEncoderThreshold) {
+//                    if (armSubsystem.getMotorPosition() > ArmPosition.GROUND.encoderPosition) {
+//                        armSubsystem.setMotor(0.5);
+//                    } else {
+//                        armSubsystem.setMotor(-0.5);
+//                    }
+//                }
+//                break;
+//        }
 
     }
 
     public void moveArmDownSlightly() {
-        double pastEncoderPos = armSubsystem.getMotorPosition();
-        while (armSubsystem.getMotorPosition() > (pastEncoderPos + Constants.armMoveDownEncoderTicks)) {
-            armSubsystem.setMotor(-0.1);
-        }
-
-        armSubsystem.setMotor(0.0);
+//        double pastEncoderPos = armSubsystem.getMotorPosition();
+//        while (armSubsystem.getMotorPosition() > (pastEncoderPos + Constants.armMoveDownEncoderTicks)) {
+//            armSubsystem.setMotor(-0.1);
+//        }
+//
+//        armSubsystem.setMotor(0.0);
     }
 
     // Called once the command ends or is interrupted.
