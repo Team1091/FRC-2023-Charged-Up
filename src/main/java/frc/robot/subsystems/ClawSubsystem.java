@@ -16,15 +16,15 @@ public class ClawSubsystem extends SubsystemBase {
     private boolean rightIn;
     private boolean leftIn;
     public ClawSubsystem() {
-//        rightSolenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
-//                Constants.armInChannel,
-//                Constants.armOutChannel);
-//
-//        leftSolenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
-//                Constants.armInChannel,
-//                Constants.armOutChannel);
-//        rightIn = false;
-//        leftIn = false;
+        rightSolenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
+                Constants.rightInChannel,
+                Constants.rightOutChannel);
+
+        leftSolenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
+                Constants.leftInChannel,
+                Constants.leftOutChannel);
+        rightIn = false;
+        leftIn = false;
     }
 
     public void rightIn() {
