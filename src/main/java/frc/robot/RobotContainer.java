@@ -45,6 +45,7 @@ public class RobotContainer {
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
     private final ColorSubsystem colorSubsystem = new ColorSubsystem(photonColorVisionSubsystem);
+    private final CompressorSubsystem compressorSubsystem = new CompressorSubsystem();
 
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
 
@@ -109,6 +110,9 @@ public class RobotContainer {
                         }
                 )
         );
+
+        //start da compressor
+        compressorSubsystem.enableDaCompressor();
 
 
         for (StartingPositions p : StartingPositions.values()) {
