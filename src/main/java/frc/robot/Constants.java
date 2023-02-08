@@ -31,10 +31,10 @@ public class Constants { //put final here
     public final static int armMotorChannel = 5;
 
     public static final class DriveTrain {
-        public final static int backLeftMotorChannel = 2;
-        public final static int frontLeftMotorChannel = 1;
-        public final static int frontRightMotorChannel = 3;
-        public final static int backRightMotorChannel = 4;
+        public final static int backLeftMotorChannel = 1;
+        public final static int frontLeftMotorChannel = 2;
+        public final static int frontRightMotorChannel = 4;
+        public final static int backRightMotorChannel = 3;
         public final static double originTolerance = 0.3;
         public final static double wheelDiameterInches = 8;
         public final static int ticksPerRotation = 10;
