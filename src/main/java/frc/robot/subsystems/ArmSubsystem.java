@@ -17,7 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
     private boolean armIn = true;
 
     public ArmSubsystem() {
-        motor = new CANSparkMax(Constants.armMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
+        motor = new CANSparkMax(Constants.armMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushed);
         solenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
                 Constants.armInChannel,
                 Constants.armOutChannel);

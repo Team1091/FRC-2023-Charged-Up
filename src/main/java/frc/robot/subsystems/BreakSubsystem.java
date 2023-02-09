@@ -8,7 +8,6 @@ import frc.robot.Constants;
 
 public class BreakSubsystem extends SubsystemBase {
 
-    private CANSparkMax motor;
     private DoubleSolenoid solenoid;
 
     private boolean in;
@@ -22,7 +21,7 @@ public class BreakSubsystem extends SubsystemBase {
 
     public void rightIn() {
         solenoid.set(DoubleSolenoid.Value.kReverse);
-        in =true;
+        in = true;
     }
 
     public void rightOut() {

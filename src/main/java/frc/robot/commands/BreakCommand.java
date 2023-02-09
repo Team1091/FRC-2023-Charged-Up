@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BreakSubsystem;
@@ -32,8 +33,10 @@ public class BreakCommand extends CommandBase {
     @Override
     public void execute() {
         if (!breakSubsystem.isIn()){
+            SmartDashboard.putString("breakPneumatic",  "it is out, I am putting it in");
             breakSubsystem.rightIn();
         }else{
+            SmartDashboard.putString("breakPneumatic",  "it is in, I am putting it out");
             breakSubsystem.rightOut();
         }
     }
