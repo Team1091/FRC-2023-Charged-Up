@@ -43,6 +43,8 @@ public class RobotContainer {
     private final ClawSubsystem clawSubsystem = new ClawSubsystem();
 
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
+
+    private final BreakSubsystem breakSubsystem = new BreakSubsystem();
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
     private final ColorSubsystem colorSubsystem = new ColorSubsystem(photonColorVisionSubsystem);
     private final CompressorSubsystem compressorSubsystem = new CompressorSubsystem();
@@ -58,6 +60,14 @@ public class RobotContainer {
                     new Rotation2d(10)
             )
     );
+
+    private final ArmMovementCommand armMovementCommandGround = new ArmMovementCommand(armSubsystem,ArmPosition.MIDDLE);
+    private final ArmMovementCommand armMovementCommandIn = new ArmMovementCommand(armSubsystem,ArmPosition.IN);
+
+    private final BreakCommand breakCommand = new BreakCommand(breakSubsystem);
+
+    private final ClawCommand clawCommandClose = new ClawCommand(clawSubsystem, colorSubsystem, true);
+    private final ClawCommand clawCommandOpen = new ClawCommand(clawSubsystem,colorSubsystem, false);
 
     private final TestCommand testCommand = new TestCommand(armSubsystem);
 
@@ -132,9 +142,11 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-//        controller.x().whileTrue(stabilizePitchRollCommand);
-     //controller.y().whileTrue(driveToPoseCommand);
+        controller.x().whileTrue(armMovementCommandGround);
         controller.a().onTrue(testCommand);
+        controller.y().onTrue(clawCommandClose);
+        controller.rightBumper().onTrue(clawCommandOpen);
+        controller.leftBumper().onTrue(breakCommand);
 
 
     }

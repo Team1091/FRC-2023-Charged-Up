@@ -12,11 +12,14 @@ public class ClawCommand extends CommandBase {
     private final ClawSubsystem clawSubsystem;
 
     private final ColorSubsystem colorSubsystem;
+
+    private final boolean cone = true;
     private boolean closeClaw;
     public ClawCommand(ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, boolean closeClaw) {
         this.clawSubsystem = clawSubsystem;
         this.colorSubsystem = colorSubsystem;
         this.closeClaw = closeClaw;
+
         addRequirements(clawSubsystem);
     }
     @Override
@@ -32,12 +35,12 @@ public class ClawCommand extends CommandBase {
             return;
         }
 
-        if(colorSubsystem.getGamePiece() == GamePieceType.CONE){
+        if(cone){//colorSubsystem.getGamePiece() == GamePieceType.CONE){
             clawSubsystem.rightIn();
             clawSubsystem.leftIn();
         }
 
-        if (colorSubsystem.getGamePiece() == GamePieceType.CUBE){
+        if (!cone){//colorSubsystem.getGamePiece() == GamePieceType.CUBE){
             clawSubsystem.rightIn();
         }
     }

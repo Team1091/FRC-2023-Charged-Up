@@ -6,21 +6,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.BreakSubsystem;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class TestCommand extends CommandBase {
+public class BreakCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final ArmSubsystem armSubsystem;
+    private final BreakSubsystem breakSubsystem;
 
 
 
-    public TestCommand(ArmSubsystem armSubsystem) {
-        this.armSubsystem = armSubsystem;
+    public BreakCommand(BreakSubsystem breakSubsystem) {
+        this.breakSubsystem = breakSubsystem;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(armSubsystem);
+        addRequirements(breakSubsystem);
     }
 
     // Called when the command is initially scheduled.
@@ -31,10 +31,10 @@ public class TestCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (armSubsystem.isArmIn()){
-            armSubsystem.armOut();
+        if (!breakSubsystem.isIn()){
+            breakSubsystem.rightIn();
         }else{
-            armSubsystem.armIn();
+            breakSubsystem.rightOut();
         }
     }
 
