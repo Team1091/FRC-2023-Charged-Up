@@ -8,29 +8,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ArmPosition;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+import org.jetbrains.annotations.NotNull;
 
-
-public class ArmMovementCommand extends CommandBase {
+public class AutoArmMovementCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    @NotNull
     private final ArmSubsystem armSubsystem;
-    private ArmPosition automatic;
-    private double armMotorSpeed;
+    @NotNull
+    private final ArmPosition automatic;
 
-
-    public ArmMovementCommand(ArmSubsystem subsystem, double speed) {
+    // Auto
+    public AutoArmMovementCommand(@NotNull ArmSubsystem subsystem, @NotNull ArmPosition automatic) {
         armSubsystem = subsystem;
-        automatic = null; //will respond to joystick commands
-        armMotorSpeed = speed;
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(armSubsystem);
-    }
-
-    public ArmMovementCommand(ArmSubsystem subsystem, ArmPosition automatic) {
-        armSubsystem = subsystem;
-        this.automatic = automatic; //1 is lowest position, 2 is middle position, 3 is highest position
-        // Use addRequirements() here to declare subsystem dependencies.
+        this.automatic = automatic;
         addRequirements(armSubsystem);
     }
 
@@ -42,15 +32,10 @@ public class ArmMovementCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (automatic == null) {
-            armSubsystem.setMotor(armMotorSpeed);
-            return;
-        }
-
-
-        switch (automatic){
+        switch (automatic) {
             case HIGH:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.HIGH.encoderPosition) < Constants.armEncoderThreshold) {
+                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.HIGH.encoderPosition) <
+                        Constants.armEncoderThreshold) {
                     if (armSubsystem.getMotorPosition() > ArmPosition.HIGH.encoderPosition) {
                         armSubsystem.setMotor(0.5);
                     } else {
@@ -59,7 +44,8 @@ public class ArmMovementCommand extends CommandBase {
                 }
                 break;
             case MIDDLE:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.MIDDLE.encoderPosition) < Constants.armEncoderThreshold) {
+                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.MIDDLE.encoderPosition) <
+                        Constants.armEncoderThreshold) {
                     if (armSubsystem.getMotorPosition() > ArmPosition.MIDDLE.encoderPosition) {
                         armSubsystem.setMotor(0.5);
                     } else {
@@ -68,7 +54,8 @@ public class ArmMovementCommand extends CommandBase {
                 }
                 break;
             case GROUND:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.GROUND.encoderPosition) < Constants.armEncoderThreshold) {
+                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.GROUND.encoderPosition) <
+                        Constants.armEncoderThreshold) {
                     if (armSubsystem.getMotorPosition() > ArmPosition.GROUND.encoderPosition) {
                         armSubsystem.setMotor(0.5);
                     } else {
@@ -76,8 +63,11 @@ public class ArmMovementCommand extends CommandBase {
                     }
                 }
                 break;
-        }
 
+            case INSIDE:
+                // TODO: yeah, probably should implement this
+                break;
+        }
     }
 
     public void moveArmDownSlightly() {

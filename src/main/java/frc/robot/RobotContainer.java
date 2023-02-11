@@ -61,8 +61,10 @@ public class RobotContainer {
             )
     );
 
-    private final ArmMovementCommand armMovementCommandGround = new ArmMovementCommand(armSubsystem,ArmPosition.MIDDLE);
-    private final ArmMovementCommand armMovementCommandIn = new ArmMovementCommand(armSubsystem,ArmPosition.IN);
+    private final AutoArmMovementCommand armMovementCommandGround =
+            new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE);
+    private final AutoArmMovementCommand armMovementCommandIn =
+            new AutoArmMovementCommand(armSubsystem, ArmPosition.IN);
 
     private final BreakCommand breakCommand = new BreakCommand(breakSubsystem);
 
