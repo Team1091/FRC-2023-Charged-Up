@@ -21,6 +21,8 @@ import frc.robot.commands.AutoStartCommands.PositionCCommand;
 import frc.robot.commands.AutoStartCommands.PositionDCommand;
 import frc.robot.subsystems.*;
 import org.photonvision.PhotonCamera;
+
+import java.util.function.Supplier;
 //hi
 
 /**
@@ -73,6 +75,11 @@ public class RobotContainer {
 
     private final TestCommand testCommand = new TestCommand(armSubsystem);
 
+    private final  ManualArmMovementCommand manualArmMovementCommandUP = new ManualArmMovementCommand(armSubsystem, ()->0.5);
+    private final ManualArmMovementCommand manualArmMovementCommandDown = new ManualArmMovementCommand(armSubsystem, ()->-0.5);
+
+
+
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController controller =
             new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -97,7 +104,7 @@ public class RobotContainer {
                 new MecanumDriveCommand(
                         driveTrainSubsystem,
                         () -> {
-                            var input = -controller.getLeftX(); //put negative here to change polarity
+                            var input = controller.getLeftX(); //put negative here to change polarity
                             if (controller.getHID().getBButton()) {
                                 input = input / 4;
                             }
@@ -107,7 +114,7 @@ public class RobotContainer {
                         () -> {
                             var input = -controller.getLeftY();
                             if (controller.getHID().getBButton()) {
-                                input = input / 4;
+                                input =  input / 4;
                             }
                             SmartDashboard.putNumber("forwards", input);
                             return deadZone(input);
@@ -144,11 +151,14 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        controller.x().whileTrue(armMovementCommandGround);
-        controller.a().onTrue(testCommand);
-        controller.y().onTrue(clawCommandClose);
-        controller.rightBumper().onTrue(clawCommandOpen);
-        controller.leftBumper().onTrue(breakCommand);
+       // controller.x().whileTrue(armMovementCommandGround);
+       // controller.a().onTrue(testCommand);
+        controller.a().onTrue(clawCommandClose);
+      controller.x().onTrue(clawCommandOpen);
+//        controller.leftBumper().onTrue(breakCommand);
+        controller.leftBumper().whileTrue(manualArmMovementCommandDown);
+        controller.rightBumper().whileTrue(manualArmMovementCommandUP);
+        controller.y().onTrue(testCommand);
 
 
     }
@@ -176,4 +186,6 @@ public class RobotContainer {
                 return new SequentialCommandGroup();
         }
     }
+
+
 }

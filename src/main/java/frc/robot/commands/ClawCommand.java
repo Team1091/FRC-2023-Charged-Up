@@ -13,7 +13,7 @@ public class ClawCommand extends CommandBase {
 
     private final ColorSubsystem colorSubsystem;
 
-    private final boolean cone = true;
+    private final boolean cone = false;
     private boolean closeClaw;
     public ClawCommand(ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, boolean closeClaw) {
         this.clawSubsystem = clawSubsystem;
