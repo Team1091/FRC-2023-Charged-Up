@@ -4,15 +4,11 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-import java.util.Arrays;
-
-import static edu.wpi.first.math.util.Units.inchesToMeters;
+import frc.robot.utils.PidMotorController;
 
 public class DriveTrainSubsystem extends SubsystemBase {
 
@@ -24,10 +20,22 @@ public class DriveTrainSubsystem extends SubsystemBase {
     double forwardBackwardVelocity, strafeVelocity, rotationVelocity = 0;
 
     public DriveTrainSubsystem() {
-        var frontLeftMotor = new CANSparkMax(Constants.DriveTrain.frontLeftMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
-        var backLeftMotor = new CANSparkMax(Constants.DriveTrain.backLeftMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
-        var frontRightMotor = new CANSparkMax(Constants.DriveTrain.frontRightMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
-        var backRightMotor = new CANSparkMax(Constants.DriveTrain.backRightMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
+        var frontLeftMotor = new CANSparkMax(
+                Constants.DriveTrain.frontLeftMotorChannel,
+                CANSparkMaxLowLevel.MotorType.kBrushless
+        );
+        var backLeftMotor = new CANSparkMax(
+                Constants.DriveTrain.backLeftMotorChannel,
+                CANSparkMaxLowLevel.MotorType.kBrushless
+        );
+        var frontRightMotor = new CANSparkMax(
+                Constants.DriveTrain.frontRightMotorChannel,
+                CANSparkMaxLowLevel.MotorType.kBrushless
+        );
+        var backRightMotor = new CANSparkMax(
+                Constants.DriveTrain.backRightMotorChannel,
+                CANSparkMaxLowLevel.MotorType.kBrushless
+        );
 
         frontRightMotor.setInverted(true);
         backRightMotor.setInverted(true);
@@ -37,11 +45,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
         backLeftEncoder = backLeftMotor.getEncoder();
         backRightEncoder = backRightMotor.getEncoder();
 
+        var maxSpeed = 10.0;
         mecanumDrive = new MecanumDrive(
-                frontLeftMotor,
-                backLeftMotor,
-                frontRightMotor,
-                backRightMotor);
+                new PidMotorController(frontLeftMotor, maxSpeed, 0.1, 0.01, 0.01),
+                new PidMotorController(backLeftMotor, maxSpeed, 0.1, 0.01, 0.01),
+                new PidMotorController(frontRightMotor, maxSpeed, 0.1, 0.01, 0.01),
+                new PidMotorController(backRightMotor, maxSpeed, 0.1, 0.01, 0.01)
+        );
     }
 
     @Override
@@ -59,8 +69,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
         this.strafeVelocity = strafeVelocity;
         this.forwardBackwardVelocity = forwardBackwardVelocity;
         this.rotationVelocity = rotationVelocity;
-
-
     }
 
     public double getFrontLeftEncoder() {
@@ -74,15 +82,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
     public MecanumDriveWheelPositions getWheelPositions() {
 
         return new MecanumDriveWheelPositions(
-            getEncoderDistance(frontLeftEncoder.getPosition()),
-            getEncoderDistance(frontRightEncoder.getPosition()),
-            getEncoderDistance(backLeftEncoder.getPosition()),
-            getEncoderDistance(backRightEncoder.getPosition())
+                getEncoderDistance(frontLeftEncoder.getPosition()),
+                getEncoderDistance(frontRightEncoder.getPosition()),
+                getEncoderDistance(backLeftEncoder.getPosition()),
+                getEncoderDistance(backRightEncoder.getPosition())
         );
     }
 
-    private double getEncoderDistance(double rotations){
-        return rotations/Constants.meterToRealMeter;
+    private double getEncoderDistance(double rotations) {
+        return rotations / Constants.meterToRealMeter;
 //        return Math.PI * inchesToMeters(Constants.DriveTrain.wheelDiameterInches) * rotations;
     }
 }

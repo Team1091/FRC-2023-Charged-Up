@@ -21,21 +21,21 @@ public class GyroBalanceSubsystem extends SubsystemBase {
     }
 
 
-    public CommandBase exampleMethodCommand() {
-        return runOnce(
-                () -> {
-                });
-    }
+//    public CommandBase exampleMethodCommand() {
+//        return runOnce(
+//                () -> {
+//                });
+//    }
 
+//
+//    public boolean exampleCondition() {
+//        return false;
+//    }
 
-    public boolean exampleCondition() {
-        return false;
-    }
-
-    @Override
-    public void periodic() {
-
-    }
+//    @Override
+//    public void periodic() {
+//
+//    }
 
     @Override
     public void simulationPeriodic() {
