@@ -88,7 +88,10 @@ public class Constants { //put final here
 
     public final static double meterToRealMeter = 19.5243986;
 
-    //pnuematic channel numbers
+    //pneumatic channel numbers
+    public final static  int pneumaticControl0 = 0;
+
+    public final static int pneumaticControl1 = 1;
     public final static int breakWheelIn = 0;
     public final static int breakWheelOut = 1;
     public final static int armInChannel = 2;

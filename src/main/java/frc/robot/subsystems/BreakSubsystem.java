@@ -12,7 +12,7 @@ public class BreakSubsystem extends SubsystemBase {
 
     private boolean in;
     public BreakSubsystem() {
-        solenoid = new DoubleSolenoid( PneumaticsModuleType.CTREPCM,
+        solenoid = new DoubleSolenoid( Constants.pneumaticControl0, PneumaticsModuleType.CTREPCM,
                 Constants.breakWheelIn,
                 Constants.breakWheelOut);
 
