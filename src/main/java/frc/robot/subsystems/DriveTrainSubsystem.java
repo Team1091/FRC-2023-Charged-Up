@@ -45,12 +45,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
         backLeftEncoder = backLeftMotor.getEncoder();
         backRightEncoder = backRightMotor.getEncoder();
 
-        var maxSpeed = 10.0;
+        var maxSpeed = 1000.0;
         mecanumDrive = new MecanumDrive(
-                new PidMotorController(frontLeftMotor, maxSpeed, 0.1, 0.01, 0.01),
-                new PidMotorController(backLeftMotor, maxSpeed, 0.1, 0.01, 0.01),
-                new PidMotorController(frontRightMotor, maxSpeed, 0.1, 0.01, 0.01),
-                new PidMotorController(backRightMotor, maxSpeed, 0.1, 0.01, 0.01)
+                new PidMotorController("fl",frontLeftMotor, maxSpeed, 0.01, 0.01, 0),
+                new PidMotorController("bl",backLeftMotor, maxSpeed, 0.01, 0.01, 0),
+                new PidMotorController("fr",frontRightMotor, maxSpeed, 0.01, 0.01, 0),
+                new PidMotorController("br",backRightMotor, maxSpeed, 0.01, 0.01, 0)
         );
     }
 
