@@ -19,6 +19,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final RelativeEncoder backRightEncoder;
     double forwardBackwardVelocity, strafeVelocity, rotationVelocity = 0;
 
+    private final boolean PIDToggle = false;
+
     public DriveTrainSubsystem() {
         var frontLeftMotor = new CANSparkMax(
                 Constants.DriveTrain.frontLeftMotorChannel,
@@ -45,13 +47,23 @@ public class DriveTrainSubsystem extends SubsystemBase {
         backLeftEncoder = backLeftMotor.getEncoder();
         backRightEncoder = backRightMotor.getEncoder();
 
-        var maxSpeed = 1000.0;
-        mecanumDrive = new MecanumDrive(
-                new PidMotorController("fl",frontLeftMotor, maxSpeed, 0.01, 0.01, 0),
-                new PidMotorController("bl",backLeftMotor, maxSpeed, 0.01, 0.01, 0),
-                new PidMotorController("fr",frontRightMotor, maxSpeed, 0.01, 0.01, 0),
-                new PidMotorController("br",backRightMotor, maxSpeed, 0.01, 0.01, 0)
-        );
+        if (PIDToggle) {
+            var maxSpeed = 1000.0;
+            mecanumDrive = new MecanumDrive(
+                    new PidMotorController("fl", frontLeftMotor, maxSpeed, 0.01, 0.01, 0),
+                    new PidMotorController("bl", backLeftMotor, maxSpeed, 0.01, 0.01, 0),
+                    new PidMotorController("fr", frontRightMotor, maxSpeed, 0.01, 0.01, 0),
+                    new PidMotorController("br", backRightMotor, maxSpeed, 0.01, 0.01, 0)
+            );
+        } else {
+            mecanumDrive = new MecanumDrive(
+                    frontLeftMotor,
+                    backLeftMotor,
+                    frontRightMotor,
+                    backRightMotor
+            );
+        }
+
     }
 
     @Override
@@ -70,6 +82,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         this.forwardBackwardVelocity = forwardBackwardVelocity;
         this.rotationVelocity = rotationVelocity;
     }
+
 
     public double getFrontLeftEncoder() {
         return frontLeftEncoder.getPosition();
