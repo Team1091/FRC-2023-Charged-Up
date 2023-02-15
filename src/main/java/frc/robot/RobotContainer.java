@@ -21,8 +21,6 @@ import frc.robot.commands.AutoStartCommands.PositionCCommand;
 import frc.robot.commands.AutoStartCommands.PositionDCommand;
 import frc.robot.subsystems.*;
 import org.photonvision.PhotonCamera;
-
-import java.util.function.Supplier;
 //hi
 
 /**
@@ -77,6 +75,7 @@ public class RobotContainer {
 
     private final  ManualArmMovementCommand manualArmMovementCommandUP = new ManualArmMovementCommand(armSubsystem, ()->0.5);
     private final ManualArmMovementCommand manualArmMovementCommandDown = new ManualArmMovementCommand(armSubsystem, ()->-0.5);
+    private final ToggleForwardBackward toggleForwardBackward = new ToggleForwardBackward(driveTrainSubsystem);
 
 
 
@@ -154,11 +153,13 @@ public class RobotContainer {
        // controller.x().whileTrue(armMovementCommandGround);
        // controller.a().onTrue(testCommand);
         controller.a().onTrue(clawCommandClose);
-      controller.x().onTrue(clawCommandOpen);
+        controller.x().onTrue(clawCommandOpen);
 //        controller.leftBumper().onTrue(breakCommand);
         controller.leftBumper().whileTrue(manualArmMovementCommandDown);
         controller.rightBumper().whileTrue(manualArmMovementCommandUP);
         controller.y().onTrue(testCommand);
+
+        controller.leftTrigger().onTrue(toggleForwardBackward);
 
 
     }

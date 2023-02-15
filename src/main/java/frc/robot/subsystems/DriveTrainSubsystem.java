@@ -23,6 +23,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final RelativeEncoder backRightEncoder;
     double forwardBackwardVelocity, strafeVelocity, rotationVelocity = 0;
 
+    private boolean forwardBackwardOnly = false;
+
     public DriveTrainSubsystem() {
         var frontLeftMotor = new CANSparkMax(Constants.DriveTrain.frontLeftMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
         var backLeftMotor = new CANSparkMax(Constants.DriveTrain.backLeftMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -55,10 +57,28 @@ public class DriveTrainSubsystem extends SubsystemBase {
                 rotationVelocity);
     }
 
+    public void toggleForwardBackward() {
+        if (forwardBackwardOnly == true){
+            forwardBackwardOnly = false;
+        } else{
+            forwardBackwardOnly = true;
+        }
+    }
+
+    public boolean getForwardBackward() {
+        return forwardBackwardOnly;
+    }
+
     public void mecanumDrive(double strafeVelocity, double forwardBackwardVelocity, double rotationVelocity) {
-        this.strafeVelocity = strafeVelocity;
-        this.forwardBackwardVelocity = forwardBackwardVelocity;
-        this.rotationVelocity = rotationVelocity;
+        if(forwardBackwardOnly == true){
+            this.strafeVelocity = 0;
+            this.forwardBackwardVelocity = forwardBackwardVelocity;
+            this.rotationVelocity = 0;
+        } else {
+            this.strafeVelocity = strafeVelocity;
+            this.forwardBackwardVelocity = forwardBackwardVelocity;
+            this.rotationVelocity = rotationVelocity;
+        }
 
 
     }
