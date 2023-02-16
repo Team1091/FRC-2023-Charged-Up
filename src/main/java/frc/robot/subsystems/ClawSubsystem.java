@@ -23,6 +23,8 @@ public class ClawSubsystem extends SubsystemBase {
         leftSolenoid = new DoubleSolenoid(Constants.pneumaticControl0, PneumaticsModuleType.CTREPCM,
                 Constants.leftInChannel,
                 Constants.leftOutChannel);
+        rightOut();
+        leftOut();
         rightIn = false;
         leftIn = false;
     }

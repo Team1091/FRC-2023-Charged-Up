@@ -73,6 +73,8 @@ public class RobotContainer {
 
     private final TestCommand testCommand = new TestCommand(armSubsystem);
 
+    private final TestCommand2 testCommand2 = new TestCommand2(armSubsystem);
+
     private final  ManualArmMovementCommand manualArmMovementCommandUP = new ManualArmMovementCommand(armSubsystem, ()->0.5);
     private final ManualArmMovementCommand manualArmMovementCommandDown = new ManualArmMovementCommand(armSubsystem, ()->-0.5);
     private final ToggleForwardBackward toggleForwardBackward = new ToggleForwardBackward(driveTrainSubsystem);
@@ -151,15 +153,16 @@ public class RobotContainer {
      */
     private void configureBindings() {
        // controller.x().whileTrue(armMovementCommandGround);
-       // controller.a().onTrue(testCommand);
+//       // controller.a().onTrue(testCommand);
         controller.a().onTrue(clawCommandClose);
         controller.x().onTrue(clawCommandOpen);
-//        controller.leftBumper().onTrue(breakCommand);
-        controller.leftBumper().whileTrue(manualArmMovementCommandDown);
-        controller.rightBumper().whileTrue(manualArmMovementCommandUP);
-        controller.y().onTrue(testCommand);
-
-        controller.leftTrigger().onTrue(toggleForwardBackward);
+        controller.y().onTrue(testCommand2);
+//        controller.rightTrigger().onTrue(breakCommand);
+//        controller.leftBumper().whileTrue(manualArmMovementCommandDown);
+//        controller.rightBumper().whileTrue(manualArmMovementCommandUP);
+//        controller.y().onTrue(testCommand);
+//
+//        controller.leftTrigger().onTrue(toggleForwardBackward);
 
 
     }

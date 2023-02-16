@@ -6,19 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
-
-public class ManualArmMovementCommand extends CommandBase {
+/**
+ * An example command that uses an example subsystem.
+ */
+public class TestCommand2 extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    @NotNull
     private final ArmSubsystem armSubsystem;
-    @NotNull private final Supplier<Double> armMotorSpeed;
 
-    public ManualArmMovementCommand(@NotNull ArmSubsystem subsystem, @NotNull Supplier<Double> speed) {
-        armSubsystem = subsystem;
-        armMotorSpeed = speed;
+
+
+    public TestCommand2(ArmSubsystem armSubsystem) {
+        this.armSubsystem = armSubsystem;
+        // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(armSubsystem);
     }
 
@@ -30,26 +30,21 @@ public class ManualArmMovementCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (armMotorSpeed.get() < 0){
+        if (armSubsystem.isBreakEngaged()){
             armSubsystem.setArmBreak(false);
-        }else {
+        }else{
             armSubsystem.setArmBreak(true);
         }
-        armSubsystem.setMotor(armMotorSpeed.get());
     }
-
-
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.setMotor(0);
-        armSubsystem.setArmBreak(true);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

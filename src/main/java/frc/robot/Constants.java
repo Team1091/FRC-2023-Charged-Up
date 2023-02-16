@@ -100,8 +100,8 @@ public class Constants { //put final here
     public final static int rightOutChannel = 5;
     public final static int leftInChannel = 6;
     public final static int leftOutChannel = 7;
-//    public final static int motorBreakIn = 8;
-//    public final static int motorBreakOut = 9;
+   public final static int motorBreakIn = 0;
+   public final static int motorBreakOut = 1;
 
     public final static double lowestEncoderPosition = 0;
     public final static double groundEncoderPosition = 378;
