@@ -9,7 +9,6 @@ public class CompressorSubsystem extends SubsystemBase {
     private Compressor pcmCompressor;
 
     public CompressorSubsystem() {
-        //TODO figure out what module it is, I put 0 just cause
         pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
     }
 

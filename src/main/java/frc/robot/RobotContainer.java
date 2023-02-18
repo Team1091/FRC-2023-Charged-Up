@@ -40,22 +40,7 @@ public class RobotContainer {
     private final ColorSubsystem colorSubsystem = new ColorSubsystem(photonColorVisionSubsystem);
     private final CompressorSubsystem compressorSubsystem = new CompressorSubsystem();
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
-    private final StabilizePitchRollCommand stabilizePitchRollCommand = new StabilizePitchRollCommand(gyroSubsystem, driveTrainSubsystem);
-    private final DriveToPoseCommand driveToPoseCommand = new DriveToPoseCommand(
-            driveTrainSubsystem,
-            poseEstimationSubsystem,
-            new Pose2d(new Translation2d(10.0, 3.0), new Rotation2d(10)));
 
-    private final AutoArmMovementCommand armMovementCommandGround = new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE);
-    private final AutoArmMovementCommand armMovementCommandIn = new AutoArmMovementCommand(armSubsystem, ArmPosition.IN);
-    private final BreakCommand breakCommand = new BreakCommand(breakSubsystem);
-    private final ClawCommand clawCommandClose = new ClawCommand(clawSubsystem, colorSubsystem, true);
-    private final ClawCommand clawCommandOpen = new ClawCommand(clawSubsystem, colorSubsystem, false);
-    private final ToggleArmActuationCommand toggleArmActuationCommand = new ToggleArmActuationCommand(armSubsystem);
-    private final ToggleArmBreakCommand toggleArmBreakCommand = new ToggleArmBreakCommand(armSubsystem);
-    private final ManualArmMovementCommand manualArmMovementCommandUP = new ManualArmMovementCommand(armSubsystem, () -> 0.5);
-    private final ManualArmMovementCommand manualArmMovementCommandDown = new ManualArmMovementCommand(armSubsystem, () -> -0.5);
-    private final ToggleForwardBackward toggleForwardBackward = new ToggleForwardBackward(driveTrainSubsystem);
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController controller = new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -63,6 +48,20 @@ public class RobotContainer {
     double deadZone(double control) {
         if (Math.abs(control) < Constants.deadzone) {
             return 0.0;
+        }
+        return control;
+    }
+
+    double tank (double control){
+        if (controller.rightStick().getAsBoolean()){
+            return 0.0;
+        }
+        return control;
+    }
+
+    double slowMode(double control){
+        if (controller.leftTrigger().getAsBoolean()){
+            return control*0.25;
         }
         return control;
     }
@@ -82,7 +81,7 @@ public class RobotContainer {
                                 input = input / 4;
                             }
                             SmartDashboard.putNumber("strafing", input);
-                            return deadZone(input);
+                            return slowMode(tank(deadZone(input)));
                         },
                         () -> {
                             var input = -controller.getLeftY();
@@ -90,7 +89,7 @@ public class RobotContainer {
                                 input = input / 4;
                             }
                             SmartDashboard.putNumber("forwards", input);
-                            return deadZone(input);
+                            return slowMode(deadZone(input));
                         },
                         () -> {
                             var input = controller.getRightX();
@@ -98,7 +97,7 @@ public class RobotContainer {
                                 input = input / 4;
                             }
                             SmartDashboard.putNumber("rotation", input);
-                            return deadZone(input);
+                            return slowMode(tank(deadZone(input)));
                         }
                 )
         );
@@ -123,17 +122,11 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        // controller.x().whileTrue(armMovementCommandGround);
-//       // controller.a().onTrue(testCommand);
-        controller.a().onTrue(clawCommandClose);
-        controller.x().onTrue(clawCommandOpen);
-        controller.y().onTrue(toggleArmBreakCommand);
-//        controller.rightTrigger().onTrue(breakCommand);
-//        controller.leftBumper().whileTrue(manualArmMovementCommandDown);
-//        controller.rightBumper().whileTrue(manualArmMovementCommandUP);
-//        controller.y().onTrue(testCommand);
-//
-//        controller.leftTrigger().onTrue(toggleForwardBackward);
+        controller.x().whileTrue(new NewClawCommand(clawSubsystem));
+        controller.rightBumper().whileTrue(new ManualArmMovementCommand(armSubsystem,()->0.5));
+        controller.leftBumper().whileTrue(new ManualArmMovementCommand(armSubsystem,()->-0.5));
+        controller.back().onTrue(new BreakCommand((breakSubsystem)));
+        controller.y().onTrue(new ToggleArmActuationCommand(armSubsystem));
     }
 
     /**
