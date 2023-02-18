@@ -15,10 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
-import frc.robot.commands.AutoStartCommands.PositionBCommand;
-import frc.robot.commands.AutoStartCommands.PositionACommand;
-import frc.robot.commands.AutoStartCommands.PositionCCommand;
-import frc.robot.commands.AutoStartCommands.PositionDCommand;
+import frc.robot.commands.AutoStartCommands.*;
 import frc.robot.subsystems.*;
 import org.photonvision.PhotonCamera;
 //hi
@@ -138,7 +135,7 @@ public class RobotContainer {
         for (StartingPositions p : StartingPositions.values()) {
             startPosChooser.addOption(p.name(), p);
         }
-        startPosChooser.setDefaultOption(StartingPositions.A.name(), StartingPositions.A);
+        startPosChooser.setDefaultOption(StartingPositions.Sussex.name(), StartingPositions.Sussex);
         SmartDashboard.putData(startPosChooser);
     }
 
@@ -179,13 +176,15 @@ public class RobotContainer {
         switch (startPos) {
 
             case A:
-                return new PositionBCommand(armSubsystem, clawSubsystem, colorSubsystem, driveTrainSubsystem);
+               return new PositionBCommand(armSubsystem, clawSubsystem, colorSubsystem, driveTrainSubsystem);
             case B:
                 return new PositionACommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem, gyroSubsystem,poseEstimationSubsystem);
             case C:
-                return new PositionCCommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
+               return new PositionCCommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
             case D:
-                return new PositionDCommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem);
+               return new PositionDCommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem);
+            case Sussex:
+                return new SussexDummyAutoCommand(driveTrainSubsystem);
             default:
                 return new SequentialCommandGroup();
         }
