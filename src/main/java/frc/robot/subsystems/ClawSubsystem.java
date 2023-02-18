@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,11 +15,11 @@ public class ClawSubsystem extends SubsystemBase {
     private boolean rightIn;
     private boolean leftIn;
     public ClawSubsystem() {
-        rightSolenoid = new DoubleSolenoid(Constants.pneumaticControl0, PneumaticsModuleType.CTREPCM,
+        rightSolenoid = new DoubleSolenoid(Constants.everythingPcm, PneumaticsModuleType.CTREPCM,
                 Constants.rightInChannel,
                 Constants.rightOutChannel);
 
-        leftSolenoid = new DoubleSolenoid(Constants.pneumaticControl0, PneumaticsModuleType.CTREPCM,
+        leftSolenoid = new DoubleSolenoid(Constants.everythingPcm, PneumaticsModuleType.CTREPCM,
                 Constants.leftInChannel,
                 Constants.leftOutChannel);
         rightOut();
