@@ -9,10 +9,7 @@ public class TurnCommand extends CommandBase {
     private double leftEncoderTarget;
     private boolean isReverse;
 
-    public TurnCommand(
-            DriveTrainSubsystem driveTrainSubsystem,
-            Double turnDistance
-    ) {
+    public TurnCommand(DriveTrainSubsystem driveTrainSubsystem, Double turnDistance) {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.turnDistance = turnDistance;
         this.isReverse = turnDistance < 0;

@@ -5,24 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ExampleCommand extends CommandBase {
+public class ToggleArmBreakCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final ExampleSubsystem m_subsystem;
+    private final ArmSubsystem armSubsystem;
 
-    /**
-     * Creates a new ExampleCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
-    public ExampleCommand(ExampleSubsystem subsystem) {
-        m_subsystem = subsystem;
+    public ToggleArmBreakCommand(ArmSubsystem armSubsystem) {
+        this.armSubsystem = armSubsystem;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
+        addRequirements(armSubsystem);
     }
 
     // Called when the command is initially scheduled.
@@ -33,6 +28,12 @@ public class ExampleCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if (armSubsystem.isBreakEngaged()) {
+            armSubsystem.setArmBreak(false);
+            return;
+        }
+
+        armSubsystem.setArmBreak(true);
     }
 
     // Called once the command ends or is interrupted.
@@ -43,6 +44,6 @@ public class ExampleCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

@@ -16,7 +16,6 @@ public class BreakCommand extends CommandBase {
     private final BreakSubsystem breakSubsystem;
 
 
-
     public BreakCommand(BreakSubsystem breakSubsystem) {
         this.breakSubsystem = breakSubsystem;
         // Use addRequirements() here to declare subsystem dependencies.
@@ -31,11 +30,11 @@ public class BreakCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (!breakSubsystem.isIn()){
-            SmartDashboard.putString("breakPneumatic",  "it is out, I am putting it in");
+        if (!breakSubsystem.isIn()) {
+            SmartDashboard.putString("breakPneumatic", "it is out, I am putting it in");
             breakSubsystem.rightIn();
-        }else{
-            SmartDashboard.putString("breakPneumatic",  "it is in, I am putting it out");
+        } else {
+            SmartDashboard.putString("breakPneumatic", "it is in, I am putting it out");
             breakSubsystem.rightOut();
         }
     }

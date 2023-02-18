@@ -30,8 +30,8 @@ public class ColorSubsystem extends SubsystemBase {
     }
 
     public GamePieceType getGamePiece() {
-        int ID = photonColorVisionSubsystem.getColoredObjectID();
-        switch(ID) {
+        int id = photonColorVisionSubsystem.getColoredObjectID();
+        switch(id) {
             case 0:
                 gamePieceType = GamePieceType.NONE;
                 break;
@@ -42,6 +42,7 @@ public class ColorSubsystem extends SubsystemBase {
                 gamePieceType = GamePieceType.CONE;
                 break;
         }
+
        return  gamePieceType;
    }
 

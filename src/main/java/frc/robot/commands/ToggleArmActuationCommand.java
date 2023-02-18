@@ -6,20 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class TestCommand extends CommandBase {
+public class ToggleArmActuationCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final ArmSubsystem armSubsystem;
 
-
-
-    public TestCommand(ArmSubsystem armSubsystem) {
+    public ToggleArmActuationCommand(ArmSubsystem armSubsystem) {
         this.armSubsystem = armSubsystem;
-        // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(armSubsystem);
     }
 
@@ -31,11 +27,12 @@ public class TestCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (armSubsystem.isArmIn()){
+        if (armSubsystem.isArmIn()) {
             armSubsystem.armOut();
-        }else{
-            armSubsystem.armIn();
+            return;
         }
+
+        armSubsystem.armIn();
     }
 
     // Called once the command ends or is interrupted.

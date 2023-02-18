@@ -11,50 +11,49 @@ public class ArmSubsystem extends SubsystemBase {
 
     private CANSparkMax motor;
     private DoubleSolenoid solenoid;
-
     private DoubleSolenoid breakSolenoid;
-    private double motorSpeed;
-
-    private boolean armIn = true;
-
+    private double motorSpeed = 0;
 
     public ArmSubsystem() {
         motor = new CANSparkMax(Constants.armMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushed);
-        solenoid = new DoubleSolenoid( Constants.everythingPcm, PneumaticsModuleType.CTREPCM,
+        solenoid = new DoubleSolenoid(
+                Constants.everythingPcm,
+                PneumaticsModuleType.CTREPCM,
                 Constants.armInChannel,
                 Constants.armOutChannel);
-        breakSolenoid = new DoubleSolenoid(Constants.armBreakPcm, PneumaticsModuleType.CTREPCM, Constants.motorBreakIn, Constants.motorBreakOut);
-        motorSpeed=0;
-       // armIn();
+        breakSolenoid = new DoubleSolenoid(
+                Constants.armBreakPcm,
+                PneumaticsModuleType.CTREPCM,
+                Constants.motorBreakIn,
+                Constants.motorBreakOut);
         setArmBreak(true);
     }
 
     public void armIn() {
         solenoid.set(DoubleSolenoid.Value.kForward);
-        armIn = true;
     }
 
     public void armOut() {
         solenoid.set(DoubleSolenoid.Value.kReverse);
-        armIn = false;
     }
 
-    public void setArmBreak(boolean engageBreak){
-        if (engageBreak){
+    public void setArmBreak(boolean engageBreak) {
+        if (engageBreak) {
             breakSolenoid.set(DoubleSolenoid.Value.kForward);
-        }else {
-            breakSolenoid.set(DoubleSolenoid.Value.kReverse);
+            return;
         }
 
+        breakSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public boolean isBreakEngaged(){
+    public boolean isBreakEngaged() {
         return breakSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
 
-    public  boolean isArmIn(){
-        return armIn;
+    public boolean isArmIn() {
+        return solenoid.get() == DoubleSolenoid.Value.kForward;
     }
+
     public void setMotor(double speed) {
         motorSpeed = speed;
     }
@@ -64,9 +63,7 @@ public class ArmSubsystem extends SubsystemBase {
         motor.set(motorSpeed);
     }
 
-    public double getMotorPosition(){
+    public double getMotorPosition() {
         return motor.getEncoder().getPosition();
     }
-
-
 }

@@ -22,7 +22,7 @@ public class ToggleForwardBackward extends CommandBase {
      */
     public ToggleForwardBackward(DriveTrainSubsystem subsystem) {
         driveTrainSubsystem = subsystem;
-        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(driveTrainSubsystem);
     }
 
     // Called when the command is initially scheduled.
@@ -45,10 +45,6 @@ public class ToggleForwardBackward extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(driveTrainSubsystem.getForwardBackward() == initialValue) {
-            return false;
-        } else {
-            return true;
-        }
+        return driveTrainSubsystem.getForwardBackward() != initialValue;
     }
 }

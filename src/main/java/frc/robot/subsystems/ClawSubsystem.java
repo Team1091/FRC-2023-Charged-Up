@@ -8,51 +8,45 @@ import frc.robot.Constants;
 
 public class ClawSubsystem extends SubsystemBase {
 
-    private CANSparkMax motor;
     private DoubleSolenoid rightSolenoid;
     private DoubleSolenoid leftSolenoid;
 
-    private boolean rightIn;
-    private boolean leftIn;
     public ClawSubsystem() {
-        rightSolenoid = new DoubleSolenoid(Constants.everythingPcm, PneumaticsModuleType.CTREPCM,
+        rightSolenoid = new DoubleSolenoid(
+                Constants.everythingPcm,
+                PneumaticsModuleType.CTREPCM,
                 Constants.rightInChannel,
                 Constants.rightOutChannel);
-
-        leftSolenoid = new DoubleSolenoid(Constants.everythingPcm, PneumaticsModuleType.CTREPCM,
+        leftSolenoid = new DoubleSolenoid(
+                Constants.everythingPcm,
+                PneumaticsModuleType.CTREPCM,
                 Constants.leftInChannel,
                 Constants.leftOutChannel);
         rightOut();
         leftOut();
-        rightIn = false;
-        leftIn = false;
     }
 
     public void rightIn() {
         rightSolenoid.set(DoubleSolenoid.Value.kForward);
-        rightIn=true;
     }
 
     public void rightOut() {
         rightSolenoid.set(DoubleSolenoid.Value.kReverse);
-        rightIn=false;
     }
 
     public void leftIn() {
         leftSolenoid.set(DoubleSolenoid.Value.kForward);
-        leftIn=true;
     }
 
     public void leftOut() {
         leftSolenoid.set(DoubleSolenoid.Value.kReverse);
-        leftIn=false;
     }
+
     public boolean isRightIn() {
-        return rightIn;
+        return rightSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
+
     public boolean isLeftIn() {
-        return leftIn;
+        return leftSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
-
-
 }

@@ -9,8 +9,8 @@ public class LightCommand extends CommandBase {
 
     public LightCommand(LightsSubsystem lightsSubsystem) {
         this.lightsSubsystem = lightsSubsystem;
+        addRequirements(this.lightsSubsystem);
     }
-
 
     @Override
     public void initialize() {
@@ -18,16 +18,19 @@ public class LightCommand extends CommandBase {
     }
 
     @Override
-   public void execute() {
-        if(DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-            this.lightsSubsystem.setLights(LightsSubsystem.LightColors.BLUE);
-        } else if(DriverStation.getAlliance() == DriverStation.Alliance.Red){
-            this.lightsSubsystem.setLights(LightsSubsystem.LightColors.RED);
-        } else {
-            this.lightsSubsystem.setLights(LightsSubsystem.LightColors.ORANGE);
+    public void execute() {
+        if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+            lightsSubsystem.setLights(LightsSubsystem.LightColors.BLUE);
+            return;
         }
 
-   }
+        if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+            lightsSubsystem.setLights(LightsSubsystem.LightColors.RED);
+            return;
+        }
+
+        lightsSubsystem.setLights(LightsSubsystem.LightColors.ORANGE);
+    }
 
     @Override
     public void end(boolean interrupted) {

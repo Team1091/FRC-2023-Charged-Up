@@ -28,59 +28,37 @@ import org.photonvision.PhotonCamera;
  */
 public class RobotContainer {
     private final PhotonCamera photonCamera = new PhotonCamera(Constants.cameraName);
-
-    // The robot's subsystems and commands are defined here...
     private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
     //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new DummyVisionSubsystem();
     //private final IAprilVisionSubsystem aprilTagVisionSubsystem = new PhotonVisionSubsystem(photonCamera);
     private final GyroBalanceSubsystem gyroSubsystem = new GyroBalanceSubsystem();
-
     private final PoseEstimationSubsystem poseEstimationSubsystem = new PoseEstimationSubsystem(photonCamera, driveTrainSubsystem, gyroSubsystem);
-
     private final ClawSubsystem clawSubsystem = new ClawSubsystem();
-
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
-
     private final BreakSubsystem breakSubsystem = new BreakSubsystem();
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
     private final ColorSubsystem colorSubsystem = new ColorSubsystem(photonColorVisionSubsystem);
     private final CompressorSubsystem compressorSubsystem = new CompressorSubsystem();
-
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
-
-
     private final StabilizePitchRollCommand stabilizePitchRollCommand = new StabilizePitchRollCommand(gyroSubsystem, driveTrainSubsystem);
+    private final DriveToPoseCommand driveToPoseCommand = new DriveToPoseCommand(
+            driveTrainSubsystem,
+            poseEstimationSubsystem,
+            new Pose2d(new Translation2d(10.0, 3.0), new Rotation2d(10)));
 
-    private final DriveToPoseCommand driveToPoseCommand = new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem,
-            new Pose2d(
-                    new Translation2d(10.0, 3.0),
-                    new Rotation2d(10)
-            )
-    );
-
-    private final AutoArmMovementCommand armMovementCommandGround =
-            new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE);
-    private final AutoArmMovementCommand armMovementCommandIn =
-            new AutoArmMovementCommand(armSubsystem, ArmPosition.IN);
-
+    private final AutoArmMovementCommand armMovementCommandGround = new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE);
+    private final AutoArmMovementCommand armMovementCommandIn = new AutoArmMovementCommand(armSubsystem, ArmPosition.IN);
     private final BreakCommand breakCommand = new BreakCommand(breakSubsystem);
-
     private final ClawCommand clawCommandClose = new ClawCommand(clawSubsystem, colorSubsystem, true);
-    private final ClawCommand clawCommandOpen = new ClawCommand(clawSubsystem,colorSubsystem, false);
-
-    private final TestCommand testCommand = new TestCommand(armSubsystem);
-
-    private final TestCommand2 testCommand2 = new TestCommand2(armSubsystem);
-
-    private final  ManualArmMovementCommand manualArmMovementCommandUP = new ManualArmMovementCommand(armSubsystem, ()->0.5);
-    private final ManualArmMovementCommand manualArmMovementCommandDown = new ManualArmMovementCommand(armSubsystem, ()->-0.5);
+    private final ClawCommand clawCommandOpen = new ClawCommand(clawSubsystem, colorSubsystem, false);
+    private final ToggleArmActuationCommand toggleArmActuationCommand = new ToggleArmActuationCommand(armSubsystem);
+    private final ToggleArmBreakCommand toggleArmBreakCommand = new ToggleArmBreakCommand(armSubsystem);
+    private final ManualArmMovementCommand manualArmMovementCommandUP = new ManualArmMovementCommand(armSubsystem, () -> 0.5);
+    private final ManualArmMovementCommand manualArmMovementCommandDown = new ManualArmMovementCommand(armSubsystem, () -> -0.5);
     private final ToggleForwardBackward toggleForwardBackward = new ToggleForwardBackward(driveTrainSubsystem);
 
-
-
     // Replace with CommandPS4Controller or CommandJoystick if needed
-    private final CommandXboxController controller =
-            new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    private final CommandXboxController controller = new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
     double deadZone(double control) {
         if (Math.abs(control) < Constants.deadzone) {
@@ -89,13 +67,10 @@ public class RobotContainer {
         return control;
     }
 
-
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-
-
         // Configure the trigger bindings
         configureBindings();
         driveTrainSubsystem.setDefaultCommand(
@@ -112,7 +87,7 @@ public class RobotContainer {
                         () -> {
                             var input = -controller.getLeftY();
                             if (controller.getHID().getBButton()) {
-                                input =  input / 4;
+                                input = input / 4;
                             }
                             SmartDashboard.putNumber("forwards", input);
                             return deadZone(input);
@@ -130,11 +105,10 @@ public class RobotContainer {
 
         //start da compressor
         compressorSubsystem.enableDaCompressor();
-
-
         for (StartingPositions p : StartingPositions.values()) {
             startPosChooser.addOption(p.name(), p);
         }
+
         startPosChooser.setDefaultOption(StartingPositions.Sussex.name(), StartingPositions.Sussex);
         SmartDashboard.putData(startPosChooser);
     }
@@ -149,19 +123,17 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-       // controller.x().whileTrue(armMovementCommandGround);
+        // controller.x().whileTrue(armMovementCommandGround);
 //       // controller.a().onTrue(testCommand);
         controller.a().onTrue(clawCommandClose);
         controller.x().onTrue(clawCommandOpen);
-        controller.y().onTrue(testCommand2);
+        controller.y().onTrue(toggleArmBreakCommand);
 //        controller.rightTrigger().onTrue(breakCommand);
 //        controller.leftBumper().whileTrue(manualArmMovementCommandDown);
 //        controller.rightBumper().whileTrue(manualArmMovementCommandUP);
 //        controller.y().onTrue(testCommand);
 //
 //        controller.leftTrigger().onTrue(toggleForwardBackward);
-
-
     }
 
     /**
@@ -174,21 +146,18 @@ public class RobotContainer {
         StartingPositions startPos = startPosChooser.getSelected();
         SmartDashboard.putString("Current Auto Start Config", startPos.name());
         switch (startPos) {
-
             case A:
-               return new PositionBCommand(armSubsystem, clawSubsystem, colorSubsystem, driveTrainSubsystem);
+                return new PositionBCommand(armSubsystem, clawSubsystem, colorSubsystem, driveTrainSubsystem);
             case B:
-                return new PositionACommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem, gyroSubsystem,poseEstimationSubsystem);
+                return new PositionACommand(armSubsystem, clawSubsystem, colorSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
             case C:
-               return new PositionCCommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
+                return new PositionCCommand(armSubsystem, clawSubsystem, colorSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
             case D:
-               return new PositionDCommand(armSubsystem,clawSubsystem,colorSubsystem,driveTrainSubsystem);
+                return new PositionDCommand(armSubsystem, clawSubsystem, colorSubsystem, driveTrainSubsystem);
             case Sussex:
                 return new SussexDummyAutoCommand(driveTrainSubsystem);
             default:
                 return new SequentialCommandGroup();
         }
     }
-
-
 }

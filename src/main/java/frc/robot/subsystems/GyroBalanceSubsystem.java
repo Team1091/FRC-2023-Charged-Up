@@ -14,33 +14,18 @@ import frc.robot.Constants;
 
 public class GyroBalanceSubsystem extends SubsystemBase {
 
-
     private final AHRS gyro;
+
     public GyroBalanceSubsystem() {
         gyro = new AHRS(Constants.gyroPort);
     }
 
-
-    public CommandBase exampleMethodCommand() {
-        return runOnce(
-                () -> {
-                });
-    }
-
-
-    public boolean exampleCondition() {
-        return false;
-    }
-
     @Override
     public void periodic() {
-
     }
 
     @Override
     public void simulationPeriodic() {
-
-
         SmartDashboard.putNumber("Gyro roll", gyro.getRoll());
         SmartDashboard.putNumber("Gyro Pitch", gyro.getPitch());
     }

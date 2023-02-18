@@ -14,7 +14,8 @@ public class ManualArmMovementCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     @NotNull
     private final ArmSubsystem armSubsystem;
-    @NotNull private final Supplier<Double> armMotorSpeed;
+    @NotNull
+    private final Supplier<Double> armMotorSpeed;
 
     public ManualArmMovementCommand(@NotNull ArmSubsystem subsystem, @NotNull Supplier<Double> speed) {
         armSubsystem = subsystem;
@@ -30,15 +31,13 @@ public class ManualArmMovementCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (armMotorSpeed.get() < 0){
+        if (armMotorSpeed.get() < 0) {
             armSubsystem.setArmBreak(false);
-        }else {
+        } else {
             armSubsystem.setArmBreak(true);
         }
         armSubsystem.setMotor(armMotorSpeed.get());
     }
-
-
 
     // Called once the command ends or is interrupted.
     @Override

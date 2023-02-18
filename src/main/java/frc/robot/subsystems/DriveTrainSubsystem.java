@@ -21,8 +21,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final RelativeEncoder frontRightEncoder;
     private final RelativeEncoder backLeftEncoder;
     private final RelativeEncoder backRightEncoder;
-    double forwardBackwardVelocity, strafeVelocity, rotationVelocity = 0;
-
+    private double forwardBackwardVelocity, strafeVelocity, rotationVelocity = 0;
     private boolean forwardBackwardOnly = false;
 
     public DriveTrainSubsystem() {
@@ -51,18 +50,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("F/B", forwardBackwardVelocity);
         SmartDashboard.putNumber("Strafe", strafeVelocity);
         SmartDashboard.putNumber("Rotation", rotationVelocity);
-        mecanumDrive.driveCartesian(
-                forwardBackwardVelocity,
-                strafeVelocity,
-                rotationVelocity);
+        mecanumDrive.driveCartesian(forwardBackwardVelocity, strafeVelocity, rotationVelocity);
     }
 
     public void toggleForwardBackward() {
-        if (forwardBackwardOnly == true){
-            forwardBackwardOnly = false;
-        } else{
-            forwardBackwardOnly = true;
-        }
+        forwardBackwardOnly = !forwardBackwardOnly;
     }
 
     public boolean getForwardBackward() {
@@ -70,17 +62,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
 
     public void mecanumDrive(double strafeVelocity, double forwardBackwardVelocity, double rotationVelocity) {
-        if(forwardBackwardOnly == true){
+        if (forwardBackwardOnly) {
             this.strafeVelocity = 0;
             this.forwardBackwardVelocity = forwardBackwardVelocity;
             this.rotationVelocity = 0;
-        } else {
-            this.strafeVelocity = strafeVelocity;
-            this.forwardBackwardVelocity = forwardBackwardVelocity;
-            this.rotationVelocity = rotationVelocity;
+            return;
         }
 
-
+        this.strafeVelocity = strafeVelocity;
+        this.forwardBackwardVelocity = forwardBackwardVelocity;
+        this.rotationVelocity = rotationVelocity;
     }
 
     public double getFrontLeftEncoder() {
@@ -92,17 +83,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
 
     public MecanumDriveWheelPositions getWheelPositions() {
-
         return new MecanumDriveWheelPositions(
-            getEncoderDistance(frontLeftEncoder.getPosition()),
-            getEncoderDistance(frontRightEncoder.getPosition()),
-            getEncoderDistance(backLeftEncoder.getPosition()),
-            getEncoderDistance(backRightEncoder.getPosition())
+                getEncoderDistance(frontLeftEncoder.getPosition()),
+                getEncoderDistance(frontRightEncoder.getPosition()),
+                getEncoderDistance(backLeftEncoder.getPosition()),
+                getEncoderDistance(backRightEncoder.getPosition())
         );
     }
 
-    private double getEncoderDistance(double rotations){
-        return rotations/Constants.meterToRealMeter;
-//        return Math.PI * inchesToMeters(Constants.DriveTrain.wheelDiameterInches) * rotations;
+    private double getEncoderDistance(double rotations) {
+        return rotations / Constants.meterToRealMeter;
+        //return Math.PI * inchesToMeters(Constants.DriveTrain.wheelDiameterInches) * rotations;
     }
 }

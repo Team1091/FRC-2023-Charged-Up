@@ -26,21 +26,31 @@ public class AccelerationCurve {
         timer.reset();
 
         double velocityChange = acceleration * seconds;
-        if (input == 0)
+        if (input == 0) {
             currentSpeed = 0;
-        else if (input > 0) {
+            return;
+        }
+
+        if (input > 0) {
             if (currentSpeed >= 0) {
                 currentSpeed = (input > currentSpeed) ? currentSpeed + velocityChange : input;
                 currentSpeed = MathUtil.clamp(currentSpeed, minPowerOverride, maxPowerOverride);
-            } else
-                currentSpeed = minPowerOverride;
+                return;
+            }
 
-        } else if (input < 0) {
+            currentSpeed = minPowerOverride;
+            return;
+        }
+
+        if (input < 0) {
             if (currentSpeed <= 0) {
                 currentSpeed = (input < currentSpeed) ? currentSpeed - velocityChange : input;
                 currentSpeed = MathUtil.clamp(currentSpeed, -maxPowerOverride, -minPowerOverride);
-            } else
-                currentSpeed = -minPowerOverride;
+                return;
+            }
+
+            currentSpeed = -minPowerOverride;
+            return;
         }
     }
 

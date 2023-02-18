@@ -13,24 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DummyVisionSubsystem extends SubsystemBase implements IAprilVisionSubsystem {
-    public List<AprilTagLocation> bruh;
+    public List<AprilTagLocation> mockTagLocations;
     Timer timer;
     int currentTargetIndex = 0;
 
     public DummyVisionSubsystem() {
-        bruh = new ArrayList<AprilTagLocation>();
+        mockTagLocations = new ArrayList<AprilTagLocation>();
 
-        bruh.add(new AprilTagLocation(1, 5.0, .5));
-        bruh.add(new AprilTagLocation(1, 4.0, .5));
-        bruh.add(new AprilTagLocation(1, 4.0, .5));
-        bruh.add(new AprilTagLocation(1, 3.0, .5));
-        bruh.add(new AprilTagLocation(1, 2.0, .5));
-        bruh.add(new AprilTagLocation(1, 1.0, .5));
-        bruh.add(new AprilTagLocation(1, 1.0, .4));
-        bruh.add(new AprilTagLocation(1, 1.0, .3));
-        bruh.add(new AprilTagLocation(1, 1.0, .2));
-        bruh.add(new AprilTagLocation(1, 1.0, .1));
-        bruh.add(new AprilTagLocation(1, 1.0, 0.0));
+        mockTagLocations.add(new AprilTagLocation(1, 5.0, .5));
+        mockTagLocations.add(new AprilTagLocation(1, 4.0, .5));
+        mockTagLocations.add(new AprilTagLocation(1, 4.0, .5));
+        mockTagLocations.add(new AprilTagLocation(1, 3.0, .5));
+        mockTagLocations.add(new AprilTagLocation(1, 2.0, .5));
+        mockTagLocations.add(new AprilTagLocation(1, 1.0, .5));
+        mockTagLocations.add(new AprilTagLocation(1, 1.0, .4));
+        mockTagLocations.add(new AprilTagLocation(1, 1.0, .3));
+        mockTagLocations.add(new AprilTagLocation(1, 1.0, .2));
+        mockTagLocations.add(new AprilTagLocation(1, 1.0, .1));
+        mockTagLocations.add(new AprilTagLocation(1, 1.0, 0.0));
 
         timer = new Timer();
         timer.start();
@@ -40,12 +40,12 @@ public class DummyVisionSubsystem extends SubsystemBase implements IAprilVisionS
     public void periodic() {
         SmartDashboard.putNumber("Dummy Index", currentTargetIndex);
         // This method will be called once per scheduler run
-        if (bruh.isEmpty() || currentTargetIndex == -1) {
+        if (mockTagLocations.isEmpty() || currentTargetIndex == -1) {
             return;
         }
 
         if (timer.hasElapsed(0.5)) {
-            if (currentTargetIndex == bruh.size() - 1) {
+            if (currentTargetIndex == mockTagLocations.size() - 1) {
                 currentTargetIndex = -1;
                 return;
             }
@@ -57,18 +57,16 @@ public class DummyVisionSubsystem extends SubsystemBase implements IAprilVisionS
 
     @Override
     public List<AprilTagLocation> getAllTargets() {
-
         var dummyResult = new ArrayList<AprilTagLocation>();
-        if (bruh.isEmpty() || currentTargetIndex == -1) {
+        if (mockTagLocations.isEmpty() || currentTargetIndex == -1) {
             return dummyResult;
         }
-        dummyResult.add(bruh.get(currentTargetIndex));
+
+        dummyResult.add(mockTagLocations.get(currentTargetIndex));
         return dummyResult;
     }
 
     public void reset() {
         currentTargetIndex = 0;
     }
-
-
 }

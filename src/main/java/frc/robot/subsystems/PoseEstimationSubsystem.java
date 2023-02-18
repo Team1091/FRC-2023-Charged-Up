@@ -9,7 +9,6 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.estimator.MecanumDrivePoseEstimator;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -21,7 +20,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import org.photonvision.PhotonCamera;
@@ -75,9 +73,6 @@ public class PoseEstimationSubsystem extends SubsystemBase {
             layout = null;
         }
         this.aprilTagFieldLayout = layout;
-
-
-
         poseEstimator =  new MecanumDrivePoseEstimator(
                 Constants.DriveTrain.KINEMATICS,
                 Rotation2d.fromDegrees(this.gyroBalanceSubsystem.getYaw()),
@@ -85,15 +80,10 @@ public class PoseEstimationSubsystem extends SubsystemBase {
                 new Pose2d(),
                 stateStdDevs,
                 visionMeasurementStdDevs);
-
-//        tab.addString("Pose", this::getFomattedPose).withPosition(0, 0).withSize(2, 0);
-//        tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
     }
 
     @Override
     public void periodic() {
-
-
         // Update pose estimator with the best visible target
         var pipelineResult = photonCamera.getLatestResult();
         var resultTimestamp = pipelineResult.getTimestampSeconds();
@@ -116,28 +106,22 @@ public class PoseEstimationSubsystem extends SubsystemBase {
         poseEstimator.update(
                 Rotation2d.fromDegrees(this.gyroBalanceSubsystem.getYaw()),
                 driveTrainSubsystem.getWheelPositions());
-
         field2d.setRobotPose(getCurrentPose());
-
-
 
         try {
             tab.addString("yo yo yo",()->"bruh");
-            tab.addString("Pose", this::getFomattedPose).withPosition(0, 0).withSize(2, 0);
+            tab.addString("Pose", this::getFormattedPose).withPosition(0, 0).withSize(2, 0);
             tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
         } catch (Exception e) {
-            SmartDashboard.putString("error", "a fatal error has occured, good luck figuring out what it is");
+            SmartDashboard.putString("error", "a fatal error has occurred, good luck figuring out what it is");
         }
-
-
-
     }
 
     public Pose2d getCurrentPose() {
         return poseEstimator.getEstimatedPosition();
     }
 
-    private String getFomattedPose() {
+    private String getFormattedPose() {
         var pose = getCurrentPose();
         return String.format("(%.2f, %.2f) %.2f degrees",
                 pose.getX(),

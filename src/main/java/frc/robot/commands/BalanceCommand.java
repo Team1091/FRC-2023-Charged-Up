@@ -14,7 +14,8 @@ public class BalanceCommand extends CommandBase {
     private double pitch;
 
     private final double speed = 0.25;
-    public BalanceCommand(GyroBalanceSubsystem gyroBalanceSubsystem, DriveTrainSubsystem driveTrainSubsystem){
+
+    public BalanceCommand(GyroBalanceSubsystem gyroBalanceSubsystem, DriveTrainSubsystem driveTrainSubsystem) {
 
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.gyroBalanceSubsystem = gyroBalanceSubsystem;
@@ -23,36 +24,32 @@ public class BalanceCommand extends CommandBase {
     }
 
     @Override
-    public void initialize(){
-
+    public void initialize() {
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         pitch = gyroBalanceSubsystem.getPitch();
-        if (Math.abs(pitch) < tolerance){
+        if (Math.abs(pitch) < tolerance) {
             return;
         }
 
-        if (pitch > 0){
-            driveTrainSubsystem.mecanumDrive(0,speed,0);
+        if (pitch > 0) {
+            driveTrainSubsystem.mecanumDrive(0, speed, 0);
             return;
         }
 
-        driveTrainSubsystem.mecanumDrive(0, -speed,0);
+        driveTrainSubsystem.mecanumDrive(0, -speed, 0);
     }
 
     @Override
-    public void end(boolean end){
-        //break
-        driveTrainSubsystem.mecanumDrive(0,0,0);
+    public void end(boolean end) {
+        driveTrainSubsystem.mecanumDrive(0, 0, 0);
     }
 
     @Override
-    public boolean isFinished(){
+    public boolean isFinished() {
         //this will not work, you'll drive past 0
-            return Math.abs(gyroBalanceSubsystem.getPitch() )< tolerance;
-
+        return Math.abs(gyroBalanceSubsystem.getPitch()) < tolerance;
     }
-
 }

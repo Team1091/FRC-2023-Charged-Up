@@ -7,11 +7,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class CompressorSubsystem extends SubsystemBase {
 
     private Compressor pcmCompressor;
-    public CompressorSubsystem() {
 
+    public CompressorSubsystem() {
         //TODO figure out what module it is, I put 0 just cause
         pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
-        //pcmCompressor.enableDigital();
     }
 
     public void disableDaCompressor() {
@@ -21,5 +20,4 @@ public class CompressorSubsystem extends SubsystemBase {
     public void enableDaCompressor(){
         pcmCompressor.enableDigital();
     }
-
 }

@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.GyroBalanceSubsystem;
 
 /**
@@ -26,8 +25,8 @@ public class StabilizePitchRollCommand extends CommandBase { //WE DO NOT USE THI
     public StabilizePitchRollCommand(GyroBalanceSubsystem subsystem, DriveTrainSubsystem driveSystem) {
         gyroSubsystem = subsystem;
         driveSubsystem = driveSystem;
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
+        addRequirements(gyroSubsystem);
+        addRequirements(driveSubsystem);
 
         //want pitch and roll to be 0
         //TODO May want to add a YAW system that aligns the robot to be perfectly straight when on the charging station

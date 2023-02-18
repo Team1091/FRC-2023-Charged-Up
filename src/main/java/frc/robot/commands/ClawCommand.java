@@ -15,32 +15,35 @@ public class ClawCommand extends CommandBase {
 
     private final boolean cone = true;
     private boolean closeClaw;
+
     public ClawCommand(ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, boolean closeClaw) {
         this.clawSubsystem = clawSubsystem;
         this.colorSubsystem = colorSubsystem;
         this.closeClaw = closeClaw;
 
         addRequirements(clawSubsystem);
+        addRequirements(colorSubsystem);
     }
+
     @Override
     public void initialize() {
 
     }
 
     @Override
-    public void execute(){
-        if (!closeClaw){
+    public void execute() {
+        if (!closeClaw) {
             clawSubsystem.rightOut();
             clawSubsystem.leftOut();
             return;
         }
 
-        if(cone){//colorSubsystem.getGamePiece() == GamePieceType.CONE){
+        if (cone) {//colorSubsystem.getGamePiece() == GamePieceType.CONE){
             clawSubsystem.rightIn();
             clawSubsystem.leftIn();
         }
 
-        if (!cone){//colorSubsystem.getGamePiece() == GamePieceType.CUBE){
+        if (!cone) {//colorSubsystem.getGamePiece() == GamePieceType.CUBE){
             clawSubsystem.rightIn();
         }
     }

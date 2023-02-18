@@ -28,10 +28,7 @@ public class PhotonColorVisionSubsystem extends SubsystemBase implements IAprilV
         photonCamera = colorCamera;
         visionTab = Shuffleboard.getTab("Vision");
         SmartDashboard.putNumber("Update Parameters?", 0);
-
-
     }
-
 
     @Override
     public void periodic() {
@@ -65,7 +62,6 @@ public class PhotonColorVisionSubsystem extends SubsystemBase implements IAprilV
 
             SmartDashboard.putNumber("Update Parameters?", 0);
         }
-
 
         //Shuffleboard.getTab("default");
     }
