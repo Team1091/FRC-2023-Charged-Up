@@ -7,7 +7,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 public class SussexDummyAutoCommand extends SequentialCommandGroup {
     public SussexDummyAutoCommand(DriveTrainSubsystem driveTrainSubsystem){
         addCommands(
-                new DistanceDriveCommand(driveTrainSubsystem,50.0)
+                new DistanceDriveCommand(driveTrainSubsystem,-50.0)
         );
 
     }

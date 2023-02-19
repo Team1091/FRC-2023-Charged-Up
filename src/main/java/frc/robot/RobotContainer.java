@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cameraserver.CameraServerShared;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -71,6 +73,7 @@ public class RobotContainer {
      */
     public RobotContainer() {
         // Configure the trigger bindings
+        CameraServer.startAutomaticCapture();
         configureBindings();
         driveTrainSubsystem.setDefaultCommand(
                 new MecanumDriveCommand(
@@ -122,7 +125,8 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        controller.x().whileTrue(new NewClawCommand(clawSubsystem));
+        controller.x().onTrue(new ClawCommand(clawSubsystem, colorSubsystem, true));
+        controller.a().onTrue(new ClawCommand(clawSubsystem, colorSubsystem, false));
         controller.rightBumper().whileTrue(new ManualArmMovementCommand(armSubsystem,()->0.5));
         controller.leftBumper().whileTrue(new ManualArmMovementCommand(armSubsystem,()->-0.5));
         controller.back().onTrue(new BreakCommand((breakSubsystem)));

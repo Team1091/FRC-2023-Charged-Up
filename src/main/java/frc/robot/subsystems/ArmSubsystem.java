@@ -19,9 +19,14 @@ public class ArmSubsystem extends SubsystemBase {
     private DoubleSolenoid breakSolenoid;
     private double motorSpeed = 0;
 
+    private Encoder encoder;
+
 
     public ArmSubsystem() {
         motor = new CANSparkMax(Constants.armMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushed);
+
+        encoder = new Encoder(1,2);
+
         solenoid = new DoubleSolenoid(
                 Constants.everythingPcm,
                 PneumaticsModuleType.CTREPCM,
@@ -67,10 +72,10 @@ public class ArmSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         motor.set(motorSpeed);
-        SmartDashboard.putNumber("Arm Encoder value", motor.getEncoder().getPosition());
+        SmartDashboard.putNumber("Arm Encoder value", getMotorPosition());
     }
 
     public double getMotorPosition() {
-        return motor.getEncoder().getPosition();
+        return encoder.getDistance();
     }
 }
