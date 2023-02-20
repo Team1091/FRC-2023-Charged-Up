@@ -17,6 +17,7 @@ public class BreakSubsystem extends SubsystemBase {
                 Constants.breakWheelIn,
                 Constants.breakWheelOut);
         rightOut();
+        
     }
 
     public void rightIn() {
