@@ -21,6 +21,8 @@ public class ArmSubsystem extends SubsystemBase {
 
     private Encoder encoder;
 
+    private long lastTimeToggled;
+
 
     public ArmSubsystem() {
         motor = new CANSparkMax(Constants.armMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushed);
@@ -38,6 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
                 Constants.motorBreakIn,
                 Constants.motorBreakOut);
         setArmBreak(true);
+        lastTimeToggled = System.currentTimeMillis();
     }
 
     public void armIn() {
@@ -49,12 +52,15 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setArmBreak(boolean engageBreak) {
-        if (engageBreak) {
-            breakSolenoid.set(DoubleSolenoid.Value.kForward);
-            return;
-        }
+        if (System.currentTimeMillis() < lastTimeToggled + 500) {
+            if (engageBreak) {
+                breakSolenoid.set(DoubleSolenoid.Value.kForward);
+                return;
+            }
 
-        breakSolenoid.set(DoubleSolenoid.Value.kReverse);
+            breakSolenoid.set(DoubleSolenoid.Value.kReverse);
+            lastTimeToggled = System.currentTimeMillis();
+        }
     }
 
     public boolean isBreakEngaged() {
