@@ -21,7 +21,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     private Encoder encoder;
 
-    private long lastTimeToggled;
+    //private long lastTimeToggled;
 
 
     public ArmSubsystem() {
@@ -40,7 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
                 Constants.motorBreakIn,
                 Constants.motorBreakOut);
         setArmBreak(true);
-        lastTimeToggled = System.currentTimeMillis();
+        //lastTimeToggled = System.currentTimeMillis();
     }
 
     public void armIn() {
@@ -52,16 +52,19 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setArmBreak(boolean engageBreak) {
-        if (System.currentTimeMillis() < lastTimeToggled + 500) {
-            if (engageBreak) {
-                breakSolenoid.set(DoubleSolenoid.Value.kForward);
-                return;
+        if (engageBreak) {
+            breakSolenoid.set(DoubleSolenoid.Value.kForward);
+            return;
+//        if (System.currentTimeMillis() < lastTimeToggled + 500) {
+//            if (engageBreak) {
+//                breakSolenoid.set(DoubleSolenoid.Value.kForward);
+//                return;
             }
-
-            breakSolenoid.set(DoubleSolenoid.Value.kReverse);
-            lastTimeToggled = System.currentTimeMillis();
+        breakSolenoid.set(DoubleSolenoid.Value.kReverse);
+//
+//            breakSolenoid.set(DoubleSolenoid.Value.kReverse);
+//            lastTimeToggled = System.currentTimeMillis();
         }
-    }
 
     public boolean isBreakEngaged() {
         return breakSolenoid.get() == DoubleSolenoid.Value.kForward;
