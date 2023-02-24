@@ -18,15 +18,16 @@ public class PositionDCommand extends SequentialCommandGroup {
     private double rotationAmount = 180;
     public PositionDCommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem){
         addCommands( new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
+//                new AutoArmMovementCommand(armSubsystem, ArmPosition.)
                 new ClawCommand(clawSubsystem, colorSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new DistanceDriveCommand(driveTrainSubsystem, -toCubeORCone),
                 new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
+                new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
                 new ClawCommand(clawSubsystem, colorSubsystem, true),
                 new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
+                new AutoArmMovementCommand(armSubsystem,ArmPosition.MIDDLE),
                 new ClawCommand(clawSubsystem, colorSubsystem, false));
 
     }
