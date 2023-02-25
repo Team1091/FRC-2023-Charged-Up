@@ -46,7 +46,7 @@ public class VisionTargetCommand extends CommandBase { //WE Probably won't use t
                 .filter((AprilTagLocation it) -> it.getIdNumber() == numberToFind).findFirst();
 
 
-        if (!target.isPresent()) {
+        if (target.isEmpty()) {
 
             driveTrainSubsystem.mecanumDrive(0, 0, 0);
             return;

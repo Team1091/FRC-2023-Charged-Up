@@ -1,4 +1,4 @@
-package frc.robot.commands.AutoStartCommands;
+package frc.robot.commands.autoStartCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -13,7 +13,7 @@ import frc.robot.subsystems.*;
 
 public class PositionCCommand extends SequentialCommandGroup {
     //Score Dock
-    Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
+    final Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
 
     public PositionCCommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem, GyroBalanceSubsystem gyroBalanceSubsystem, PoseEstimationSubsystem poseEstimationSubsystem) {
         addCommands(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),

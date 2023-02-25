@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DummyVisionSubsystem extends SubsystemBase implements IAprilVisionSubsystem {
-    public List<AprilTagLocation> mockTagLocations;
-    Timer timer;
+    public final List<AprilTagLocation> mockTagLocations;
+    final Timer timer;
     int currentTargetIndex = 0;
 
     public DummyVisionSubsystem() {
-        mockTagLocations = new ArrayList<AprilTagLocation>();
+        mockTagLocations = new ArrayList<>();
 
         mockTagLocations.add(new AprilTagLocation(1, 5.0, .5));
         mockTagLocations.add(new AprilTagLocation(1, 4.0, .5));

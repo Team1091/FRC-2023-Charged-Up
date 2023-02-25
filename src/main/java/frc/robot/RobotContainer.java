@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.AutoStartCommands.*;
+import frc.robot.commands.autoStartCommands.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import org.photonvision.PhotonCamera;
@@ -37,14 +37,14 @@ public class RobotContainer {
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
     private final ColorSubsystem colorSubsystem = new ColorSubsystem(photonColorVisionSubsystem);
     private final CompressorSubsystem compressorSubsystem = new CompressorSubsystem();
-    private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<StartingPositions>();
+    private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<>();
 
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController controller = new CommandXboxController(OperatorConstants.K_DRIVER_CONTROLLER_PORT);
 
     double deadZone(double control) {
-        if (Math.abs(control) < Constants.deadzone) {
+        if (Math.abs(control) < Constants.DEAD_ZONE) {
             return 0.0;
         }
         return control;

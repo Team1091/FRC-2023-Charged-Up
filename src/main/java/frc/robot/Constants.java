@@ -24,7 +24,7 @@ import static edu.wpi.first.math.util.Units.inchesToMeters;
  * constants are needed, to reduce verbosity.
  */
 public class Constants { //put final here
-    public static double deadzone = 0.1;
+    public static final double DEAD_ZONE = 0.1;
 
     public final static int armMotorChannel = 5;
 
@@ -42,7 +42,7 @@ public class Constants { //put final here
          * <p>
          * Should be measured from center to center.
          */
-        public static final double DRIVETRAIN_TRACKWIDTH_METERS = inchesToMeters(21.0);
+        public static final double DRIVETRAIN_TRACK_WIDTH_METERS = inchesToMeters(21.0);
         /**
          * The front-to-back distance between the drivetrain wheels.
          * <p>
@@ -52,13 +52,13 @@ public class Constants { //put final here
 
         public static final MecanumDriveKinematics KINEMATICS = new MecanumDriveKinematics(
                 // Front left
-                new Translation2d(DRIVETRAIN_WHEELBASE_METERS / 2.0, DRIVETRAIN_TRACKWIDTH_METERS / 2.0),
+                new Translation2d(DRIVETRAIN_WHEELBASE_METERS / 2.0, DRIVETRAIN_TRACK_WIDTH_METERS / 2.0),
                 // Front right
-                new Translation2d(DRIVETRAIN_WHEELBASE_METERS / 2.0, -DRIVETRAIN_TRACKWIDTH_METERS / 2.0),
+                new Translation2d(DRIVETRAIN_WHEELBASE_METERS / 2.0, -DRIVETRAIN_TRACK_WIDTH_METERS / 2.0),
                 // Back left
-                new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2.0, DRIVETRAIN_TRACKWIDTH_METERS / 2.0),
+                new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2.0, DRIVETRAIN_TRACK_WIDTH_METERS / 2.0),
                 // Back right
-                new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2.0, -DRIVETRAIN_TRACKWIDTH_METERS / 2.0)
+                new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2.0, -DRIVETRAIN_TRACK_WIDTH_METERS / 2.0)
         );
     }
 
@@ -75,13 +75,13 @@ public class Constants { //put final here
     public final static int cameraPixelHeight = 180;
     public final static int cameraPixelWidth = 640;
     //public final static double cameraHeightMeters = 0.2;
-    public static Distance cameraHeight = Distance.inMeters(.249);
-    public static Rotation cameraPitch = Rotation.inDegrees(0.0);
+    public static final Distance cameraHeight = Distance.inMeters(.249);
+    public static final Rotation cameraPitch = Rotation.inDegrees(0.0);
     public final static Distance targetHeight = Distance.inMeters(.384175);
     //public static double targetHeightInMeters = 0.8128;
     public final static Distance stationTargetHeight = Distance.inMeters(.619252);
     public final static SPI.Port gyroPort = SPI.Port.kMXP;
-    public final static double gyroDeadZoneThreshhold = 10;
+    public final static double gyroDeadZoneThreshold = 10;
     public final static double gyroCommandMoveSpeed = 0.25;
 
     public final static double meterToRealMeter = 19.5243986;

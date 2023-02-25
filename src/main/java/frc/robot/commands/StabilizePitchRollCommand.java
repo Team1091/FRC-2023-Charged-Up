@@ -41,16 +41,16 @@ public class StabilizePitchRollCommand extends CommandBase { //WE DO NOT USE THI
     @Override
     public void execute() {
         double forwardsMove = 0;
-        if (gyroSubsystem.getPitch() > Constants.gyroDeadZoneThreshhold) {
+        if (gyroSubsystem.getPitch() > Constants.gyroDeadZoneThreshold) {
             forwardsMove = Constants.gyroCommandMoveSpeed;
-        } else if (gyroSubsystem.getPitch() < Constants.gyroDeadZoneThreshhold) {
+        } else if (gyroSubsystem.getPitch() < Constants.gyroDeadZoneThreshold) {
             forwardsMove = -Constants.gyroCommandMoveSpeed;
         }
 
         double horizontalMove = 0;
-        if (gyroSubsystem.getRoll() > Constants.gyroDeadZoneThreshhold) {
+        if (gyroSubsystem.getRoll() > Constants.gyroDeadZoneThreshold) {
             horizontalMove = Constants.gyroCommandMoveSpeed;
-        } else if (gyroSubsystem.getRoll() < Constants.gyroDeadZoneThreshhold) {
+        } else if (gyroSubsystem.getRoll() < Constants.gyroDeadZoneThreshold) {
             horizontalMove = -Constants.gyroCommandMoveSpeed;
         }
 

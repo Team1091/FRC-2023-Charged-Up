@@ -1,4 +1,4 @@
-package frc.robot.commands.AutoStartCommands;
+package frc.robot.commands.autoStartCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -11,7 +11,7 @@ import frc.robot.utils.Rotation;
 
 public class PositionACommand extends SequentialCommandGroup {
     //Score Pick Score Dock
-    Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
+    final Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
     private final double toCubeORCone = 100000.0;//Set Proper distance
     private final double rotationAmount = 180;
 

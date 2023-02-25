@@ -22,11 +22,10 @@ import java.util.List;
 public class PhotonColorVisionSubsystem extends SubsystemBase implements IAprilVisionSubsystem {
 
     private final PhotonCamera photonCamera;
-    private final ShuffleboardTab visionTab;
 
     public PhotonColorVisionSubsystem(PhotonCamera colorCamera) {
         photonCamera = colorCamera;
-        visionTab = Shuffleboard.getTab("Vision");
+        ShuffleboardTab visionTab = Shuffleboard.getTab("Vision");
         SmartDashboard.putNumber("Update Parameters?", 0);
     }
 
@@ -123,6 +122,6 @@ public class PhotonColorVisionSubsystem extends SubsystemBase implements IAprilV
     }
 
     private double convertPixelCordsToRelativeWidth(TargetCorner centerPoint) {
-        return ((Constants.cameraPixelWidth / 2) - centerPoint.x) / Constants.cameraPixelWidth;
+        return ((Constants.cameraPixelWidth / 2.0) - centerPoint.x) / Constants.cameraPixelWidth;
     }
 }
