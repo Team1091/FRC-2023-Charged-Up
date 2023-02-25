@@ -8,6 +8,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -36,8 +37,8 @@ public class RobotContainer {
     private final BreakSubsystem breakSubsystem = new BreakSubsystem();
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
     private final CompressorSubsystem compressorSubsystem = new CompressorSubsystem();
+    private final LightsSubsystem lightsSubsystem = new LightsSubsystem();
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<>();
-
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController controller = new CommandXboxController(OperatorConstants.K_DRIVER_CONTROLLER_PORT);
@@ -128,19 +129,27 @@ public class RobotContainer {
         //Getting smart-dashboard value
         StartingPositions startPos = startPosChooser.getSelected();
         SmartDashboard.putString("Current Auto Start Config", startPos.name());
+
+        Command command;
         switch (startPos) {
             case A:
-                return PositionBCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
+                command = PositionBCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
+                break;
             case B:
-                return PositionACommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
+                command = PositionACommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
+                break;
             case C:
-                return PositionCCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
+                command = PositionCCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
+                break;
             case D:
-                return PositionDCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
+                command = PositionDCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
+                break;
             case Sussex:
-                return new SussexDummyAutoCommand(driveTrainSubsystem);
+                command = new SussexDummyAutoCommand(driveTrainSubsystem);
+                break;
             default:
-                return new SequentialCommandGroup();
+                command = new SequentialCommandGroup();
         }
+        return new ParallelCommandGroup(new LightCommand(lightsSubsystem), command);
     }
 }
