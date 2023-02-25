@@ -30,4 +30,8 @@ public class Distance {
     public double toInches() {
         return valueInMeters * 39.3700787;
     }
+
+    public Distance reversed() {
+        return new Distance(-valueInMeters);
+    }
 }

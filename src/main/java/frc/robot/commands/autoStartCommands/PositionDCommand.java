@@ -10,11 +10,13 @@ import frc.robot.commands.TurnCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.utils.Distance;
 import frc.robot.utils.Rotation;
 
 public class PositionDCommand {
     //Score Pick Score
-    private static final double toCubeORCone = 100000.0;//Set Proper distance
+    private static final Distance toCubeORCone = Distance.inFeet(10.0);//TODO: Set Proper distance
+
     private static final Rotation rotationAmount = Rotation.inDegrees(180);
 
 
@@ -23,7 +25,7 @@ public class PositionDCommand {
 //                new AutoArmMovementCommand(armSubsystem, ArmPosition.)
                 new ClawCommand(clawSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
-                new DistanceDriveCommand(driveTrainSubsystem, -toCubeORCone),
+                new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone.reversed()),
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
                 new ClawCommand(clawSubsystem, true),

@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.utils.Distance;
 
 public class DistanceDriveCommand extends CommandBase {
     private final DriveTrainSubsystem driveTrainSubsystem;
@@ -9,9 +10,9 @@ public class DistanceDriveCommand extends CommandBase {
     private double leftEncoderTarget;
     private final boolean isReverse;
 
-    public DistanceDriveCommand(DriveTrainSubsystem driveTrainSubsystem, Double distance) {
+    public DistanceDriveCommand(DriveTrainSubsystem driveTrainSubsystem, Distance distance) {
         this.driveTrainSubsystem = driveTrainSubsystem;
-        this.xDistance = distance * -1;
+        this.xDistance = distance.toMeters() * -1;
         this.isReverse = xDistance < 0;
         addRequirements(this.driveTrainSubsystem);
     }
