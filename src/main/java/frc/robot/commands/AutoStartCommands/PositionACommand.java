@@ -11,10 +11,11 @@ import frc.robot.utils.Rotation;
 
 public class PositionACommand extends SequentialCommandGroup {
     //Score Pick Score Dock
-    Pose2d chargingStation = new Pose2d(new Translation2d(0,0),new Rotation2d(0));//Make it the Charging Station
-    private double toCubeORCone = 100000.0;//Set Proper distance
-    private double rotationAmount = 180;
-    public PositionACommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem, GyroBalanceSubsystem gyroBalanceSubsystem, PoseEstimationSubsystem poseEstimationSubsystem){
+    Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
+    private final double toCubeORCone = 100000.0;//Set Proper distance
+    private final double rotationAmount = 180;
+
+    public PositionACommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem, GyroBalanceSubsystem gyroBalanceSubsystem, PoseEstimationSubsystem poseEstimationSubsystem) {
 
         addCommands(
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
@@ -28,7 +29,7 @@ public class PositionACommand extends SequentialCommandGroup {
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new ClawCommand(clawSubsystem, colorSubsystem, false),
-                new DriveToPoseCommand(driveTrainSubsystem,poseEstimationSubsystem, chargingStation),
+                new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem, chargingStation),
                 new BalanceCommand(gyroBalanceSubsystem, driveTrainSubsystem));
 
     }

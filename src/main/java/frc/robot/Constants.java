@@ -4,15 +4,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
+import edu.wpi.first.wpilibj.SPI;
 import frc.robot.utils.Distance;
 import frc.robot.utils.Rotation;
-
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 
 import static edu.wpi.first.math.util.Units.inchesToMeters;
 
@@ -40,13 +39,13 @@ public class Constants { //put final here
 
         /**
          * The left-to-right distance between the drivetrain wheels
-         *
+         * <p>
          * Should be measured from center to center.
          */
         public static final double DRIVETRAIN_TRACKWIDTH_METERS = inchesToMeters(21.0);
         /**
          * The front-to-back distance between the drivetrain wheels.
-         *
+         * <p>
          * Should be measured from center to center.
          */
         public static final double DRIVETRAIN_WHEELBASE_METERS = Distance.inInches(21.0).toMeters();
@@ -88,7 +87,7 @@ public class Constants { //put final here
     public final static double meterToRealMeter = 19.5243986;
 
     //pneumatic channel numbers
-    public final static  int everythingPcm = 1;
+    public final static int everythingPcm = 1;
 
     public final static int armBreakPcm = 0;
     public final static int breakWheelIn = 0;
@@ -99,8 +98,8 @@ public class Constants { //put final here
     public final static int rightOutChannel = 5;
     public final static int leftInChannel = 6;
     public final static int leftOutChannel = 7;
-   public final static int motorBreakIn = 0;
-   public final static int motorBreakOut = 1;
+    public final static int motorBreakIn = 0;
+    public final static int motorBreakOut = 1;
 
     public final static double lowestEncoderPosition = 0;
     public final static double groundEncoderPosition = 378;

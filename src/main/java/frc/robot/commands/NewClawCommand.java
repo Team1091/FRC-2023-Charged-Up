@@ -5,15 +5,17 @@ import frc.robot.subsystems.ClawSubsystem;
 
 public class NewClawCommand extends CommandBase {
 
-    private ClawSubsystem clawSubsystem;
+    private final ClawSubsystem clawSubsystem;
 
-    public NewClawCommand(ClawSubsystem clawSubsystem){
+    public NewClawCommand(ClawSubsystem clawSubsystem) {
         this.clawSubsystem = clawSubsystem;
         addRequirements(clawSubsystem);
     }
+
     @Override
     public void initialize() {
     }
+
     @Override
     public void execute() {
         clawSubsystem.leftOut();

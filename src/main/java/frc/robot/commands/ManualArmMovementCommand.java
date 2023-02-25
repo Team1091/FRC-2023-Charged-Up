@@ -32,11 +32,7 @@ public class ManualArmMovementCommand extends CommandBase {
     @Override
     public void execute() {
 
-        if (armMotorSpeed.get() < 0 || armMotorSpeed.get()>0) {
-            armSubsystem.setArmBreak(false);
-        } else {
-           armSubsystem.setArmBreak(true);
-        }
+        armSubsystem.setArmBreak(armMotorSpeed.get() >= 0 && armMotorSpeed.get() <= 0);
 
         armSubsystem.setMotor(armMotorSpeed.get());
     }
@@ -45,7 +41,7 @@ public class ManualArmMovementCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         armSubsystem.setMotor(0);
-         armSubsystem.setArmBreak(true);
+        armSubsystem.setArmBreak(true);
     }
 
     // Returns true when the command should end.

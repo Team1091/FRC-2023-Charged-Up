@@ -14,10 +14,11 @@ import frc.robot.utils.Rotation;
 
 public class PositionDCommand extends SequentialCommandGroup {
     //Score Pick Score
-    private double toCubeORCone = 100000.0;//Set Proper distance
-    private double rotationAmount = 180;
-    public PositionDCommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem){
-        addCommands( new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
+    private final double toCubeORCone = 100000.0;//Set Proper distance
+    private final double rotationAmount = 180;
+
+    public PositionDCommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem) {
+        addCommands(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
 //                new AutoArmMovementCommand(armSubsystem, ArmPosition.)
                 new ClawCommand(clawSubsystem, colorSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
@@ -27,7 +28,7 @@ public class PositionDCommand extends SequentialCommandGroup {
                 new ClawCommand(clawSubsystem, colorSubsystem, true),
                 new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
-                new AutoArmMovementCommand(armSubsystem,ArmPosition.MIDDLE),
+                new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
                 new ClawCommand(clawSubsystem, colorSubsystem, false));
 
     }

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class CompressorSubsystem extends SubsystemBase {
 
-    private Compressor pcmCompressor;
+    private final Compressor pcmCompressor;
 
     public CompressorSubsystem() {
         pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
@@ -16,7 +16,7 @@ public class CompressorSubsystem extends SubsystemBase {
         pcmCompressor.disable();
     }
 
-    public void enableDaCompressor(){
+    public void enableDaCompressor() {
         pcmCompressor.enableDigital();
     }
 }

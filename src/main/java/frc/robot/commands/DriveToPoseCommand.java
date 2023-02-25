@@ -2,13 +2,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.PoseEstimationSubsystem;
-
-import java.util.List;
 
 public class DriveToPoseCommand extends CommandBase {
     private static final double DELTA_DISTANCE = 0.1;
@@ -56,7 +53,6 @@ public class DriveToPoseCommand extends CommandBase {
 
         SmartDashboard.putString("perspective:", localPerspectiveTrans.toString());
         SmartDashboard.putNumber("rotation:", rotation);
-
 
 
         // drive that way

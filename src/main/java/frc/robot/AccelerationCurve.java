@@ -4,11 +4,11 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Timer;
 
 public class AccelerationCurve {
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
     private double currentSpeed = 0;
-    private double acceleration;
-    private double minimumPower;
-    private double maximumPower;
+    private final double acceleration;
+    private final double minimumPower;
+    private final double maximumPower;
 
     public AccelerationCurve(double acceleration, double minimumPower, double maximumPower) {
         timer.start();
@@ -50,7 +50,6 @@ public class AccelerationCurve {
             }
 
             currentSpeed = -minPowerOverride;
-            return;
         }
     }
 

@@ -14,10 +14,11 @@ import frc.robot.utils.Rotation;
 
 public class PositionBCommand extends SequentialCommandGroup {
     //Score Pick Dock
-    private double toCubeORCone = 100000.0;//Set Proper distance
-    private double rotationAmount = 180;
-    public PositionBCommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem){
-        addCommands( new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
+    private final double toCubeORCone = 100000.0;//Set Proper distance
+    private final double rotationAmount = 180;
+
+    public PositionBCommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem) {
+        addCommands(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
                 new ClawCommand(clawSubsystem, colorSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new DistanceDriveCommand(driveTrainSubsystem, -toCubeORCone),

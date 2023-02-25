@@ -21,8 +21,8 @@ import java.util.List;
 
 public class PhotonColorVisionSubsystem extends SubsystemBase implements IAprilVisionSubsystem {
 
-    private PhotonCamera photonCamera;
-    private ShuffleboardTab visionTab;
+    private final PhotonCamera photonCamera;
+    private final ShuffleboardTab visionTab;
 
     public PhotonColorVisionSubsystem(PhotonCamera colorCamera) {
         photonCamera = colorCamera;
@@ -68,11 +68,11 @@ public class PhotonColorVisionSubsystem extends SubsystemBase implements IAprilV
 
 
     public int getColoredObjectID() {
-        var res=photonCamera.getLatestResult();
-        var bestTarget = (res!=null)? res.getBestTarget():null;
+        var res = photonCamera.getLatestResult();
+        var bestTarget = (res != null) ? res.getBestTarget() : null;
 
 
-        return (bestTarget!=null)? bestTarget.getFiducialId():-1;
+        return (bestTarget != null) ? bestTarget.getFiducialId() : -1;
     }
 
     public List<AprilTagLocation> getAllTargets() { //TODO depreciated does not work as intended

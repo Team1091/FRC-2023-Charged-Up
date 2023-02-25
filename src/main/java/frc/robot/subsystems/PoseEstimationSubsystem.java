@@ -67,13 +67,13 @@ public class PoseEstimationSubsystem extends SubsystemBase {
                     AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
 
             tab = Shuffleboard.getTab("Vision");
-        } catch(IOException e) {
+        } catch (IOException e) {
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
             SmartDashboard.putString("April field layout", "Failed");
             layout = null;
         }
         this.aprilTagFieldLayout = layout;
-        poseEstimator =  new MecanumDrivePoseEstimator(
+        poseEstimator = new MecanumDrivePoseEstimator(
                 Constants.DriveTrain.KINEMATICS,
                 Rotation2d.fromDegrees(this.gyroBalanceSubsystem.getYaw()),
                 drivetrainSubsystem.getWheelPositions(),
@@ -109,7 +109,7 @@ public class PoseEstimationSubsystem extends SubsystemBase {
         field2d.setRobotPose(getCurrentPose());
 
         try {
-            tab.addString("yo yo yo",()->"bruh");
+            tab.addString("yo yo yo", () -> "bruh");
             tab.addString("Pose", this::getFormattedPose).withPosition(0, 0).withSize(2, 0);
             tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
         } catch (Exception e) {

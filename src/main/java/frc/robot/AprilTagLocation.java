@@ -1,9 +1,9 @@
 package frc.robot;
 
 public class AprilTagLocation {
-    private int idNumber;
-    private double targetDistance;
-    private double horizontalPosOfCenter; //relative distance where -1 is left most, and 1.0 is rightmost, and 0 is center
+    private final int idNumber;
+    private final double targetDistance;
+    private final double horizontalPosOfCenter; //relative distance where -1 is left most, and 1.0 is rightmost, and 0 is center
 
     public AprilTagLocation(int idNumber, double targetDistance, double horizontalPosOfCenter) {
         this.idNumber = idNumber;

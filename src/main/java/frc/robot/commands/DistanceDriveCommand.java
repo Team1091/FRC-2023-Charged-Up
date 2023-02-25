@@ -7,7 +7,7 @@ public class DistanceDriveCommand extends CommandBase {
     private final DriveTrainSubsystem driveTrainSubsystem;
     private final Double xDistance;
     private double leftEncoderTarget;
-    private boolean isReverse;
+    private final boolean isReverse;
 
     public DistanceDriveCommand(DriveTrainSubsystem driveTrainSubsystem, Double distance) {
         this.driveTrainSubsystem = driveTrainSubsystem;

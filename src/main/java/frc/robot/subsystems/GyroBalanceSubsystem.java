@@ -5,9 +5,7 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -38,7 +36,11 @@ public class GyroBalanceSubsystem extends SubsystemBase {
         return gyro.getRoll();
     }
 
-    public double getAngle() { return gyro.getAngle(); }
+    public double getAngle() {
+        return gyro.getAngle();
+    }
 
-    public double getYaw() { return gyro.getYaw(); }
+    public double getYaw() {
+        return gyro.getYaw();
+    }
 }

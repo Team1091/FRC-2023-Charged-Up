@@ -1,5 +1,4 @@
 import frc.robot.utils.Distance;
-import frc.robot.utils.Rotation;
 import org.junit.jupiter.api.Test;
 
 public class DistanceTest {
@@ -11,7 +10,7 @@ public class DistanceTest {
 
 
     @Test
-    public void testFeet(){
+    public void testFeet() {
         assert almostEqual(Distance.inFeet(3.2808399).toMeters(), 1.0);
     }
 

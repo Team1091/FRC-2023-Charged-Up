@@ -5,7 +5,7 @@ import frc.robot.GamePieceType;
 
 public class ColorSubsystem extends SubsystemBase {
 
-    private PhotonColorVisionSubsystem photonColorVisionSubsystem;
+    private final PhotonColorVisionSubsystem photonColorVisionSubsystem;
     private GamePieceType gamePieceType;
 
     public ColorSubsystem(PhotonColorVisionSubsystem photonColorVisionSubsystem) {
@@ -16,7 +16,7 @@ public class ColorSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         int id = photonColorVisionSubsystem.getColoredObjectID();
-        switch(id) {
+        switch (id) {
             case 0:
                 gamePieceType = GamePieceType.NONE;
                 break;
@@ -31,7 +31,7 @@ public class ColorSubsystem extends SubsystemBase {
 
     public GamePieceType getGamePiece() {
         int id = photonColorVisionSubsystem.getColoredObjectID();
-        switch(id) {
+        switch (id) {
             case 0:
                 gamePieceType = GamePieceType.NONE;
                 break;
@@ -43,7 +43,7 @@ public class ColorSubsystem extends SubsystemBase {
                 break;
         }
 
-       return  gamePieceType;
-   }
+        return gamePieceType;
+    }
 
 }

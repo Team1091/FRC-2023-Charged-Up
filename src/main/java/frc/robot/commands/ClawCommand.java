@@ -1,11 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.GamePieceType;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ColorSubsystem;
-
-import java.lang.reflect.Type;
 
 public class ClawCommand extends CommandBase {
 
@@ -14,7 +11,7 @@ public class ClawCommand extends CommandBase {
     private final ColorSubsystem colorSubsystem;
 
     private final boolean cone = true;
-    private boolean closeClaw;
+    private final boolean closeClaw;
 
     public ClawCommand(ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, boolean closeClaw) {
         this.clawSubsystem = clawSubsystem;

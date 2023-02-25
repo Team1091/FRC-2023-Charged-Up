@@ -7,7 +7,7 @@ public class StrafeCommand extends CommandBase {
     private final DriveTrainSubsystem driveTrainSubsystem;
     private final Double yDistance;
     private double leftEncoderTarget;
-    private boolean isReverse;
+    private final boolean isReverse;
 
     public StrafeCommand(DriveTrainSubsystem driveTrainSubsystem, Double distance) {
         this.driveTrainSubsystem = driveTrainSubsystem;

@@ -5,10 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cameraserver.CameraServerShared;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,8 +12,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.*;
 import frc.robot.commands.AutoStartCommands.*;
+import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import org.photonvision.PhotonCamera;
 //hi
@@ -54,16 +50,16 @@ public class RobotContainer {
         return control;
     }
 
-    double tank (double control){
-        if (controller.rightStick().getAsBoolean()){
+    double tank(double control) {
+        if (controller.rightStick().getAsBoolean()) {
             return 0.0;
         }
         return control;
     }
 
-    double slowMode(double control){
-        if (controller.leftTrigger().getAsBoolean()){
-            return control*0.25;
+    double slowMode(double control) {
+        if (controller.leftTrigger().getAsBoolean()) {
+            return control * 0.25;
         }
         return control;
     }
@@ -127,8 +123,8 @@ public class RobotContainer {
     private void configureBindings() {
         controller.x().onTrue(new ClawCommand(clawSubsystem, colorSubsystem, true));
         controller.a().onTrue(new ClawCommand(clawSubsystem, colorSubsystem, false));
-        controller.rightBumper().whileTrue(new ManualArmMovementCommand(armSubsystem,()->0.5));
-        controller.leftBumper().whileTrue(new ManualArmMovementCommand(armSubsystem,()->-0.5));
+        controller.rightBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> 0.5));
+        controller.leftBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> -0.5));
         controller.back().onTrue(new BreakCommand((breakSubsystem)));
         controller.y().onTrue(new ToggleArmActuationCommand(armSubsystem));
     }

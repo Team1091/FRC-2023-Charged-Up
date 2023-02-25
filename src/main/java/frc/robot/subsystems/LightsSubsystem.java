@@ -1,11 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import java.awt.*;
-import java.nio.ByteBuffer;
 
 public class LightsSubsystem extends SubsystemBase {
 
@@ -42,7 +38,7 @@ public class LightsSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        arduino.write(new byte[] {lightColors.arduinoColor()}, 1);
+        arduino.write(new byte[]{lightColors.arduinoColor()}, 1);
     }
 
     public void setLights(LightColors lightColors) {
@@ -50,14 +46,15 @@ public class LightsSubsystem extends SubsystemBase {
     }
 
     public enum LightColors {
-        OFF((byte)0), RED((byte)1), BLUE((byte)2), ORANGE((byte)3);
+        OFF((byte) 0), RED((byte) 1), BLUE((byte) 2), ORANGE((byte) 3);
 
         public final byte colorByte;
-        LightColors(byte colorByte){
+
+        LightColors(byte colorByte) {
             this.colorByte = colorByte;
         }
 
-        public byte arduinoColor(){
+        public byte arduinoColor() {
             return colorByte;
         }
     }
