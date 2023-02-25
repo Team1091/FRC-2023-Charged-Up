@@ -63,7 +63,7 @@ public class Constants { //put final here
     }
 
     public static class OperatorConstants {
-        public static final int kDriverControllerPort = 0;
+        public static final int K_DRIVER_CONTROLLER_PORT = 0;
     }
 
     /**

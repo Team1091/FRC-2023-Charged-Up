@@ -19,16 +19,16 @@ public class PositionACommand extends SequentialCommandGroup {
 
         addCommands(
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
-                new ClawCommand(clawSubsystem, colorSubsystem, false),
+                new ClawCommand(clawSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new DistanceDriveCommand(driveTrainSubsystem, -toCubeORCone),
                 new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
-                new ClawCommand(clawSubsystem, colorSubsystem, true),
+                new ClawCommand(clawSubsystem, true),
                 new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
-                new ClawCommand(clawSubsystem, colorSubsystem, false),
+                new ClawCommand(clawSubsystem, false),
                 new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem, chargingStation),
                 new BalanceCommand(gyroBalanceSubsystem, driveTrainSubsystem));
 

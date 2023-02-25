@@ -8,18 +8,14 @@ public class ClawCommand extends CommandBase {
 
     private final ClawSubsystem clawSubsystem;
 
-    private final ColorSubsystem colorSubsystem;
-
     private final boolean cone = true;
     private final boolean closeClaw;
 
-    public ClawCommand(ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, boolean closeClaw) {
+    public ClawCommand(ClawSubsystem clawSubsystem, boolean closeClaw) {
         this.clawSubsystem = clawSubsystem;
-        this.colorSubsystem = colorSubsystem;
         this.closeClaw = closeClaw;
 
         addRequirements(clawSubsystem);
-        addRequirements(colorSubsystem);
     }
 
     @Override

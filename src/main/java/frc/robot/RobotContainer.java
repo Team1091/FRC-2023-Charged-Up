@@ -41,7 +41,7 @@ public class RobotContainer {
 
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
-    private final CommandXboxController controller = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    private final CommandXboxController controller = new CommandXboxController(OperatorConstants.K_DRIVER_CONTROLLER_PORT);
 
     double deadZone(double control) {
         if (Math.abs(control) < Constants.deadzone) {
@@ -121,8 +121,8 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        controller.x().onTrue(new ClawCommand(clawSubsystem, colorSubsystem, true));
-        controller.a().onTrue(new ClawCommand(clawSubsystem, colorSubsystem, false));
+        controller.x().onTrue(new ClawCommand(clawSubsystem, true));
+        controller.a().onTrue(new ClawCommand(clawSubsystem, false));
         controller.rightBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> 0.5));
         controller.leftBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> -0.5));
         controller.back().onTrue(new BreakCommand((breakSubsystem)));

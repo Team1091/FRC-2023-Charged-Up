@@ -11,9 +11,7 @@ public class BalanceCommand extends CommandBase {
 
     private final double tolerance = 5.0;
 
-    private double pitch;
-
-    private final double speed = 0.25;
+    private static final double speed = 0.25;
 
     public BalanceCommand(GyroBalanceSubsystem gyroBalanceSubsystem, DriveTrainSubsystem driveTrainSubsystem) {
 
@@ -29,7 +27,7 @@ public class BalanceCommand extends CommandBase {
 
     @Override
     public void execute() {
-        pitch = gyroBalanceSubsystem.getPitch();
+        double pitch = gyroBalanceSubsystem.getPitch();
         if (Math.abs(pitch) < tolerance) {
             return;
         }

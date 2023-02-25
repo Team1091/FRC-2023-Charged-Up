@@ -17,7 +17,7 @@ public class PositionCCommand extends SequentialCommandGroup {
 
     public PositionCCommand(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, ColorSubsystem colorSubsystem, DriveTrainSubsystem driveTrainSubsystem, GyroBalanceSubsystem gyroBalanceSubsystem, PoseEstimationSubsystem poseEstimationSubsystem) {
         addCommands(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
-                new ClawCommand(clawSubsystem, colorSubsystem, false),
+                new ClawCommand(clawSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem, chargingStation),
                 new BalanceCommand(gyroBalanceSubsystem, driveTrainSubsystem));
