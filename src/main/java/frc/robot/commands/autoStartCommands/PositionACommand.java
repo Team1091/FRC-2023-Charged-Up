@@ -14,19 +14,25 @@ public class PositionACommand {
     //Score Pick Score Dock
     private static final Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
     private static final double toCubeORCone = 100000.0;//TODO: Set Proper distance
-    private static final double rotationAmount = 180;
+    private static final Rotation rotationAmount = Rotation.inDegrees(180);
 
 
-    public static Command create(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, DriveTrainSubsystem driveTrainSubsystem, GyroBalanceSubsystem gyroBalanceSubsystem, PoseEstimationSubsystem poseEstimationSubsystem) {
+    public static Command create(
+            ArmSubsystem armSubsystem,
+            ClawSubsystem clawSubsystem,
+            DriveTrainSubsystem driveTrainSubsystem,
+            GyroBalanceSubsystem gyroBalanceSubsystem,
+            PoseEstimationSubsystem poseEstimationSubsystem
+    ) {
         return new SequentialCommandGroup(
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
                 new ClawCommand(clawSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new DistanceDriveCommand(driveTrainSubsystem, -toCubeORCone),
-                new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
+                new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
                 new ClawCommand(clawSubsystem, true),
-                new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
+                new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new ClawCommand(clawSubsystem, false),

@@ -15,17 +15,17 @@ import frc.robot.utils.Rotation;
 public class PositionBCommand {
     //Score Pick Dock
     private static final double toCubeORCone = 100000.0;//Set Proper distance
-    private static final double rotationAmount = 180;
+    private static final Rotation rotationAmount = Rotation.inDegrees(180);
 
     public static Command create(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, DriveTrainSubsystem driveTrainSubsystem) {
         return new SequentialCommandGroup(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
                 new ClawCommand(clawSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new DistanceDriveCommand(driveTrainSubsystem, -toCubeORCone),
-                new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
+                new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
                 new ClawCommand(clawSubsystem, true),
-                new TurnCommand(driveTrainSubsystem, Rotation.inDegrees(rotationAmount).toRadians()),
+                new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
                 new ClawCommand(clawSubsystem, false),

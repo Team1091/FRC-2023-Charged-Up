@@ -17,7 +17,13 @@ public class PositionCCommand {
     private static final Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
 
 
-    public static Command create(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, DriveTrainSubsystem driveTrainSubsystem, GyroBalanceSubsystem gyroBalanceSubsystem, PoseEstimationSubsystem poseEstimationSubsystem) {
+    public static Command create(
+            ArmSubsystem armSubsystem,
+            ClawSubsystem clawSubsystem,
+            DriveTrainSubsystem driveTrainSubsystem,
+            GyroBalanceSubsystem gyroBalanceSubsystem,
+            PoseEstimationSubsystem poseEstimationSubsystem
+    ) {
         return new SequentialCommandGroup(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
                 new ClawCommand(clawSubsystem, false),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
