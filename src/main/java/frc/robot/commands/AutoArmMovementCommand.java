@@ -11,7 +11,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import org.jetbrains.annotations.NotNull;
 
 public class AutoArmMovementCommand extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
     @NotNull
     private final ArmSubsystem armSubsystem;
     @NotNull
@@ -68,15 +68,6 @@ public class AutoArmMovementCommand extends CommandBase {
                 // TODO: yeah, probably should implement this
                 break;
         }
-    }
-
-    public void moveArmDownSlightly() {
-//        double pastEncoderPos = armSubsystem.getMotorPosition();
-//        while (armSubsystem.getMotorPosition() > (pastEncoderPos + Constants.armMoveDownEncoderTicks)) {
-//            armSubsystem.setMotor(-0.1);
-//        }
-//
-//        armSubsystem.setMotor(0.0);
     }
 
     // Called once the command ends or is interrupted.

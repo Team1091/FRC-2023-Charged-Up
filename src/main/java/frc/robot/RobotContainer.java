@@ -75,25 +75,16 @@ public class RobotContainer {
                         driveTrainSubsystem,
                         () -> {
                             var input = controller.getLeftX(); //put negative here to change polarity
-                            if (controller.getHID().getBButton()) {
-                                input = input / 4;
-                            }
                             SmartDashboard.putNumber("strafing", input);
                             return slowMode(tank(deadZone(input)));
                         },
                         () -> {
                             var input = -controller.getLeftY();
-                            if (controller.getHID().getBButton()) {
-                                input = input / 4;
-                            }
                             SmartDashboard.putNumber("forwards", input);
                             return slowMode(deadZone(input));
                         },
                         () -> {
                             var input = controller.getRightX();
-                            if (controller.getHID().getBButton()) {
-                                input = input / 4;
-                            }
                             SmartDashboard.putNumber("rotation", input);
                             return slowMode(tank(deadZone(input)));
                         }

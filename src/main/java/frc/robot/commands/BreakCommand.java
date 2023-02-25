@@ -12,7 +12,7 @@ import frc.robot.subsystems.BreakSubsystem;
  * An example command that uses an example subsystem.
  */
 public class BreakCommand extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
     private final BreakSubsystem breakSubsystem;
 
 

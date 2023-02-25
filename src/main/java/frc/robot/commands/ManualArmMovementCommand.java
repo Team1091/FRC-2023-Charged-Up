@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class ManualArmMovementCommand extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     @NotNull
     private final ArmSubsystem armSubsystem;
     @NotNull

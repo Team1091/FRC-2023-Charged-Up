@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.utils.Distance;
 
 public class StrafeCommand extends CommandBase {
     private final DriveTrainSubsystem driveTrainSubsystem;
@@ -9,9 +10,9 @@ public class StrafeCommand extends CommandBase {
     private double leftEncoderTarget;
     private final boolean isReverse;
 
-    public StrafeCommand(DriveTrainSubsystem driveTrainSubsystem, Double distance) {
+    public StrafeCommand(DriveTrainSubsystem driveTrainSubsystem, Distance distance) {
         this.driveTrainSubsystem = driveTrainSubsystem;
-        this.yDistance = distance * -1;
+        this.yDistance = distance.toMeters() * -1;
         this.isReverse = yDistance < 0;
         addRequirements(this.driveTrainSubsystem);
     }

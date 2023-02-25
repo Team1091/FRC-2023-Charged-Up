@@ -11,7 +11,7 @@ import frc.robot.subsystems.ArmSubsystem;
  * An example command that uses an example subsystem.
  */
 public class ToggleArmActuationCommand extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
     private final ArmSubsystem armSubsystem;
 
     public ToggleArmActuationCommand(ArmSubsystem armSubsystem) {

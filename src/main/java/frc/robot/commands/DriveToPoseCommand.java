@@ -15,22 +15,11 @@ public class DriveToPoseCommand extends CommandBase {
 
     private final Pose2d target;
 
-//    private final double tolerance = 0.05;
-//
-//    private final double targetDistance = 1;
-//
-//    private final double forwardSpeed = 0.25;
-//
-//    private final double strafeSpeed = -0.25;
-
-//    private final int numberToFind;
-
     public DriveToPoseCommand(DriveTrainSubsystem driveTrainSubsystem, PoseEstimationSubsystem poseEstimationSubsystem, Pose2d target) {
         this.driveTrainSubsystem = driveTrainSubsystem;
         this.poseEstimationSubsystem = poseEstimationSubsystem;
         this.target = target;
-//        this.numberToFind = numberToFind;
-//        ((DummyVisionSubsystem) photonVisionSubsystem).reset();
+
         addRequirements(this.driveTrainSubsystem);
         addRequirements(this.poseEstimationSubsystem);
     }
