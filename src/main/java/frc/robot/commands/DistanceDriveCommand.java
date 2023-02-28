@@ -12,7 +12,7 @@ public class DistanceDriveCommand extends CommandBase {
 
     public DistanceDriveCommand(DriveTrainSubsystem driveTrainSubsystem, Distance distance) {
         this.driveTrainSubsystem = driveTrainSubsystem;
-        this.xDistance = distance.toMeters() * -1;
+        this.xDistance = distance.toMeters() * 1; //TODO CHANGED NEGATIVE ONE HERE, SWITCH BACK IF NEED
         this.isReverse = xDistance < 0;
         addRequirements(this.driveTrainSubsystem);
     }

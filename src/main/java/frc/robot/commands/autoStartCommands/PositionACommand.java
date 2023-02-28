@@ -15,6 +15,8 @@ public class PositionACommand {
     //Score Pick Score Dock
     private static final Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
     private static final Distance toCubeORCone = Distance.inFeet(10.0);//TODO: Set Proper distance
+    private static final Distance forward = Distance.inFeet(1.0);
+    private static final Distance back = Distance.inFeet(-2.0);
     private static final Rotation rotationAmount = Rotation.inDegrees(180);
 
 
@@ -23,20 +25,28 @@ public class PositionACommand {
             ClawSubsystem clawSubsystem,
             DriveTrainSubsystem driveTrainSubsystem,
             GyroBalanceSubsystem gyroBalanceSubsystem,
-            PoseEstimationSubsystem poseEstimationSubsystem
+            PoseEstimationSubsystem poseEstimationSubsystem,
+            ToggleArmActuationCommand toggleArmActuationCommand
     ) {
         return new SequentialCommandGroup(
+                new ClawCommand(clawSubsystem, true),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
+                new DistanceDriveCommand(driveTrainSubsystem, forward),
                 new ClawCommand(clawSubsystem, false),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
+                new DistanceDriveCommand(driveTrainSubsystem, back),
+                new ToggleArmActuationCommand(armSubsystem),
+                new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone.reversed()),
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
+                new ToggleArmActuationCommand(armSubsystem),
                 new ClawCommand(clawSubsystem, true),
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
+                new DistanceDriveCommand(driveTrainSubsystem, forward),
                 new ClawCommand(clawSubsystem, false),
+                new ToggleArmActuationCommand(armSubsystem),
+                new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
                 new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem, chargingStation),
                 new BalanceCommand(gyroBalanceSubsystem, driveTrainSubsystem));
     }

@@ -133,10 +133,10 @@ public class RobotContainer {
         Command command;
         switch (startPos) {
             case A:
-                command = PositionBCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
+                command = PositionACommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem, new ToggleArmActuationCommand(armSubsystem));
                 break;
             case B:
-                command = PositionACommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
+                command = PositionBCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
                 break;
             case C:
                 command = PositionCCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);

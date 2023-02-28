@@ -63,10 +63,6 @@ public class AutoArmMovementCommand extends CommandBase {
                     }
                 }
                 break;
-
-            case INSIDE:
-                // TODO: yeah, probably should implement this
-                break;
         }
     }
 
