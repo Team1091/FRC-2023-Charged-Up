@@ -89,17 +89,14 @@ public class Constants { //put final here
     //pneumatic channel numbers
     public final static int everythingPcm = 1;
 
-    public final static int armBreakPcm = 0;
     public final static int breakWheelIn = 0;
     public final static int breakWheelOut = 1;
     public final static int armInChannel = 2;
     public final static int armOutChannel = 3;
-    public final static int rightInChannel = 4;
-    public final static int rightOutChannel = 5;
-    public final static int leftInChannel = 6;
-    public final static int leftOutChannel = 7;
-    public final static int motorBreakIn = 0;
-    public final static int motorBreakOut = 1;
+    public final static int clawInChannel = 4;
+    public final static int clawOutChannel = 5;
+    public final static int motorBreakIn = 6;
+    public final static int motorBreakOut = 7;
 
     public final static double lowestEncoderPosition = 0;
     public final static double groundEncoderPosition = 378;

@@ -98,7 +98,7 @@ public class RobotContainer {
             startPosChooser.addOption(p.name(), p);
         }
 
-        startPosChooser.setDefaultOption(StartingPositions.Sussex.name(), StartingPositions.Sussex);
+        startPosChooser.setDefaultOption(StartingPositions.Docking.name(), StartingPositions.Docking);
         SmartDashboard.putData(startPosChooser);
     }
 
@@ -132,20 +132,11 @@ public class RobotContainer {
 
         Command command;
         switch (startPos) {
-            case A:
-                command = PositionACommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem, new ToggleArmActuationCommand(armSubsystem));
+            case Docking:
+                command = DockingCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem, new ToggleArmActuationCommand(armSubsystem));
                 break;
-            case B:
-                command = PositionBCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
-                break;
-            case C:
-                command = PositionCCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem);
-                break;
-            case D:
-                command = PositionDCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
-                break;
-            case Sussex:
-                command = new SussexDummyAutoCommand(driveTrainSubsystem);
+            case Double_Score:
+                command = DoubleScoreCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
                 break;
             default:
                 command = new SequentialCommandGroup();

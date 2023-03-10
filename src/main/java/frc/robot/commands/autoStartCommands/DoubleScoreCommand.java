@@ -13,8 +13,8 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.utils.Distance;
 import frc.robot.utils.Rotation;
 
-public class PositionBCommand {
-    //Score Pick Dock
+public class DoubleScoreCommand {
+    //Score Pick Score
     private static final Distance toCubeORCone = Distance.inFeet(10.0);//TODO: Set Proper distance
     private static final Rotation rotationAmount = Rotation.inDegrees(180);
 

@@ -32,7 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
                 Constants.armInChannel,
                 Constants.armOutChannel);
         breakSolenoid = new DoubleSolenoid(
-                Constants.armBreakPcm,
+                Constants.everythingPcm,
                 PneumaticsModuleType.CTREPCM,
                 Constants.motorBreakIn,
                 Constants.motorBreakOut);

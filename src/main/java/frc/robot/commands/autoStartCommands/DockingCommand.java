@@ -11,8 +11,8 @@ import frc.robot.subsystems.*;
 import frc.robot.utils.Distance;
 import frc.robot.utils.Rotation;
 
-public class PositionACommand {
-    //Score Pick Score Dock
+public class DockingCommand {
+    //Score Dock
     private static final Pose2d chargingStation = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));//Make it the Charging Station
     private static final Distance toCubeORCone = Distance.inFeet(10.0);//TODO: Set Proper distance
     private static final Distance forward = Distance.inFeet(1.0);

@@ -2,50 +2,26 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClawSubsystem extends SubsystemBase {
 
-    private final DoubleSolenoid rightSolenoid;
-    private final DoubleSolenoid leftSolenoid;
-
+    private final Solenoid clawSolenoid;
     public ClawSubsystem() {
-        rightSolenoid = new DoubleSolenoid(
-                Constants.everythingPcm,
+        clawSolenoid = new Solenoid(
+                Constants.clawInChannel,
                 PneumaticsModuleType.CTREPCM,
-                Constants.rightInChannel,
-                Constants.rightOutChannel);
-        leftSolenoid = new DoubleSolenoid(
-                Constants.everythingPcm,
-                PneumaticsModuleType.CTREPCM,
-                Constants.leftInChannel,
-                Constants.leftOutChannel);
-        rightOut();
-        leftOut();
+                Constants.clawOutChannel);
+        clawOut();
     }
 
-    public void rightIn() {
-        rightSolenoid.set(DoubleSolenoid.Value.kForward);
+    public void clawIn() {
+        clawSolenoid.set(false);
     }
 
-    public void rightOut() {
-        rightSolenoid.set(DoubleSolenoid.Value.kReverse);
-    }
-
-    public void leftIn() {
-        leftSolenoid.set(DoubleSolenoid.Value.kForward);
-    }
-
-    public void leftOut() {
-        leftSolenoid.set(DoubleSolenoid.Value.kReverse);
-    }
-
-    public boolean isRightIn() {
-        return rightSolenoid.get() == DoubleSolenoid.Value.kForward;
-    }
-
-    public boolean isLeftIn() {
-        return leftSolenoid.get() == DoubleSolenoid.Value.kForward;
+    public void clawOut() {
+        clawSolenoid.set(true);
     }
 }

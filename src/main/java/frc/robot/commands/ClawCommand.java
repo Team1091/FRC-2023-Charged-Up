@@ -24,13 +24,11 @@ public class ClawCommand extends CommandBase {
     @Override
     public void execute() {
         if (!closeClaw) {
-            clawSubsystem.rightOut();
-            clawSubsystem.leftOut();
+            clawSubsystem.clawOut();
             return;
         }
 
-        clawSubsystem.rightIn();
-        clawSubsystem.leftIn();
+        clawSubsystem.clawIn();
 
     }
 
