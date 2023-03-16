@@ -104,9 +104,15 @@ public class Constants { //put final here
     public final static double highestEncoderPosition = 1000000;
 
     public final static double armEncoderThreshold = 0.000314159;
+    public final static double armAutomaticMotorSpeed = 0.5;
     public final static double groundMovePosition = 0.0;
     public final static double middleMovePosition = 50.0;
     public final static double highestMovePostion = 100.0;
 
     public final static double armMoveDownEncoderTicks = 1;
+
+    public final static double maxArmPosEncoder = 180;
+    public final static double minArmPosEncoder = 0;
+    public final static int minSwitchChannel = 3;//todo
+    public final static int maxSwitchChannel = 4;
 }

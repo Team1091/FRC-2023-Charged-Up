@@ -32,38 +32,20 @@ public class AutoArmMovementCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        switch (automatic) {
-            case HIGH:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.HIGH.encoderPosition) <
-                        Constants.armEncoderThreshold) {
-                    if (armSubsystem.getMotorPosition() > ArmPosition.HIGH.encoderPosition) {
-                        armSubsystem.setMotor(0.5);
-                    } else {
-                        armSubsystem.setMotor(-0.5);
-                    }
-                }
-                break;
-            case MIDDLE:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.MIDDLE.encoderPosition) <
-                        Constants.armEncoderThreshold) {
-                    if (armSubsystem.getMotorPosition() > ArmPosition.MIDDLE.encoderPosition) {
-                        armSubsystem.setMotor(0.5);
-                    } else {
-                        armSubsystem.setMotor(-0.5);
-                    }
-                }
-                break;
-            case GROUND:
-                if (Math.abs(armSubsystem.getMotorPosition() - ArmPosition.GROUND.encoderPosition) <
-                        Constants.armEncoderThreshold) {
-                    if (armSubsystem.getMotorPosition() > ArmPosition.GROUND.encoderPosition) {
-                        armSubsystem.setMotor(0.5);
-                    } else {
-                        armSubsystem.setMotor(-0.5);
-                    }
-                }
-                break;
+        goToPosition(automatic.encoderPosition);
+    }
+
+    private void goToPosition(double targetEncoderPosition) {
+        if (getNeedToMove()) {
+            armSubsystem.setMotor(
+                    armSubsystem.getMotorPosition() > targetEncoderPosition ?
+                    Constants.armAutomaticMotorSpeed :
+                    -Constants.armAutomaticMotorSpeed);
         }
+    }
+
+    private boolean getNeedToMove() {
+        return Math.abs(armSubsystem.getMotorPosition() - automatic.encoderPosition) < Constants.armEncoderThreshold;
     }
 
     // Called once the command ends or is interrupted.
@@ -75,6 +57,6 @@ public class AutoArmMovementCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return !getNeedToMove();
     }
 }

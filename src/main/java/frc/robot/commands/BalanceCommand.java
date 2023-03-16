@@ -47,7 +47,7 @@ public class BalanceCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        //this will not work, you'll drive past 0
+        //this will not work, you'll drive past 0 since we don't slow down
         return Math.abs(gyroBalanceSubsystem.getPitch()) < tolerance;
     }
 }

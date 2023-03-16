@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -17,6 +18,10 @@ public class ArmSubsystem extends SubsystemBase {
     private double motorSpeed = 0;
 
     private final Encoder encoder;
+
+    private final DigitalInput lowSwitch;
+    private final DigitalInput highSwitch;
+    private double deviation = 0;
 
     //private long lastTimeToggled;
 
@@ -38,6 +43,10 @@ public class ArmSubsystem extends SubsystemBase {
                 Constants.motorBreakOut);
         setArmBreak(true);
         //lastTimeToggled = System.currentTimeMillis();
+        lowSwitch = new DigitalInput(Constants.minSwitchChannel);
+        highSwitch = new DigitalInput(Constants.maxSwitchChannel);
+
+
     }
 
     public void armIn() {
@@ -72,6 +81,17 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setMotor(double speed) {
+        if (lowSwitch.get()) {
+            encoder.reset();
+            deviation = 0;
+            return;
+        }
+
+        if (highSwitch.get()) {
+            deviation = encoder.get() - Constants.maxArmPosEncoder;
+            return;
+        }
+
         motorSpeed = speed;
     }
 
@@ -82,6 +102,6 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public double getMotorPosition() {
-        return encoder.getDistance();
+        return encoder.getDistance() - deviation;
     }
 }
