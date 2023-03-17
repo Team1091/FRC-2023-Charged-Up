@@ -58,6 +58,15 @@ public class Robot extends TimedRobot {
     }
 
     /**
+     * This function is called each time the robot leaves the disabled state
+     * Aka - This method runs when the robot is enabled.
+     */
+    @Override
+    public void disabledExit(){
+        robotContainer.robotEnabled();
+    }
+
+    /**
      * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
      */
     @Override

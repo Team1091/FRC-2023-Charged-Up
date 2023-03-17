@@ -103,6 +103,18 @@ public class RobotContainer {
     }
 
     /**
+     *     called each time the robot is enabled
+     */
+    public void robotEnabled() {
+        //set default states for subsystems
+        clawSubsystem.clawIn();
+        armSubsystem.armIn();
+        armSubsystem.setArmBreak(true);
+        armSubsystem.setMotor(0);
+        breakSubsystem.rightIn();
+    }
+
+    /**
      * Use this method to define your trigger->command mappings. Triggers can be created via the
      * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
      * predicate, or via the named factories in {@link

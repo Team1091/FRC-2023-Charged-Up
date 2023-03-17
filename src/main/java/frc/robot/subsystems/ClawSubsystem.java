@@ -8,20 +8,21 @@ import frc.robot.Constants;
 
 public class ClawSubsystem extends SubsystemBase {
 
-    private final Solenoid clawSolenoid;
+    private final DoubleSolenoid clawSolenoid;
     public ClawSubsystem() {
-        clawSolenoid = new Solenoid(
-                Constants.clawInChannel,
+        clawSolenoid = new DoubleSolenoid(
+                Constants.everythingPcm,
                 PneumaticsModuleType.CTREPCM,
+                Constants.clawInChannel,
                 Constants.clawOutChannel);
-        clawOut();
     }
 
     public void clawIn() {
-        clawSolenoid.set(false);
+        clawSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     public void clawOut() {
-        clawSolenoid.set(true);
+        clawSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 }
+
