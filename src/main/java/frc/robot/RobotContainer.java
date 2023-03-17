@@ -37,7 +37,7 @@ public class RobotContainer {
     private final BreakSubsystem breakSubsystem = new BreakSubsystem();
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
     private final CompressorSubsystem compressorSubsystem = new CompressorSubsystem();
-    private final LightsSubsystem lightsSubsystem = new LightsSubsystem();
+    //private final LightsSubsystem lightsSubsystem = new LightsSubsystem();
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<>();
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -153,6 +153,6 @@ public class RobotContainer {
             default:
                 command = new SequentialCommandGroup();
         }
-        return new ParallelCommandGroup(new LightCommand(lightsSubsystem), command);
+        return new ParallelCommandGroup(/*new LightCommand(lightsSubsystem),*/ command);
     }
 }
