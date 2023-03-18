@@ -23,14 +23,16 @@ public class DoubleScoreCommand {
         return new SequentialCommandGroup(
                 new ClawCommand(clawSubsystem),
                 new DelayCommand(1000),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
-                new ToggleArmActuationCommand(armPneumaticSubsystem),
-                new DelayCommand(3500),
                 new ParallelCommandGroup(
-                        new DelayCommand(500),
+                        new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
+                        new ToggleArmActuationCommand(armPneumaticSubsystem)
+                ),
+                new ParallelCommandGroup(
+                        new DelayCommand(1000),
                         new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(10))
                 ),
-                new ClawCommand(clawSubsystem)
+                new ClawCommand(clawSubsystem),
+                new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(6))
         );
     }
 }
