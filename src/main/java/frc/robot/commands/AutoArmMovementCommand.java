@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ArmPosition;
 import frc.robot.Constants;
@@ -27,6 +28,8 @@ public class AutoArmMovementCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        SmartDashboard.putBoolean("Move Ended", false);
+        SmartDashboard.putBoolean("Move Ended", false);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -36,27 +39,38 @@ public class AutoArmMovementCommand extends CommandBase {
     }
 
     private void goToPosition(double targetEncoderPosition) {
+        SmartDashboard.putBoolean("Need to move", getNeedToMove());
         if (getNeedToMove()) {
-            armSubsystem.setMotor(
-                    armSubsystem.getMotorPosition() > targetEncoderPosition ?
+            SmartDashboard.putBoolean("Is Moving", true);
+            var movingDirection = armSubsystem.getMotorPosition() < targetEncoderPosition ?
                     Constants.armAutomaticMotorSpeed :
-                    -Constants.armAutomaticMotorSpeed);
+                    -Constants.armAutomaticMotorSpeed;
+            SmartDashboard.putNumber("Moving Number", movingDirection);
+
+            armSubsystem.setArmBreak(false);
+            armSubsystem.setMotor(movingDirection);
+            return;
         }
+
+        armSubsystem.setArmBreak(true);
+        SmartDashboard.putBoolean("Is Moving", false);
     }
 
     private boolean getNeedToMove() {
-        return Math.abs(armSubsystem.getMotorPosition() - automatic.encoderPosition) < Constants.armEncoderThreshold;
+        return Math.abs(armSubsystem.getMotorPosition() - automatic.encoderPosition) > Constants.armEncoderThreshold;
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        SmartDashboard.putBoolean("Move Ended", true);
         armSubsystem.setMotor(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        SmartDashboard.putBoolean("Move Finished", !getNeedToMove());
         return !getNeedToMove();
     }
 }

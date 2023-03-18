@@ -31,7 +31,7 @@ public class ManualArmMovementCommand extends CommandBase {
     @Override
     public void execute() {
 
-        armSubsystem.setArmBreak(armMotorSpeed.get() >= 0 && armMotorSpeed.get() <= 0);
+        armSubsystem.setArmBreak(armMotorSpeed.get() == 0);
 
         armSubsystem.setMotor(armMotorSpeed.get());
     }

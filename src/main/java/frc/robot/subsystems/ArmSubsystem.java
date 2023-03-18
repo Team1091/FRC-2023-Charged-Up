@@ -79,8 +79,6 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setMotor(double speed) {
-
-
         if (lowSwitch.get()) {
             encoder.reset();
             deviation = 0;
@@ -97,6 +95,7 @@ public class ArmSubsystem extends SubsystemBase {
         }
 
         motorSpeed = speed;
+        SmartDashboard.putNumber("Actual Arm Speed", speed);
     }
 
     @Override

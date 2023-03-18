@@ -117,7 +117,7 @@ public class RobotContainer {
      */
     public void robotEnabled() {
         //set default states for subsystems
-        clawSubsystem.clawIn();
+        clawSubsystem.clawOut();
         armSubsystem.armIn();
         armSubsystem.setArmBreak(true);
         armSubsystem.setMotor(0);
