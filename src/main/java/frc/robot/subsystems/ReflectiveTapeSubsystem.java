@@ -29,17 +29,20 @@ public class ReflectiveTapeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putString("Inputs Exist?", photonCamera.getLatestResult().getTargets().size()>0?"Yes has targets":"No");
+
         var target = photonCamera.getLatestResult().getTargets().stream()
                 .min(Comparator.comparingDouble((t) ->
                         Math.abs(convertPixelCordsToRelativeWidth(getCenterOfRect(t.getDetectedCorners())))
                 ));
 
         SmartDashboard.putString("Target", target.toString());
-        SmartDashboard.putNumber("Latest Result", target.isPresent()? 1:0);
+        SmartDashboard.putNumber("Latest Result exists", target.isPresent()? 1:0);
 
         if (target.isPresent()) {
             // do the calculations
             currentTarget = target.get();
+            SmartDashboard.putString("curTar", currentTarget.getDetectedCorners().toString());
 
             SmartDashboard.putNumber("RelativeX of current target", getCurrentTargetRelativeX());
             SmartDashboard.putString("Numbers!", currentTarget.getDetectedCorners().toString());
