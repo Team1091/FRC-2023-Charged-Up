@@ -60,6 +60,13 @@ public class RobotContainer {
         return control;
     }
 
+    double strafeOnly(double control) {
+        if (controller.rightTrigger().getAsBoolean()) {
+            return 0.0;
+        }
+        return control;
+    }
+
     double slowMode(double control) {
         if (controller.leftTrigger().getAsBoolean()) {
             return control * 0.25;
@@ -85,12 +92,12 @@ public class RobotContainer {
                         () -> {
                             var input = -controller.getLeftY();
                             SmartDashboard.putNumber("forwards", input);
-                            return slowMode(deadZone(input));
+                            return slowMode(deadZone(strafeOnly(input)));
                         },
                         () -> {
                             var input = controller.getRightX();
                             SmartDashboard.putNumber("rotation", input);
-                            return slowMode(tank(deadZone(input)));
+                            return slowMode(tank(deadZone(strafeOnly(input))));
                         }
                 )
         );

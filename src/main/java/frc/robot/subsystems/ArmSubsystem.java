@@ -79,15 +79,21 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setMotor(double speed) {
-        if (lowSwitch.get() && speed < 0) {
+
+
+        if (lowSwitch.get()) {
             encoder.reset();
             deviation = 0;
-            return;
+            if (speed < 0) {
+                return;
+            }
         }
 
-        if (!highSwitch.get() && speed > 0) {
+        if (!highSwitch.get()) {
             deviation = encoder.get() - Constants.maxArmPosEncoder;
-            return;
+            if (speed > 0) {
+                return;
+            }
         }
 
         motorSpeed = speed;
