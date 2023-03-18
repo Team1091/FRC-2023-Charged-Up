@@ -33,6 +33,8 @@ public class RobotContainer {
     private final GyroBalanceSubsystem gyroSubsystem = new GyroBalanceSubsystem();
     private final PoseEstimationSubsystem poseEstimationSubsystem = new PoseEstimationSubsystem(photonCamera, driveTrainSubsystem, gyroSubsystem);
     private final ClawSubsystem clawSubsystem = new ClawSubsystem();
+
+    private final ArmPneumaticSubsystem armPneumaticSubsystem = new ArmPneumaticSubsystem();
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final BreakSubsystem breakSubsystem = new BreakSubsystem();
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
@@ -118,7 +120,7 @@ public class RobotContainer {
     public void robotEnabled() {
         //set default states for subsystems
         clawSubsystem.clawOut();
-        armSubsystem.armIn();
+        armPneumaticSubsystem.armIn();
         armSubsystem.setArmBreak(true);
         armSubsystem.setMotor(0);
         breakSubsystem.rightOut();
@@ -138,7 +140,7 @@ public class RobotContainer {
         controller.rightBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> 0.5));
         controller.leftBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> -0.5));
         controller.back().onTrue(new BreakCommand((breakSubsystem)));
-        controller.y().onTrue(new ToggleArmActuationCommand(armSubsystem));
+        controller.y().onTrue(new ToggleArmActuationCommand(armPneumaticSubsystem));
         controller.a().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND));
         controller.b().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH));
 
@@ -157,10 +159,10 @@ public class RobotContainer {
         Command command;
         switch (startPos) {
             case Docking:
-                command = DockingCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem, new ToggleArmActuationCommand(armSubsystem));
+                command = DockingCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem,armPneumaticSubsystem);
                 break;
             case Double_Score:
-                command = DoubleScoreCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem);
+                command = DoubleScoreCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, armPneumaticSubsystem);
                 break;
             default:
                 command = new SequentialCommandGroup();

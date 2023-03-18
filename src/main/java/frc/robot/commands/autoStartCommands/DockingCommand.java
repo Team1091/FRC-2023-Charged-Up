@@ -26,7 +26,7 @@ public class DockingCommand {
             DriveTrainSubsystem driveTrainSubsystem,
             GyroBalanceSubsystem gyroBalanceSubsystem,
             PoseEstimationSubsystem poseEstimationSubsystem,
-            ToggleArmActuationCommand toggleArmActuationCommand
+            ArmPneumaticSubsystem armPneumaticSubsystem
     ) {
         return new SequentialCommandGroup(
                 new ClawCommand(clawSubsystem),
@@ -34,18 +34,18 @@ public class DockingCommand {
                 new DistanceDriveCommand(driveTrainSubsystem, forward),
                 new ClawCommand(clawSubsystem),
                 new DistanceDriveCommand(driveTrainSubsystem, back),
-                new ToggleArmActuationCommand(armSubsystem),
+                new ToggleArmActuationCommand(armPneumaticSubsystem),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone.reversed()),
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
-                new ToggleArmActuationCommand(armSubsystem),
+                new ToggleArmActuationCommand(armPneumaticSubsystem),
                 new ClawCommand(clawSubsystem),
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
                 new DistanceDriveCommand(driveTrainSubsystem, forward),
                 new ClawCommand(clawSubsystem),
-                new ToggleArmActuationCommand(armSubsystem),
+                new ToggleArmActuationCommand(armPneumaticSubsystem),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
                 new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem, chargingStation),
                 new BalanceCommand(gyroBalanceSubsystem, driveTrainSubsystem));

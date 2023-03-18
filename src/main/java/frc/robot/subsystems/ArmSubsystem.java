@@ -13,7 +13,7 @@ import frc.robot.Constants;
 public class ArmSubsystem extends SubsystemBase {
 
     private final CANSparkMax motor;
-    private final DoubleSolenoid solenoid;
+
     private final DoubleSolenoid breakSolenoid;
     private double motorSpeed = 0;
 
@@ -31,11 +31,7 @@ public class ArmSubsystem extends SubsystemBase {
 
         encoder = new Encoder(1, 2);
 
-        solenoid = new DoubleSolenoid(
-                Constants.everythingPcm,
-                PneumaticsModuleType.CTREPCM,
-                Constants.armInChannel,
-                Constants.armOutChannel);
+
         breakSolenoid = new DoubleSolenoid(
                 Constants.everythingPcm,
                 PneumaticsModuleType.CTREPCM,
@@ -47,13 +43,7 @@ public class ArmSubsystem extends SubsystemBase {
         highSwitch = new DigitalInput(Constants.maxSwitchChannel);
     }
 
-    public void armIn() {
-        solenoid.set(DoubleSolenoid.Value.kForward);
-    }
 
-    public void armOut() {
-        solenoid.set(DoubleSolenoid.Value.kReverse);
-    }
 
     public void setArmBreak(boolean engageBreak) {
         if (engageBreak) {
@@ -74,9 +64,7 @@ public class ArmSubsystem extends SubsystemBase {
         return breakSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
 
-    public boolean isArmIn() {
-        return solenoid.get() == DoubleSolenoid.Value.kForward;
-    }
+
 
     public void setMotor(double speed) {
         if (lowSwitch.get()) {
