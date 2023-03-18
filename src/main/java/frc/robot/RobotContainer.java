@@ -37,6 +37,9 @@ public class RobotContainer {
     private final BreakSubsystem breakSubsystem = new BreakSubsystem();
     private final PhotonColorVisionSubsystem photonColorVisionSubsystem = new PhotonColorVisionSubsystem(photonCamera);
     private final CompressorSubsystem compressorSubsystem = new CompressorSubsystem();
+
+    private final ReflectiveTapeSubsystem reflectiveTapeSubsystem = new ReflectiveTapeSubsystem(photonCamera);
+
     //private final LightsSubsystem lightsSubsystem = new LightsSubsystem();
     private final SendableChooser<StartingPositions> startPosChooser = new SendableChooser<>();
 
