@@ -111,7 +111,7 @@ public class RobotContainer {
         armSubsystem.armIn();
         armSubsystem.setArmBreak(true);
         armSubsystem.setMotor(0);
-        breakSubsystem.rightIn();
+        breakSubsystem.rightOut();
     }
 
     /**
@@ -124,12 +124,14 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        controller.x().onTrue(new ClawCommand(clawSubsystem, true));
-        controller.a().onTrue(new ClawCommand(clawSubsystem, false));
+        controller.x().onTrue(new ClawCommand(clawSubsystem));
         controller.rightBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> 0.5));
         controller.leftBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> -0.5));
         controller.back().onTrue(new BreakCommand((breakSubsystem)));
         controller.y().onTrue(new ToggleArmActuationCommand(armSubsystem));
+        controller.a().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND));
+        controller.b().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH));
+
     }
 
     /**

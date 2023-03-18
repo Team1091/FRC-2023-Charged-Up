@@ -29,10 +29,10 @@ public class DockingCommand {
             ToggleArmActuationCommand toggleArmActuationCommand
     ) {
         return new SequentialCommandGroup(
-                new ClawCommand(clawSubsystem, true),
+                new ClawCommand(clawSubsystem),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
                 new DistanceDriveCommand(driveTrainSubsystem, forward),
-                new ClawCommand(clawSubsystem, false),
+                new ClawCommand(clawSubsystem),
                 new DistanceDriveCommand(driveTrainSubsystem, back),
                 new ToggleArmActuationCommand(armSubsystem),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
@@ -40,11 +40,11 @@ public class DockingCommand {
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
                 new ToggleArmActuationCommand(armSubsystem),
-                new ClawCommand(clawSubsystem, true),
+                new ClawCommand(clawSubsystem),
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
                 new DistanceDriveCommand(driveTrainSubsystem, forward),
-                new ClawCommand(clawSubsystem, false),
+                new ClawCommand(clawSubsystem),
                 new ToggleArmActuationCommand(armSubsystem),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
                 new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem, chargingStation),

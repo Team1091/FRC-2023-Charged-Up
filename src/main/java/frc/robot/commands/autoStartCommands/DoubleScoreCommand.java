@@ -20,16 +20,16 @@ public class DoubleScoreCommand {
 
     public static Command create(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, DriveTrainSubsystem driveTrainSubsystem) {
         return new SequentialCommandGroup(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
-                new ClawCommand(clawSubsystem, false),
+                new ClawCommand(clawSubsystem),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone.reversed()),
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
-                new ClawCommand(clawSubsystem, true),
+                new ClawCommand(clawSubsystem),
                 new TurnCommand(driveTrainSubsystem, rotationAmount),
                 new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
-                new ClawCommand(clawSubsystem, false),
+                new ClawCommand(clawSubsystem),
                 new AutoArmMovementCommand(armSubsystem, ArmPosition.IN)
         );
     }

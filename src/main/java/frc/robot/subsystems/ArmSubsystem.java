@@ -85,7 +85,7 @@ public class ArmSubsystem extends SubsystemBase {
             return;
         }
 
-        if (highSwitch.get() && speed > 0) {
+        if (!highSwitch.get() && speed > 0) {
             deviation = encoder.get() - Constants.maxArmPosEncoder;
             return;
         }
@@ -97,6 +97,8 @@ public class ArmSubsystem extends SubsystemBase {
     public void periodic() {
         motor.set(motorSpeed);
         SmartDashboard.putNumber("Arm Encoder value", getMotorPosition());
+        SmartDashboard.putBoolean("High Switch", highSwitch.get());
+        SmartDashboard.putBoolean("Low Switch", lowSwitch.get());
     }
 
     public double getMotorPosition() {

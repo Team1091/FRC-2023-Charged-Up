@@ -113,6 +113,6 @@ public class Constants { //put final here
 
     public final static double maxArmPosEncoder = 180;
     public final static double minArmPosEncoder = 0;
-    public final static int minSwitchChannel = 3;//todo
-    public final static int maxSwitchChannel = 4;
+    public final static int maxSwitchChannel = 8;
+    public final static int minSwitchChannel = 9;
 }

@@ -7,11 +7,11 @@ public class ClawCommand extends CommandBase {
 
     private final ClawSubsystem clawSubsystem;
 
-    private final boolean closeClaw;
 
-    public ClawCommand(ClawSubsystem clawSubsystem, boolean closeClaw) {
+
+    public ClawCommand(ClawSubsystem clawSubsystem) {
         this.clawSubsystem = clawSubsystem;
-        this.closeClaw = closeClaw;
+
 
         addRequirements(clawSubsystem);
     }
@@ -23,7 +23,7 @@ public class ClawCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if (!closeClaw) {
+        if (clawSubsystem.isClawIn()) {
             clawSubsystem.clawOut();
             return;
         }

@@ -24,5 +24,9 @@ public class ClawSubsystem extends SubsystemBase {
     public void clawOut() {
         clawSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
+
+    public  boolean isClawIn(){
+        return clawSolenoid.get() == DoubleSolenoid.Value.kForward;
+    }
 }
 
