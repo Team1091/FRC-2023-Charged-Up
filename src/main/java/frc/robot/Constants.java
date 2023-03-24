@@ -101,7 +101,11 @@ public class Constants { //put final here
     public final static double lowestEncoderPosition = 0;
     public final static double groundEncoderPosition = 120;
     public final static double middleEncoderPosition = 500;
-    public final static double highestEncoderPosition = 600;
+    public final static double highestEncoderPosition = 622;
+
+    public final static double holdingEncoderPosition = 90;
+
+    public final static double autoEncoderPosition = 33.75;
 
     public final static double armEncoderThreshold = 10.0;
     public final static double armAutomaticMotorSpeed = 0.5;

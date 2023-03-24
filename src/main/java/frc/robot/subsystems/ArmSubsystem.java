@@ -41,6 +41,7 @@ public class ArmSubsystem extends SubsystemBase {
         //lastTimeToggled = System.currentTimeMillis();
         lowSwitch = new DigitalInput(Constants.minSwitchChannel);
         highSwitch = new DigitalInput(Constants.maxSwitchChannel);
+        encoder.reset();
     }
 
 

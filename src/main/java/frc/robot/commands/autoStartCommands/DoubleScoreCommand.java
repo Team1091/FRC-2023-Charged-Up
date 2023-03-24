@@ -2,6 +2,7 @@ package frc.robot.commands.autoStartCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.ArmPosition;
 import frc.robot.commands.*;
@@ -21,6 +22,7 @@ public class DoubleScoreCommand {
 
     public static Command create(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, DriveTrainSubsystem driveTrainSubsystem, ArmPneumaticSubsystem armPneumaticSubsystem) {
         return new SequentialCommandGroup(
+                new AutoArmMovementCommand(armSubsystem, ArmPosition.AUTO),
                 new ClawCommand(clawSubsystem),
                 new DelayCommand(1000),
                 new ParallelCommandGroup(
@@ -32,7 +34,8 @@ public class DoubleScoreCommand {
                         new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(10))
                 ),
                 new ClawCommand(clawSubsystem),
-                new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(6))
-        );
+                new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(-20
+                ))
+    );
     }
 }
