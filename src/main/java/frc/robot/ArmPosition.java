@@ -9,6 +9,7 @@ public enum ArmPosition {
     HOLDING(Constants.holdingEncoderPosition),
 
     AUTO(Constants.autoEncoderPosition),
+    CUBEAUTO(Constants.lowCubePosition),
     INSIDE(0);
 
     public final double encoderPosition;

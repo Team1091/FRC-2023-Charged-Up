@@ -4,6 +4,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.ArmPosition;
 import frc.robot.commands.*;
@@ -30,25 +32,37 @@ public class DockingCommand {
     ) {
         return new SequentialCommandGroup(
                 new ClawCommand(clawSubsystem),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
-                new DistanceDriveCommand(driveTrainSubsystem, forward),
+                new DelayCommand(1000),
+                new ParallelCommandGroup(
+                        new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
+                        new AutonomusArmActuationCommand(armPneumaticSubsystem, true)
+                ),
+                new ParallelCommandGroup(
+                        new DelayCommand(1000),
+                        new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(10))
+                ),
                 new ClawCommand(clawSubsystem),
-                new DistanceDriveCommand(driveTrainSubsystem, back),
-                new ToggleArmActuationCommand(armPneumaticSubsystem),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
-                new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone.reversed()),
-                new TurnCommand(driveTrainSubsystem, rotationAmount),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.MIDDLE),
-                new ToggleArmActuationCommand(armPneumaticSubsystem),
-                new ClawCommand(clawSubsystem),
-                new TurnCommand(driveTrainSubsystem, rotationAmount),
-                new DistanceDriveCommand(driveTrainSubsystem, toCubeORCone),
-                new DistanceDriveCommand(driveTrainSubsystem, forward),
-                new ClawCommand(clawSubsystem),
-                new ToggleArmActuationCommand(armPneumaticSubsystem),
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND),
-                new DriveToPoseCommand(driveTrainSubsystem, poseEstimationSubsystem, chargingStation),
-                new BalanceCommand(gyroBalanceSubsystem, driveTrainSubsystem));
+                new ParallelCommandGroup(
+                        new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
+                        new AutonomusArmActuationCommand(armPneumaticSubsystem, false)
+                ),
+                new ParallelRaceGroup(
+                        new DelayCommand(500),
+                        new MecanumDriveCommand(driveTrainSubsystem, ()->0.0, ()->-7.5, ()->0.0)
+                ),
+                new DelayCommand(1000),
+                new ParallelRaceGroup(
+                        new DelayCommand(250),
+                        new MecanumDriveCommand(driveTrainSubsystem, ()->0.0, ()->-1.0, ()->0.0)
+                ),
+                new ParallelRaceGroup(
+                        new DelayCommand(500),
+                        new MecanumDriveCommand(driveTrainSubsystem, ()->0.0, ()->0.8, ()->0.0)
+                ),
+                new BreakCommand(new BreakSubsystem()
+                )
+        );
     }
+
 
 }

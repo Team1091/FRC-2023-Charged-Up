@@ -13,29 +13,27 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.utils.Distance;
 import frc.robot.utils.Rotation;
 
-import javax.management.DescriptorKey;
-
-public class DoubleScoreCommand {
-    //Score Pick Score
-    private static final Distance toCubeORCone = Distance.inFeet(10.0);//TODO: Set Proper distance
-    private static final Rotation rotationAmount = Rotation.inDegrees(180);
+public class ScoreCubeCommand {
 
     public static Command create(ArmSubsystem armSubsystem, ClawSubsystem clawSubsystem, DriveTrainSubsystem driveTrainSubsystem, ArmPneumaticSubsystem armPneumaticSubsystem) {
         return new SequentialCommandGroup(
-                new AutoArmMovementCommand(armSubsystem, ArmPosition.AUTO),
                 new ClawCommand(clawSubsystem),
                 new DelayCommand(1000),
                 new ParallelCommandGroup(
                         new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH),
-                        new ToggleArmActuationCommand(armPneumaticSubsystem)
+                        new AutonomusArmActuationCommand(armPneumaticSubsystem, true)
                 ),
                 new ParallelCommandGroup(
                         new DelayCommand(1000),
                         new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(10))
                 ),
                 new ClawCommand(clawSubsystem),
-                new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(-20
-                ))
+                new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(-10)),
+                new ParallelCommandGroup(
+                        new AutoArmMovementCommand(armSubsystem, ArmPosition.IN),
+                        new AutonomusArmActuationCommand(armPneumaticSubsystem, false)
+                )
+                //new DistanceDriveCommand(driveTrainSubsystem, Distance.inFeet(-90))
     );
     }
 }

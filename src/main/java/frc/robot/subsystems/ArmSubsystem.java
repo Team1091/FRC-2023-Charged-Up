@@ -15,7 +15,7 @@ public class ArmSubsystem extends SubsystemBase {
     private final CANSparkMax motor;
 
     private final DoubleSolenoid breakSolenoid;
-    private double motorSpeed = 0;
+    private double targetSpeed = 0;
 
     private final Encoder encoder;
 
@@ -68,31 +68,54 @@ public class ArmSubsystem extends SubsystemBase {
 
 
     public void setMotor(double speed) {
-        if (lowSwitch.get()) {
-            encoder.reset();
-            deviation = 0;
-            if (speed < 0) {
-                return;
-            }
-        }
+//        if (!lowSwitch.get()) {
+//            encoder.reset();
+//            deviation = 0;
+//            if (speed < 0) {
+//                targetSpeed = 0;
+//                return;
+//            }
+//        }
+//
+//        if (!highSwitch.get()) {
+//            deviation = encoder.get() - Constants.maxArmPosEncoder;
+//            if (speed > 0) {
+//                targetSpeed = 0;
+//                return;
+//            }
+//        }
 
-        if (!highSwitch.get()) {
-            deviation = encoder.get() - Constants.maxArmPosEncoder;
-            if (speed > 0) {
-                return;
-            }
-        }
-
-        motorSpeed = speed;
-        SmartDashboard.putNumber("Actual Arm Speed", speed);
+        targetSpeed = speed;
+//        SmartDashboard.putNumber("Actual Arm Speed", speed);
     }
 
     @Override
     public void periodic() {
+        double motorSpeed = targetSpeed;
+        if (!lowSwitch.get()) {
+            encoder.reset();
+            deviation = 0;
+            if (targetSpeed < 0) {
+                motorSpeed = 0;
+            }
+        }
+
+        if (highSwitch.get()) {
+            deviation = encoder.get() - Constants.highestEncoderPosition;
+            if (targetSpeed > 0) {
+                motorSpeed = 0;
+            }
+        }
+
+        if (encoder.get() >= Constants.maxEncoderValue && targetSpeed > 0) {
+            motorSpeed = 0;
+        }
+
         motor.set(motorSpeed);
         SmartDashboard.putNumber("Arm Encoder value", getMotorPosition());
         SmartDashboard.putBoolean("High Switch", highSwitch.get());
         SmartDashboard.putBoolean("Low Switch", lowSwitch.get());
+
     }
 
     public double getMotorPosition() {

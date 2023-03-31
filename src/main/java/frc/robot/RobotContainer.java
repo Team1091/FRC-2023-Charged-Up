@@ -110,7 +110,7 @@ public class RobotContainer {
             startPosChooser.addOption(p.name(), p);
         }
 
-        startPosChooser.setDefaultOption(StartingPositions.Docking.name(), StartingPositions.Docking);
+        startPosChooser.setDefaultOption(StartingPositions.LowCube.name(), StartingPositions.LowCube);
         SmartDashboard.putData(startPosChooser);
     }
 
@@ -120,7 +120,7 @@ public class RobotContainer {
     public void robotEnabled() {
         //set default states for subsystems
         clawSubsystem.clawIn();
-        armPneumaticSubsystem.armIn();
+        //armPneumaticSubsystem.armIn();
         armSubsystem.setArmBreak(true);
         armSubsystem.setMotor(0);
         breakSubsystem.rightOut();
@@ -143,6 +143,7 @@ public class RobotContainer {
         controller.y().onTrue(new ToggleArmActuationCommand(armPneumaticSubsystem));
         controller.a().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND));
         controller.b().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH));
+        controller.start().onTrue(new ArmHoldingCommand().create(armSubsystem,armPneumaticSubsystem));
 
     }
 
@@ -161,9 +162,15 @@ public class RobotContainer {
             case Docking:
                 command = DockingCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, gyroSubsystem, poseEstimationSubsystem,armPneumaticSubsystem);
                 break;
-            case Double_Score:
-                command = DoubleScoreCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, armPneumaticSubsystem);
+            case HighCone:
+                command = HighConeCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, armPneumaticSubsystem);
                 break;
+            case ScoreCube:
+                command = ScoreCubeCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, armPneumaticSubsystem);
+                    break;
+            case LowCube:
+                command = LowCubeCommand.create(armSubsystem, clawSubsystem, driveTrainSubsystem, armPneumaticSubsystem);
+                    break;
             default:
                 command = new SequentialCommandGroup();
         }

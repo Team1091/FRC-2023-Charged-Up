@@ -1,5 +1,5 @@
 package frc.robot;
 
 public enum StartingPositions {
-    Docking, Double_Score
+    Docking, HighCone, ScoreCube, LowCube
 }

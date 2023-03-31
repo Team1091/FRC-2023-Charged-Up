@@ -12,8 +12,8 @@ public class MecanumDriveCommand extends CommandBase {
     private final Supplier<Double> forwardBackwardVelocity;
     private final Supplier<Double> rotationVelocity;
 
-    private final AccelerationCurve strafeCurve = new AccelerationCurve(3, .275, .6);
-    private final AccelerationCurve forwardBackwardCurve = new AccelerationCurve(1, .125, .6);
+    private final AccelerationCurve strafeCurve = new AccelerationCurve(3, .275, 1);
+    private final AccelerationCurve forwardBackwardCurve = new AccelerationCurve(1, .125, 1);
     private final AccelerationCurve rotationCurve = new AccelerationCurve(3, .275, .6);
 
     public MecanumDriveCommand(
