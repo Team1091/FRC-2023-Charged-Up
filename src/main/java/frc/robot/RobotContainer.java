@@ -139,11 +139,11 @@ public class RobotContainer {
         controller.x().onTrue(new ClawCommand(clawSubsystem));
         controller.rightBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> 0.5));
         controller.leftBumper().whileTrue(new ManualArmMovementCommand(armSubsystem, () -> -0.5));
-        controller.back().onTrue(new BreakCommand((breakSubsystem)));
-        controller.y().onTrue(new ToggleArmActuationCommand(armPneumaticSubsystem));
-        controller.a().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND));
-        controller.b().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH));
-        controller.start().onTrue(new ArmHoldingCommand().create(armSubsystem,armPneumaticSubsystem));
+//        controller.back().onTrue(new BreakCommand((breakSubsystem)));
+//        controller.y().onTrue(new ToggleArmActuationCommand(armPneumaticSubsystem));
+//        controller.a().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.GROUND));
+//        controller.b().onTrue(new AutoArmMovementCommand(armSubsystem, ArmPosition.HIGH));
+//        controller.start().onTrue(new ArmHoldingCommand().create(armSubsystem,armPneumaticSubsystem));
 
     }
 
